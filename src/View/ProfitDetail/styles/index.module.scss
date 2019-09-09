@@ -1,0 +1,87 @@
+@import '../../../styles/base.scss';
+
+@mixin bg($path) {
+  background: url('../../../assets/images/home/'+$path) no-repeat;
+  background-size: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  box-sizing: border-box;
+  padding-top: 62px;
+  height: 259px;
+  background: $pri_color;
+}
+
+.link {
+  @include flex-center;
+  position: absolute;
+  right: 18px;
+  top: 14px;
+  font-size: 14px;
+  color: #fff;
+  i {
+    @include bg('icon@2x.png');
+    margin-left: 9px;
+    display: block;
+    width: 7px;
+    height: 13px;
+  }
+}
+
+.price {
+  @include flex-center;
+  position: relative;
+  width: 100%;
+  &::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 1px;
+    height: 42px;
+    background-color: #ffffff;
+    transform: translate(-50%, -50%);
+  }
+  &-item {
+    @include flex-col-center;
+    flex: 1;
+  }
+  &-title {
+    margin-bottom: 10px;
+    font-size: 24px;
+    line-height: 18px;
+    font-weight: bold;
+    color: #333333;
+  }
+  &-text {
+    font-size: 12px;
+    color: #333333;
+  }
+}
+
+.cumulative {
+  @include flex-center;
+  margin-top: 30px;
+  font-size: 14px;
+  &-btn {
+    @include btn;
+    margin-left: 55px;
+    width: 90px;
+    height: 35px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
+
+.tabs {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 0px 15px 0px rgba(216, 215, 234, 0.5);
+}

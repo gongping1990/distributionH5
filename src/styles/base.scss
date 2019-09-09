@@ -1,0 +1,45 @@
+$pri_color: #ffc703;
+$btnColor: linear-gradient(
+  -37deg,
+  rgba(255, 142, 74, 1),
+  rgba(255, 122, 50, 1)
+);
+$subBtnColor: linear-gradient(
+  -37deg,
+  rgba(255, 192, 0, 1),
+  rgba(254, 179, 18, 1)
+);
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-col-center {
+  @include flex-center;
+  flex-direction: column;
+}
+
+@mixin text-overflow {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@mixin btn {
+  @include flex-center;
+  padding: 0 12px;
+  height: 30px;
+  color: #fff;
+  font-size: 12px;
+  background: $btnColor;
+  box-shadow: 0px 4px 4px 0px rgba(255, 181, 76, 0.4);
+  border-radius: 30px;
+}
+
+@mixin subBtn {
+  @include btn;
+  background: $subBtnColor;
+}

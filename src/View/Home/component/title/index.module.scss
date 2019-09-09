@@ -1,0 +1,19 @@
+.title {
+  position: relative;
+  margin-bottom: 17px;
+  padding-left: 23px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffc000;
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 6px;
+    height: 20px;
+    background: rgba(215, 214, 222, 1);
+    border-radius: 3px;
+    transform: translateY(-50%);
+  }
+}

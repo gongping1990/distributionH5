@@ -1,0 +1,36 @@
+@import '../../../../styles/base.scss';
+
+.tab {
+  @include flex-center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 0 15px;
+  width: 100%;
+  height: 50px;
+}
+
+.item {
+  @include flex-center;
+  margin: 4.5px;
+  width: 50px;
+  height: 50px;
+  color: #999999;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.active {
+  position: relative;
+  color: #333333;
+  &::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 20px;
+    height: 5px;
+    background: $pri_color;
+    border-radius: 3px;
+    transform: translateX(-50%);
+  }
+}
