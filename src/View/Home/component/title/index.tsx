@@ -1,8 +1,14 @@
 import React from 'react';
 import styles from './index.module.scss';
 
-const Title: React.FC = props => {
-  return <div className={styles.title}>{props.children}</div>;
+interface Props {
+  type?: number;
+}
+
+const Title: React.FC<Props> = ({ children, type = 0 }) => {
+  return (
+    <div className={`${styles.title} ${type && styles.tg}`}>{children}</div>
+  );
 };
 
 export default Title;

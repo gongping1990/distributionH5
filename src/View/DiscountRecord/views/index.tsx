@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import styles from '../styles/index.module.scss';
+interface IList {
+  [index: string]: any;
+}
 
 interface State {
   itemList: Object[];
-  typeList: any;
+  typeList: IList;
 }
 
 export default class DiscountRecord extends Component<{}, State> {

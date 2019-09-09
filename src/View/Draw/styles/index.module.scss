@@ -9,7 +9,7 @@
   position: relative;
   width: 375px;
   height: 200px;
-  background: $pri_color;
+  background: #ff7a32;
 }
 
 .user {
@@ -32,12 +32,12 @@
 .name {
   margin-bottom: 8px;
   font-size: 18px;
-  color: #622d0a;
+  color: #fff;
   font-weight: 600;
 }
 .userPrice {
   font-size: 14px;
-  color: #622d0a;
+  color: #fff;
 }
 
 .price {
@@ -135,28 +135,38 @@
   padding-top: 86px;
 }
 
-.test {
-  position: relative;
-  margin-bottom: 27px;
-  width: 100%;
+.statistics {
+  @include flex-center;
+  margin: 0 auto;
+  width: 345px;
+  height: 100px;
   background: rgba(255, 255, 255, 1);
   box-shadow: 0px 0px 15px 0px rgba(216, 215, 234, 0.5);
   border-radius: 15px;
-  &::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 315px;
-    height: 1px;
-    background: #f2f1f5;
-    transform: translate(-50%, -50%);
+  &-item {
+    @include flex-col-center;
+    flex: 1;
+    &:nth-child(2) {
+      border-right: 1px solid rgba($color: #d5d5d5, $alpha: 0.5);
+      border-left: 1px solid rgba($color: #d5d5d5, $alpha: 0.5);
+    }
+    p {
+      margin-bottom: 9px;
+      font-size: 20px;
+      color: #474958;
+      font-weight: bold;
+      line-height: 16px;
+    }
+    span {
+      font-size: 12px;
+      color: #a8a8af;
+    }
   }
 }
-
-.banner {
-  display: block;
-  height: 110px;
-  background: rgba(215, 214, 222, 1);
-  border-radius: 15px;
+.btn {
+  @include btn;
+  margin: 33px auto;
+  width: 345px;
+  height: 50px;
+  font-size: 18px;
 }
