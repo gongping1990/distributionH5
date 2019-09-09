@@ -1,0 +1,9 @@
+@import '../../../styles/base.scss';
+
+@mixin bg($path) {
+  background: url('../../../assets/images/home/'+$path) no-repeat;
+  background-size: 100%;
+}
+
+.p-discountRecord {
+}
