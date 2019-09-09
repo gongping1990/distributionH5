@@ -1,9 +1,59 @@
 @import '../../../styles/base.scss';
 
-@mixin bg($path) {
-  background: url('../../../assets/images/home/'+$path) no-repeat;
-  background-size: 100%;
-}
-
 .p-discountRecord {
+  &-item {
+    @include flex-center;
+    justify-content: space-between;
+    padding: 18px 15px;
+    border-bottom: 1px solid #e7e6eb;
+
+    .left-text {
+      font-size: 16px;
+      font-weight: 500;
+      color: rgba(51, 51, 51, 1);
+    }
+
+    .left-date {
+      margin-top: 9px;
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(153, 153, 153, 1);
+    }
+
+    .tips-all {
+      text-align: center;
+      width: 60px;
+      height: 20px;
+      background: rgba(11, 216, 127, 1);
+      border-radius: 10px;
+      line-height: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 1);
+    }
+
+    .tips-one {
+      background-color: #0bd87f;
+    }
+
+    .tips-two {
+      background-color: #ffc000;
+    }
+
+    .tips-three {
+      background-color: #fe750d;
+    }
+
+    .price {
+      text-align: right;
+      width: 60px;
+      font-size: 16px;
+      font-weight: 500;
+      color: rgba(51, 51, 51, 1);
+    }
+
+    &:last-child {
+      border: none;
+    }
+  }
 }
