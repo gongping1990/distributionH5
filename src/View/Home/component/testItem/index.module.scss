@@ -1,0 +1,40 @@
+@import '../../../../styles/base.scss';
+
+.test {
+  @include flex-center;
+  padding: 0 15px;
+  height: 80px;
+}
+
+.icon {
+  width: 45px;
+  height: 45px;
+  background: rgba(215, 214, 222, 1);
+  border-radius: 50%;
+}
+
+.text {
+  flex: 1;
+  margin: 0 11px;
+}
+.title {
+  @include text-overflow;
+  margin-bottom: 10px;
+  font-size: 15px;
+  font-weight: 500;
+}
+.msg {
+  font-size: 12px;
+  color: #666;
+}
+.right {
+  @include flex-col-center;
+}
+.btn {
+  @include subBtn;
+  margin-bottom: 7px;
+}
+.progress {
+  font-size: 11px;
+  color: #999;
+}
