@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Tab from '../component/tab';
-import { Item } from '../component/tab/types';
+import Item from '../component/item';
+import { Item as ItemType } from '../component/tab/types';
 import styles from '../styles/index.module.scss';
 
 interface State {
-  itemList: Item[];
+  itemList: ItemType[];
   tabActive: number;
 }
 
-export default class index extends Component<{}, State> {
+export default class ProfitDetail extends Component<{}, State> {
   state = {
     itemList: [
       { name: '全部的', id: 0 },
@@ -58,6 +59,15 @@ export default class index extends Component<{}, State> {
               itemList={itemList}
               active={tabActive}
             ></Tab>
+          </div>
+        </div>
+        <div className={styles.content}>
+          <div className={styles.item}>
+            <Item
+              title="完成新手任务"
+              date="2019-08-28"
+              price="+20.00元"
+            ></Item>
           </div>
         </div>
       </div>
