@@ -35,24 +35,32 @@ export default class DiscountRecord extends Component<{}, State> {
       '1': '提现成功',
       '2': '处理中',
       '3': '提现失败'
+    },
+    typeColor: {
+      '1': styles['tips-one'],
+      '2': styles['tips-two'],
+      '3': styles['tips-three']
     }
   };
 
   render() {
-    let { itemList, typeList } = this.state;
+    let { itemList, typeList, typeColor } = this.state;
     return (
       <div className="container">
         <div className={styles['p-discountRecord']}>
           {itemList.map(item => {
-            let type: string = item.type;
             return (
               <div className={styles['p-discountRecord-item']} key={item.id}>
                 <div>
-                  <p>余额提现</p>
-                  <p>{item.date}</p>
+                  <p className={styles['left-text']}>余额提现</p>
+                  <p className={styles['left-date']}>{item.date}</p>
                 </div>
-                <div>{typeList[type]}</div>
-                <div>+{item.price}元</div>
+                <div
+                  className={`${styles['tips-all']} ${typeColor[item.type]}`}
+                >
+                  {typeList[item.type]}
+                </div>
+                <div className={styles.price}>+{item.price}元</div>
               </div>
             );
           })}
