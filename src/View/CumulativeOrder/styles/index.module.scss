@@ -1,0 +1,80 @@
+@import '../../../styles/base.scss';
+
+.p-cumulativeOrder {
+  &-tab {
+    padding-top: 15px;
+    box-shadow: 0px 0px 15px 0px rgba(216, 215, 234, 0.5);
+  }
+
+  &-item {
+    @include flex-center;
+    justify-content: space-between;
+    margin: 20px 15px 0;
+    height: 141px;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(51, 51, 51, 1);
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px 15px 0px rgba(216, 215, 234, 0.5);
+    border-radius: 15px;
+
+    .left-wrap {
+      padding: 16px 0 24px 16px;
+
+      &-time {
+        font-size: 12px;
+        font-weight: 500;
+        color: rgba(153, 153, 153, 1);
+      }
+
+      &-user {
+        display: flex;
+        align-items: center;
+        margin: 16px 0 10px;
+      }
+
+      &-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+    }
+
+    .right-wrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-end;
+      height: 100%;
+
+      &-text {
+        color: #ffffff;
+        text-align: center;
+        font-size: 13px;
+        width: 80px;
+        height: 30px;
+        line-height: 30px;
+        border-radius: 0 15px 0 15px;
+      }
+
+      &-price {
+        font-size: 15px;
+        margin-right: 16px;
+        padding-bottom: 24px;
+      }
+    }
+
+    .tips-one {
+      background-color: #3b93ff;
+    }
+
+    .tips-two {
+      background-color: #00d176;
+    }
+
+    .tips-three {
+      background-color: #ff7d36;
+    }
+  }
+}
