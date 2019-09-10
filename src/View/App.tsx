@@ -7,6 +7,10 @@ const Group = React.lazy(() => import('./Group'));
 const Join = React.lazy(() => import('./Join'));
 const ProfitDetail = React.lazy(() => import('./ProfitDetail'));
 const DiscountRecord = React.lazy(() => import('./DiscountRecord'));
+const DiscountOperation = React.lazy(() => import('./DiscountOperation'));
+const DiscountResult = React.lazy(() => import('./DiscountResult'));
+const CumulativeInvitation = React.lazy(() => import('./CumulativeInvitation'));
+const CumulativeOrder = React.lazy(() => import('./CumulativeOrder'));
 
 export interface State {}
 

@@ -1,0 +1,51 @@
+@import '../../../styles/base.scss';
+
+.p-discountResult {
+  &-content {
+    text-align: center;
+    margin: 85px auto 44px;
+
+    .icon {
+      width: 101px;
+      height: 72px;
+    }
+
+    .text {
+      margin: 14px auto 31px;
+      font-size: 16px;
+      font-weight: 400;
+      color: rgba(51, 51, 51, 1);
+    }
+
+    .num {
+      margin: 0 auto 43px;
+      font-size: 30px;
+      font-weight: bold;
+      color: rgba(0, 0, 0, 1);
+    }
+
+    .tip {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(153, 153, 153, 1);
+    }
+  }
+
+  &-btn {
+    margin: 0 auto;
+    text-align: center;
+    width: 300px;
+    height: 50px;
+    background: linear-gradient(
+      -37deg,
+      rgba(255, 142, 74, 1),
+      rgba(255, 122, 50, 1)
+    );
+    box-shadow: 0px 3px 4px 0px rgba(255, 122, 50, 0.4);
+    border-radius: 25px;
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 50px;
+    color: rgba(242, 242, 247, 1);
+  }
+}
