@@ -1,16 +1,14 @@
 // import Vue from "vue";
-import store from '../store';
 import axios from 'axios';
 import { baseUrl } from './base.js';
-import { isWeiXin, delUrlQuery } from '../utils';
+import { isWeiXin, delUrlQuery } from '@/utils';
 import api from './api';
 
-console.log(baseUrl);
 /**
  * 提示函数
  * 禁止点击蒙层、显示一秒后关闭
  */
-const tip = msg => {
+const tip = (msg: string | object) => {
   console.log(msg);
 };
 
@@ -37,7 +35,7 @@ const toLogin = () => {
  * 请求失败后的错误统一处理
  * @param {Number} status 请求失败的状态码
  */
-const errorHandle = (status, err) => {
+const errorHandle = (status: number, err: object) => {
   // 状态码判断
   switch (status) {
     case 200:
@@ -74,14 +72,9 @@ var instance = axios.create({
  * 每次请求前，如果存在token则在请求头中携带token
  */
 
-instance.interceptors.request.use(
-  config => {
-    let ChannelId = store.state.channelId;
-    config.headers.common['U-From-Ad'] = ChannelId;
-    return config;
-  },
-  error => Promise.error(error)
-);
+instance.interceptors.request.use(config => {
+  return config;
+});
 
 // 响应拦截器
 instance.interceptors.response.use(

@@ -1,5 +1,7 @@
 import React, { Suspense } from 'react';
+import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import store from '../store';
 
 const Home = React.lazy(() => import('./Home'));
 const Spread = React.lazy(() => import('./Spread'));
@@ -17,22 +19,24 @@ export interface State {}
 class App extends React.Component<{}, State> {
   render() {
     return (
-      <Router>
-        <Suspense fallback={<div>Loading...</div>}>
-          <Switch>
-            <Route path="/" exact component={Home}></Route>
-            <Route path="/spread" exact component={Spread}></Route>
-            <Route path="/group" exact component={Group}></Route>
-            <Route path="/join" exact component={Join}></Route>
-            <Route path="/profit" exact component={ProfitDetail}></Route>
-            <Route
-              path="/discountRecord"
-              exact
-              component={DiscountRecord}
-            ></Route>
-          </Switch>
-        </Suspense>
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Switch>
+              <Route path="/" exact component={Home}></Route>
+              <Route path="/spread" exact component={Spread}></Route>
+              <Route path="/group" exact component={Group}></Route>
+              <Route path="/join" exact component={Join}></Route>
+              <Route path="/profit" exact component={ProfitDetail}></Route>
+              <Route
+                path="/discountRecord"
+                exact
+                component={DiscountRecord}
+              ></Route>
+            </Switch>
+          </Suspense>
+        </Router>
+      </Provider>
     );
   }
 }
