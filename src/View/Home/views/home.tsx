@@ -1,14 +1,23 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styles from '../styles/index.module.scss';
 import { Title, TestItem, CourseItem } from '../component';
 import phoneIcon from '../../../assets/images/home/icon_phone.png';
 import gkIcon from '../../../assets/images/home/icon_gk.png';
 
+interface Props {
+  user: {
+    nickname: string;
+    headimgurl: string;
+  };
+}
 interface State {}
 
-export default class Home extends Component<{}, State> {
-  state = {};
+class Home extends Component<Props, State> {
+  state = {
+    name: 'dasd'
+  };
 
   render() {
     return (
@@ -16,9 +25,9 @@ export default class Home extends Component<{}, State> {
         <div className={styles.header}>
           <div className={styles.user}>
             <div className={styles['user-content']}>
-              <img className={styles.avatar} src="" alt="" />
+              <img className={styles.avatar} src={this.props.user.headimgurl} />
               <div>
-                <p className={styles.name}>桔小狮</p>
+                <p className={styles.name}>{this.props.user.nickname}</p>
                 <span className={styles.userPrice}>可提余额：20.00</span>
               </div>
             </div>
@@ -82,3 +91,11 @@ export default class Home extends Component<{}, State> {
     );
   }
 }
+
+const mapStateToProps = (state: any, ownProps: any) => {
+  return {
+    user: state.user
+  };
+};
+
+export default connect(mapStateToProps)(Home);

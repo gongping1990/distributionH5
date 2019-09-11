@@ -1,6 +1,6 @@
 // import Vue from "vue";
 import axios from 'axios';
-import { baseUrl } from './base.js';
+import { baseUrl } from './base';
 import { isWeiXin, delUrlQuery } from '@/utils';
 import api from './api';
 
@@ -17,6 +17,7 @@ const tip = (msg: string | object) => {
  * 清楚用户本地缓存信息，并显示登录弹框
  */
 const toLogin = () => {
+  console.log(111);
   if (isWeiXin()) {
     api.wechat
       .getAuthorizeUrl({

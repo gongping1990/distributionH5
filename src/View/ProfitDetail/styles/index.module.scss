@@ -12,7 +12,7 @@
   position: relative;
   box-sizing: border-box;
   padding-top: 62px;
-  height: 259px;
+  height: 210px;
   background: $pri_color;
 }
 
@@ -78,11 +78,6 @@
 }
 
 .tabs {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(255, 255, 255, 1);
   box-shadow: 0px 0px 15px 0px rgba(216, 215, 234, 0.5);
 }
 .content {

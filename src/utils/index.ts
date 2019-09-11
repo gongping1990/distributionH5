@@ -29,6 +29,15 @@ export function UA() {
   }
 }
 
+export function getQueryString(name: string) {
+  let reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+  let r = window.location.search.substr(1).match(reg);
+  if (r != null) {
+    return unescape(r[2]);
+  }
+  return null;
+}
+
 export function delUrlQuery(name: any) {
   var loca = window.location;
 

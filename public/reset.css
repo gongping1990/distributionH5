@@ -11,6 +11,7 @@ html {
 body {
   font-size: 12px;
   color: #333;
+  background-color: #fff !important;
   -webkit-font-smoothing: antialiased;
   font-family: 'PingFang SC', arial, sans-serif;
 }
@@ -102,7 +103,7 @@ button,
 input,
 label,
 select {
-  width: 100%;
+  
   border: none;
   -webkit-tap-highlight-color: transparent;
 }
@@ -113,6 +114,9 @@ select {
   vertical-align: baseline;
   border-radius: 0;
   background-color: transparent;
+}
+input {
+  width: 100%;
 }
 input::-webkit-input-placeholder {
   color: #999999;
