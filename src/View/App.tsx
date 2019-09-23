@@ -13,6 +13,8 @@ const DiscountOperation = React.lazy(() => import('./DiscountOperation'));
 const DiscountResult = React.lazy(() => import('./DiscountResult'));
 const CumulativeInvitation = React.lazy(() => import('./CumulativeInvitation'));
 const CumulativeOrder = React.lazy(() => import('./CumulativeOrder'));
+const SharePageGsw = React.lazy(() => import('./SharePageGsw'));
+const SharePageQzw = React.lazy(() => import('./SharePageQzw'));
 
 export interface State {}
 
@@ -32,6 +34,16 @@ class App extends React.Component<{}, State> {
                 path="/discountRecord"
                 exact
                 component={DiscountRecord}
+              ></Route>
+              <Route
+                path="/sharePageGsw"
+                exact
+                component={SharePageGsw}
+              ></Route>
+              <Route
+                path="/sharePageQzw"
+                exact
+                component={SharePageQzw}
               ></Route>
             </Switch>
           </Suspense>
