@@ -54,18 +54,17 @@
           .-btn {
             margin-left: 6px;
             text-align: center;
-            width: 77px;
+            padding: 5px 6px;
             background: rgba(255, 98, 50, 1);
             border-radius: 2px;
             font-size: 12px;
             font-weight: 500;
             color: rgba(255, 255, 255, 0.9);
-            line-height: 21px;
           }
         }
 
         .-left-two {
-          margin-bottom: 7px;
+          margin-bottom: 5px;
           text-decoration: line-through;
           font-size: 11px;
           font-weight: 400;
@@ -93,7 +92,7 @@
   }
 }
 
-.p-sharePageGsw-shareImg {
-  width: 100px;
-  height: 200px;
+.p-shareImg {
+  width: 100vw;
+  height: 100vh;
 }

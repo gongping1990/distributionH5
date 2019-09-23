@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styles from '../styles/index.module.scss';
-import img1 from '../../../assets/images/discount/error-icon.png';
 import html2canvas from 'html2canvas';
 
 export default class SharePageQzw extends Component<{}> {
@@ -14,45 +13,45 @@ export default class SharePageQzw extends Component<{}> {
   };
 
   componentDidMount() {
-    // this.canvasImg();
+    this.canvasImg();
   }
 
-  // canvasImg() {
-  //   let _self = this;
-  //   let content_html:HTMLDivElement = document.getElementById('sharePage');　//要转化的div
-  //   console.log(content_html,111)
-  //   let width = content_html.clientWidth;
-  //   let height = content_html.offsetHeight;
-  //   let offsetTop = content_html.offsetTop;
-  //   let canvas = document.createElement("canvas");
-  //   let context = canvas.getContext("2d");
-  //   let scaleBy = Math.ceil(window.devicePixelRatio);
-  //
-  //   canvas.width = width * scaleBy;
-  //   canvas.height = (+height + (+offsetTop)) * scaleBy;
-  //   context.scale(scaleBy, scaleBy);
-  //   var opts = {
-  //     useCORS: true,
-  //     allowTaint: false,//允许加载跨域的图片
-  //     tainttest: true, //检测每张图片都已经加载完成
-  //     scale: scaleBy, // 添加的scale 参数
-  //     canvas: canvas, //自定义 canvas
-  //     logging: false, //日志开关，发布的时候记得改成false
-  //     width: width, //dom 原始宽度
-  //     height: height //dom 原始高度
-  //   };
-  //   html2canvas(content_html, opts).then(function(canvas) {
-  //     canvas.setAttribute("crossOrigin", "anonymous");
-  //     canvas.style.width = width + "px";
-  //     canvas.style.height = height + "px";
-  //
-  //     _self.state.shareUrl = canvas.toDataURL();
-  //
-  //     if (_self.state.shareUrl) {
-  //       _self.state.isShowImg = true;
-  //     }
-  //   });
-  // };
+  canvasImg() {
+    let _self = this;
+    let content_html: any = document.getElementById('sharePage'); //要转化的di
+    let width = content_html.clientWidth;
+    let height = content_html.offsetHeight;
+    let offsetTop = content_html.offsetTop;
+    let canvas = document.createElement('canvas');
+    let context: any = canvas.getContext('2d');
+    let scaleBy = Math.ceil(window.devicePixelRatio);
+
+    canvas.width = width * scaleBy;
+    canvas.height = (+height + +offsetTop) * scaleBy;
+    context.scale(scaleBy, scaleBy);
+    var opts = {
+      useCORS: true,
+      allowTaint: false, //允许加载跨域的图片
+      tainttest: true, //检测每张图片都已经加载完成
+      scale: scaleBy, // 添加的scale 参数
+      canvas: canvas, //自定义 canvas
+      logging: false, //日志开关，发布的时候记得改成false
+      width: width, //dom 原始宽度
+      height: height //dom 原始高度
+    };
+    html2canvas(content_html, opts).then(function(canvas) {
+      canvas.setAttribute('crossOrigin', 'anonymous');
+      canvas.style.width = width + 'px';
+      canvas.style.height = height + 'px';
+
+      _self.state.shareUrl = canvas.toDataURL();
+
+      if (_self.state.shareUrl) {
+        _self.state.isShowImg = true;
+        _self.forceUpdate();
+      }
+    });
+  }
 
   render() {
     let { dataInfo, isShowImg, shareUrl } = this.state;
@@ -60,7 +59,7 @@ export default class SharePageQzw extends Component<{}> {
     return (
       <div className="container">
         {isShowImg ? (
-          <img className={styles['p-sharePageQzw-shareImg']} src={shareUrl} />
+          <img className={styles['p-shareImg']} src={shareUrl} />
         ) : (
           <div className={styles['p-sharePageQzw']} id="sharePage">
             <div className={styles['p-sharePageQzw-header']}>
