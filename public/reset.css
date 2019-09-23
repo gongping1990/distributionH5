@@ -102,6 +102,8 @@ button,
 input,
 label,
 select {
+  width: 100%;
+  border: none;
   -webkit-tap-highlight-color: transparent;
 }
 button,
@@ -111,6 +113,9 @@ select {
   vertical-align: baseline;
   border-radius: 0;
   background-color: transparent;
+}
+input::-webkit-input-placeholder {
+  color: #999999;
 }
 select {
   -webkit-appearance: none;

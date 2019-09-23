@@ -62,7 +62,14 @@ export default class ProfitDetail extends Component<{}, State> {
           </div>
         </div>
         <div className={styles.content}>
-          <div className={styles.item}>
+          <div className="hk-hairline--bottom">
+            <Item
+              title="完成新手任务"
+              date="2019-08-28"
+              price="+20.00元"
+            ></Item>
+          </div>
+          <div className="hk-hairline--bottom">
             <Item
               title="完成新手任务"
               date="2019-08-28"

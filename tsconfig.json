@@ -14,7 +14,11 @@
     "isolatedModules": true,
     "noEmit": true,
     "suppressImplicitAnyIndexErrors": true,
-    "jsx": "react"
+    "jsx": "react",
+    "baseUrl": "src",
+    "paths": {
+      "@/*": ["./*"]
+    }
   },
   "include": ["src"]
 }

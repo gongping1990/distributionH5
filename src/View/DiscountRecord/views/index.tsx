@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styles from '../styles/index.module.scss';
-
 interface IList {
   [index: string]: any;
 }
