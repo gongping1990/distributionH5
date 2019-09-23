@@ -1,0 +1,172 @@
+@import '../../../styles/base.scss';
+
+@mixin bg($path) {
+  background: url('../../../assets/images/home/'+$path) no-repeat;
+  background-size: 100%;
+}
+
+.header {
+  position: relative;
+  width: 375px;
+  height: 200px;
+  background: #ff7a32;
+}
+
+.user {
+  @include flex-center;
+  justify-content: space-between;
+  padding: 23px 30px 0 15px;
+  &-content {
+    @include flex-center;
+  }
+}
+
+.avatar {
+  margin-right: 15px;
+  width: 55px;
+  height: 55px;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 50%;
+}
+
+.name {
+  margin-bottom: 8px;
+  font-size: 18px;
+  color: #fff;
+  font-weight: 600;
+}
+.userPrice {
+  font-size: 14px;
+  color: #fff;
+}
+
+.price {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.strategy {
+  @include flex-center;
+  align-self: flex-end;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  i {
+    @include bg('icon@2x.png');
+    display: block;
+    margin-left: 9px;
+    width: 7px;
+    height: 13px;
+  }
+}
+
+.profit {
+  position: absolute;
+  left: 50%;
+  top: 99px;
+  padding: 15px;
+  width: 345px;
+  border-radius: 15px;
+  background-color: #fff;
+  box-shadow: 0 1px 10px 0px rgba($color: #000000, $alpha: 0.1);
+  transform: translateX(-50%);
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3px 0;
+    padding-bottom: 17px;
+  }
+  &-price {
+    @include flex-center;
+  }
+  &-icon {
+    @include bg('icon_sy.png');
+    margin-right: 16px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  &-text {
+    font-size: 15px;
+  }
+  &-title {
+    font-size: 24px;
+    font-weight: 600;
+    i {
+      font-size: 14px;
+    }
+  }
+  &-btn {
+    @include btn;
+    align-self: flex-end;
+  }
+}
+
+.static {
+  @include flex-center;
+  position: relative;
+  padding-top: 15px;
+  &::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    height: 35px;
+    width: 1px;
+    background-color: #d5d5d5;
+  }
+  &-item {
+    @include flex-col-center;
+    flex: 1;
+  }
+  &-num {
+    font-size: 20px;
+    font-weight: 600;
+  }
+  &-text {
+    font-size: 12px;
+    color: #a8a8af;
+  }
+}
+
+.content {
+  padding: 23px 15px;
+  padding-top: 86px;
+}
+
+.statistics {
+  @include flex-center;
+  margin: 0 auto;
+  width: 345px;
+  height: 100px;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 0px 15px 0px rgba(216, 215, 234, 0.5);
+  border-radius: 15px;
+  &-item {
+    @include flex-col-center;
+    flex: 1;
+    &:nth-child(2) {
+      border-right: 1px solid rgba($color: #d5d5d5, $alpha: 0.5);
+      border-left: 1px solid rgba($color: #d5d5d5, $alpha: 0.5);
+    }
+    p {
+      margin-bottom: 9px;
+      font-size: 20px;
+      color: #474958;
+      font-weight: bold;
+      line-height: 16px;
+    }
+    span {
+      font-size: 12px;
+      color: #a8a8af;
+    }
+  }
+}
+.btn {
+  @include btn;
+  margin: 33px auto;
+  width: 345px;
+  height: 50px;
+  font-size: 18px;
+}

@@ -1,0 +1,115 @@
+@import '../../../../styles/base.scss';
+
+.content {
+  @include flex-col-center;
+  padding-top: 15px;
+  padding-bottom: 23px;
+  width: 345px;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 8px 15px 0px rgba(255, 122, 50, 0.19);
+  border-radius: 15px;
+}
+
+.date {
+  position: relative;
+  margin-bottom: 16px;
+  font-size: 12px;
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    margin-top: 0.5px;
+    width: 16px;
+    height: 1px;
+    background-color: #333;
+  }
+  &::before {
+    left: -30px;
+  }
+  &::after {
+    right: -30px;
+  }
+  i {
+    color: $pri_color;
+  }
+}
+
+.title {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 18px;
+  margin-bottom: 15px;
+}
+
+.subtitle {
+  font-size: 16px;
+  line-height: 17px;
+  font-weight: bold;
+  i {
+    color: $pri_color;
+    font-weight: bold;
+  }
+}
+
+.list {
+  @include flex-center;
+  margin-top: 24px;
+}
+
+.item {
+  position: relative;
+  margin: 0 14px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  img {
+    box-sizing: border-box;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  .user-avatar {
+    background: rgba(255, 183, 3, 1);
+    border: 2px solid rgba(255, 193, 3, 1);
+  }
+  .tag {
+    @include flex-center;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 39px;
+    height: 15px;
+    font-size: 10px;
+    color: #854500;
+    background: rgba(255, 193, 3, 1);
+    border: 2px solid rgba(255, 254, 255, 1);
+    border-radius: 8px;
+    transform: translate(-50%, 50%);
+  }
+}
+.btn {
+  @include btn;
+}
+.subBtn {
+  @include subBtn;
+}
+.btn,
+.subBtn {
+  margin-top: 23px;
+  width: 200px;
+  height: 40px;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.msg {
+  @include flex-col-center;
+  margin-top: 28px;
+  font-size: 10px;
+  line-height: 16px;
+  color: #999999;
+  span:last-child {
+    margin-left: 10px;
+  }
+}
