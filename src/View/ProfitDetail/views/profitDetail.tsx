@@ -26,6 +26,19 @@ interface State {
   dataSource: any;
 }
 
+enum EStatus {
+  /**
+   * UNDEFINED(0,"未知")
+   * BOLCKING(1,"冻结中")
+   * REFUNED(5,"已退款")
+   * FINISH(10,"已完成")
+   */
+  UNDEFINED,
+  BOLCKING,
+  REFUNED = 5,
+  FINISH = 10
+}
+
 export default class ProfitDetail extends Component<{}, State> {
   rData = {};
   lv: any = {};
@@ -45,7 +58,7 @@ export default class ProfitDetail extends Component<{}, State> {
     page: {
       current: 1,
       size: 10,
-      incomeStatus: 0,
+      incomeStatus: EStatus.UNDEFINED,
       total: 0
     },
     listData: [],
@@ -60,9 +73,31 @@ export default class ProfitDetail extends Component<{}, State> {
   }
 
   clickTabItem = (index: number) => {
-    this.setState({
-      tabActive: index
-    });
+    let incomeStatus: EStatus = EStatus.UNDEFINED;
+    switch (index) {
+      case 1:
+        incomeStatus = EStatus.FINISH;
+        break;
+      case 2:
+        incomeStatus = EStatus.BOLCKING;
+        break;
+      case 3:
+        incomeStatus = EStatus.REFUNED;
+    }
+    this.setState(
+      {
+        tabActive: index,
+        listData: [],
+        page: {
+          ...this.state.page,
+          current: 1,
+          incomeStatus
+        }
+      },
+      () => {
+        this.getDistributorAccountIncome();
+      }
+    );
   };
 
   getDistributorAccountInfo() {
@@ -82,28 +117,11 @@ export default class ProfitDetail extends Component<{}, State> {
         incomeStatus
       })
       .then(({ data }) => {
+        let listData = [...this.state.listData, ...data.resultData.records];
         this.setState({
+          listData,
           page: { ...this.state.page, current: current + 1 },
-          dataSource: this.state.dataSource.cloneWithRows([
-            1,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8,
-            9,
-            10,
-            11,
-            12,
-            13,
-            14,
-            15,
-            16,
-            17,
-            18
-          ])
+          dataSource: this.state.dataSource.cloneWithRows(listData)
         });
       });
   }
@@ -156,7 +174,13 @@ export default class ProfitDetail extends Component<{}, State> {
         <StickyContainer>
           <Sticky>
             {({ style }) => (
-              <div className={`${styles.tabs} ${style}`}>
+              <div
+                className={styles.tabs}
+                style={{
+                  ...style,
+                  zIndex: 100
+                }}
+              >
                 <Tab
                   onClick={clickTabItem}
                   itemList={itemList}
