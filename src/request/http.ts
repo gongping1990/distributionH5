@@ -1,4 +1,4 @@
-// import Vue from "vue";
+import { Toast } from 'antd-mobile';
 import axios from 'axios';
 import { baseUrl } from './base';
 import { isWeiXin, delUrlQuery } from '@/utils';
@@ -9,7 +9,7 @@ import api from './api';
  * 禁止点击蒙层、显示一秒后关闭
  */
 const tip = (msg: string | object) => {
-  console.log(msg);
+  Toast.info(msg);
 };
 
 /**
@@ -81,10 +81,9 @@ instance.interceptors.request.use(config => {
 instance.interceptors.response.use(
   // 请求成功
   res => {
-    console.log(res);
     // 服务器请求成功，自定义code异常处理
     errorHandle(res.data.code, res.data.msg);
-    return res.data.code == 200
+    return res.data.code === 200
       ? Promise.resolve(res)
       : Promise.reject(res.data.msg);
   },

@@ -1,4 +1,4 @@
-let list = {
+export let areaData = {
   '110000': {
     code: '110000',
     name: '北京市',
@@ -5312,26 +5312,16 @@ let list = {
 };
 
 let antdDistrict: any[] = [];
-Object.keys(list).forEach(index => {
+Object.keys(areaData).forEach(index => {
   let itemLevel1: any = {};
   let itemLevel2: any = {};
-  itemLevel1.value = list[index].code;
-  itemLevel1.label = list[index].name;
+  itemLevel1.value = areaData[index].code;
+  itemLevel1.label = areaData[index].name;
   itemLevel1.children = [];
-  let data = list[index].cities;
+  let data = areaData[index].cities;
   Object.keys(data).forEach(index => {
     itemLevel2.value = data[index].code;
     itemLevel2.label = data[index].name;
-    itemLevel2.children = [];
-    let data2 = data[index].districts;
-    let itemLevel3: any = {};
-    itemLevel3.children = [];
-    Object.keys(data2).forEach(index => {
-      itemLevel3.value = index;
-      itemLevel3.label = data2[index];
-      itemLevel2.children.push(itemLevel3);
-      itemLevel3 = {};
-    });
     itemLevel1.children.push(itemLevel2);
     itemLevel2 = {};
   });

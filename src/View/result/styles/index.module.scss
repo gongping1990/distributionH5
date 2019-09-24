@@ -18,9 +18,8 @@
 .icon {
   display: block;
   margin-bottom: 60px;
-  width: 70px;
-  height: 70px;
-  background-color: #999;
+  width: 101px;
+  height: 72px;
 }
 
 .title {
@@ -44,6 +43,16 @@
   height: 50px;
   font-size: 17px;
   font-weight: bold;
+}
+
+.qrcode {
+  box-sizing: border-box;
+  padding: 11px 7px;
+  width: 120px;
+  height: 124px;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 0px 15px 0px rgba(216, 215, 234, 0.5);
+  border-radius: 5px;
 }
 
 $foreground: #ffc000;

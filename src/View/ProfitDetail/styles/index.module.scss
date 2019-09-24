@@ -51,6 +51,7 @@
     flex: 1;
   }
   &-title {
+    @include flex-center;
     margin-bottom: 10px;
     font-size: 24px;
     line-height: 18px;
@@ -82,9 +83,41 @@
   box-shadow: 0px 0px 15px 0px rgba(216, 215, 234, 0.5);
 }
 .content {
+  position: relative;
   padding: 0 15px;
   min-height: calc(100vh - 50px);
   div:last-child::after {
     display: none;
   }
+}
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  &Icon {
+    margin-left: 10px;
+    margin-top: 73px;
+    margin-bottom: 28px;
+    width: 91px;
+    height: 100px;
+    background: url('../../../assets/images/home/empty.png') no-repeat;
+    background-size: 100%;
+  }
+  span {
+    font-size: 18px;
+    color: #333333;
+    font-weight: 500;
+  }
+}
+.icon {
+  margin-left: 13px;
+  width: 13px;
+  height: 19px;
+  background: url('../../../assets/images/home/dj.png') no-repeat;
+  background-size: 100%;
 }

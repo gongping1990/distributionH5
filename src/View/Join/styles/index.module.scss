@@ -39,6 +39,9 @@
   color: #ff8e4a;
   transform: translateY(-50%);
 }
+.disabled {
+  color: #333333;
+}
 
 .msg {
   position: absolute;
@@ -58,9 +61,17 @@
     font-weight: 500;
   }
   span {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     margin-right: 16px;
     font-size: 17px;
+    font-weight: 500;
     color: #999;
+  }
+  .area {
+    color: #333;
   }
   i {
     display: block;

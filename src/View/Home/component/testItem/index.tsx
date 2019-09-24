@@ -7,19 +7,32 @@ interface Props {
   msg: string;
   process: number;
   total: number;
+  price: number;
 }
 
-const Test: React.FC<Props> = ({ icon, title, msg, process, total }) => {
+const Test: React.FC<Props> = ({ icon, title, msg, process, total, price }) => {
   return (
     <div className={styles.test}>
       <img className={styles.icon} src={icon} alt="" />
       <div className={styles.text}>
         <p className={styles.title}>{title}</p>
-        <span className={styles.msg}>{msg}</span>
+        <span className={styles.msg}>
+          {msg}
+          <i>{price}元</i>
+        </span>
       </div>
       <div className={styles.right}>
-        <button className={styles.btn}>去邀请</button>
-        <span className={styles.progress}>{`完成${process}/${total}`}</span>
+        <button
+          className={`${styles.btn} ${
+            total === process ? styles.disabled : ''
+          }`}
+          disabled={total === process}
+        >
+          去邀请
+        </button>
+        <span className={styles.progress}>
+          完成<i>{process}</i>/{total}
+        </span>
       </div>
     </div>
   );

@@ -135,7 +135,6 @@ export default class ProfitDetail extends Component<{}, State> {
     let { itemList, tabActive, accountInfo } = this.state;
 
     const row = (rowData: any, sectionID: any, rowID: any) => {
-      console.log(rowData, sectionID, rowID);
       return (
         <div className="hk-hairline--bottom">
           <Item title="完成新手任务" date="2019-08-28" price="+20.00元"></Item>
@@ -161,6 +160,7 @@ export default class ProfitDetail extends Component<{}, State> {
             <div className={styles['price-item']}>
               <p className={styles['price-title']}>
                 {formatPrice(accountInfo.blockingAmount)}
+                <i className={styles.icon}></i>
               </p>
               <span className={styles['price-text']}>冻结余额(元）</span>
             </div>
@@ -168,7 +168,9 @@ export default class ProfitDetail extends Component<{}, State> {
           {/* 提现金额 end */}
           <div className={styles.cumulative}>
             <span>累计收益：{formatPrice(accountInfo.allIncome)}元</span>
-            <button className={styles['cumulative-btn']}>提现</button>
+            <Link className={styles['cumulative-btn']} to="/withdraw">
+              提现
+            </Link>
           </div>
         </div>
         <StickyContainer>
@@ -190,20 +192,12 @@ export default class ProfitDetail extends Component<{}, State> {
             )}
           </Sticky>
           <div className={styles.content}>
-            {/* <div className="hk-hairline--bottom">
-            <Item
-              title="完成新手任务"
-              date="2019-08-28"
-              price="+20.00元"
-            ></Item>
-          </div>
-          <div className="hk-hairline--bottom">
-            <Item
-              title="完成新手任务"
-              date="2019-08-28"
-              price="+20.00元"
-            ></Item>
-          </div> */}
+            {!this.state.listData.length && (
+              <div className={styles.empty}>
+                <i className={styles.emptyIcon}></i>
+                <span>暂无数据</span>
+              </div>
+            )}
             <ListView
               ref={el => (this.lv = el)}
               dataSource={this.state.dataSource}

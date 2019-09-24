@@ -1,30 +1,86 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import api from '@/request/api';
 import styles from '../styles/index.module.scss';
 import { components } from '../../Home';
 
 const { Title } = components;
 
-interface State {}
+interface ICenter {
+  allIncome: number;
+  allInvite: number;
+  allOrder: number;
+  balance: number;
+  blockingAmount: number;
+  headimgurl: string;
+  nickname: string;
+  todayIncome: number;
+  todayInvites: number;
+  todayOrders: number;
+}
+
+interface State {
+  centerData: ICenter;
+}
 
 export default class Home extends Component<{}, State> {
-  state = {};
+  state = {
+    centerData: {
+      allIncome: 0,
+      allInvite: 0,
+      allOrder: 0,
+      balance: 0,
+      blockingAmount: 0,
+      headimgurl: '',
+      nickname: '',
+      todayIncome: 0,
+      todayInvites: 0,
+      todayOrders: 0
+    }
+  };
+
+  componentWillMount() {
+    this.getFranchiseeCenter();
+  }
+
+  getFranchiseeCenter() {
+    api.distributie.getFranchiseeCenter().then(({ data }) => {
+      this.setState({
+        centerData: data.resultData
+      });
+    });
+  }
+
+  formtPrice(price: number): string {
+    return (price / 100).toFixed(2);
+  }
 
   render() {
+    let { formtPrice } = this;
+    let {
+      headimgurl,
+      nickname,
+      balance,
+      allIncome,
+      allInvite,
+      allOrder,
+      todayIncome,
+      todayInvites,
+      todayOrders
+    } = this.state.centerData;
     return (
       <div className="container">
         <div className={styles.header}>
           <div className={styles.user}>
             <div className={styles['user-content']}>
-              <img className={styles.avatar} src="" alt="" />
+              <img className={styles.avatar} src={headimgurl} alt="" />
               <div>
-                <p className={styles.name}>桔小狮</p>
-                <span className={styles.userPrice}>可提余额：20.00</span>
+                <p className={styles.name}>{nickname}</p>
+                <span className={styles.userPrice}>
+                  可提余额：{formtPrice(balance)}
+                </span>
               </div>
             </div>
-            <p className={styles.strategy}>
-              推广攻略 <i></i>
-            </p>
           </div>
           <div className={styles.profit}>
             <div className={`${styles['profit-header']} hk-hairline--bottom`}>
@@ -33,7 +89,8 @@ export default class Home extends Component<{}, State> {
                 <div>
                   <p className={styles['profit-text']}>累计收益</p>
                   <p className={styles['profit-title']}>
-                    198.00<i>元</i>
+                    {formtPrice(allIncome)}
+                    <i>元</i>
                   </p>
                 </div>
               </div>
@@ -43,11 +100,11 @@ export default class Home extends Component<{}, State> {
             </div>
             <div className={styles.static}>
               <div className={styles['static-item']}>
-                <p className={styles['static-num']}>56</p>
+                <p className={styles['static-num']}>{allInvite}</p>
                 <p className={styles['static-text']}>累计邀请</p>
               </div>
               <div className={styles['static-item']}>
-                <p className={styles['static-num']}>18</p>
+                <p className={styles['static-num']}>{allOrder}</p>
                 <p className={styles['static-text']}>累计订单</p>
               </div>
             </div>
@@ -58,16 +115,16 @@ export default class Home extends Component<{}, State> {
         </div>
         <div className={styles.statistics}>
           <div className={styles['statistics-item']}>
-            <p>56</p>
+            <p>{todayIncome}</p>
             <span>今日收益</span>
           </div>
           <div className={styles['statistics-item']}>
-            <p>56</p>
-            <span>今日收益</span>
+            <p>{todayInvites}</p>
+            <span>今日订单</span>
           </div>
           <div className={styles['statistics-item']}>
-            <p>56</p>
-            <span>今日收益</span>
+            <p>{todayOrders}</p>
+            <span>今日邀请</span>
           </div>
         </div>
         <div className={styles.btn}>邀请好友成为推广人</div>

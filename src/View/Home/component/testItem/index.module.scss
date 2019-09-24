@@ -25,6 +25,9 @@
 .msg {
   font-size: 12px;
   color: #666;
+  i {
+    color: #fe750d;
+  }
 }
 .right {
   @include flex-col-center;
@@ -32,8 +35,15 @@
 .btn {
   @include subBtn;
   margin-bottom: 7px;
+  &.disabled {
+    box-shadow: none;
+    background: #d9d5de;
+  }
 }
 .progress {
   font-size: 11px;
   color: #999;
+  i {
+    color: #333333;
+  }
 }

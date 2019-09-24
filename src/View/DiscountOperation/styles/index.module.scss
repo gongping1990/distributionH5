@@ -13,7 +13,9 @@
     color: rgba(0, 0, 0, 1);
 
     .price {
-      font-size: 60px;
+      display: flex;
+      align-items: flex-end;
+      font-size: 49px;
       font-weight: 800;
       color: rgba(0, 0, 0, 1);
       border-bottom: 1px solid #d7d6de;
@@ -21,6 +23,7 @@
 
       &:before {
         content: '¥';
+        margin-bottom: 20px;
         width: 18px;
         height: 22px;
         font-size: 30px;
@@ -44,8 +47,8 @@
   }
 
   &-btn {
+    @include flex-center;
     margin: 0 auto;
-    text-align: center;
     width: 300px;
     height: 50px;
     background: linear-gradient(
@@ -64,10 +67,15 @@
   &-tip {
     text-align: center;
     margin: 16px auto;
-    width: 218px;
+    width: 258px;
     height: 31px;
     font-size: 14px;
     font-weight: 400;
     color: rgba(153, 153, 153, 1);
   }
+}
+
+.disabled {
+  box-shadow: none;
+  background: #d9d5de;
 }

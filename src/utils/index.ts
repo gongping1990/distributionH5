@@ -66,6 +66,10 @@ export function delUrlQuery(name: any) {
   }
 }
 
+export function formatPrice(price: number): string {
+  return (price / 100).toFixed(2);
+}
+
 export function padStart(str: string, length: number, pad: any) {
   let charstr = String(pad);
   let len = length >> 0;

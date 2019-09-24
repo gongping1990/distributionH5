@@ -31,7 +31,7 @@ export default class Introduce extends Component {
   bindclickSendCode = () => {
     let { phone } = this.state;
     if (!checkPhone(phone)) {
-      Toast.info('请填写正确的手机号！', 1);
+      Toast.info('请填写正确的手机号！');
       return;
     }
     this.sendCode();
@@ -40,11 +40,11 @@ export default class Introduce extends Component {
   getapplyPromoter() {
     let { code, phone } = this.state;
     if (!checkPhone(phone)) {
-      Toast.info('请填写正确的手机号！', 1);
+      Toast.info('请填写正确的手机号！');
       return;
     }
     if (!code) {
-      Toast.info('请填写验证码！', 1);
+      Toast.info('请填写验证码！');
       return;
     }
     api.distributie
@@ -53,7 +53,7 @@ export default class Introduce extends Component {
         phone
       })
       .then(({ data }) => {
-        Toast.info('success', 1);
+        Toast.info('success');
       });
   }
 
@@ -68,6 +68,7 @@ export default class Introduce extends Component {
         this.setState({
           downTime: this.state.downTime - 1
         });
+        this.startDownTime();
       }, 1000);
     }
   }
