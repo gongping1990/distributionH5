@@ -6,6 +6,7 @@ import store from '../store';
 import api from '../request/api';
 import { getQueryString } from '../utils';
 import { updateUserInfo } from '@/store/action';
+import Redirect from './redirect';
 
 const Home = React.lazy(() => import('./Home'));
 const Draw = React.lazy(() => import('./Draw'));
@@ -41,7 +42,6 @@ class App extends React.Component<{}, State> {
     let code = getQueryString('code');
     let name = getQueryString('name');
     let signout = getQueryString('signout');
-    console.log(url);
     if (signout) {
       await api.user.loginOut();
     } else if (url) {
@@ -53,16 +53,27 @@ class App extends React.Component<{}, State> {
           code: '123654'
         })
         .then(({ data }) => {
-          a += 1;
           store.dispatch(updateUserInfo(data.resultData));
+          this.getInviteCode();
         });
     } else if (code) {
       await api.user.wxUserLogin({ code }).then(({ data }) => {
         store.dispatch(updateUserInfo(data.resultData));
+        this.getInviteCode();
       });
     }
     this.setState({
       isShow: true
+    });
+  }
+
+  getInviteCode() {
+    api.distributie.getInviteCode().then(({ data }) => {
+      store.dispatch(
+        updateUserInfo({
+          inviteCode: data.resultData
+        })
+      );
     });
   }
 
@@ -77,6 +88,7 @@ class App extends React.Component<{}, State> {
           <Suspense fallback={<Loading />}>
             <Switch>
               <Route path="/" exact component={Home}></Route>
+              <Route path="/redirect" exact component={Redirect}></Route>
               <Route path="/draw" exact component={Draw}></Route>
               <Route path="/detail" exact component={Detail}></Route>
               <Route path="/spread" exact component={Spread}></Route>

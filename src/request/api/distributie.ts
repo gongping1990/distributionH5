@@ -30,8 +30,14 @@ const distributie = {
   withdraw(params: { amount: number }) {
     return axios.post('/distributorAccount/withdraw', qs.stringify(params));
   },
-  createGroup(params: { courseId: number }) {
+  createGroup(params: { courseId: any }) {
     return axios.get('/distributionOrder/createGroup', { params });
+  },
+  getGroupOrderDetails(params: { courseId: string; id: string }) {
+    return axios.get('/distributionOrder/getGroupOrderDetails', { params });
+  },
+  getInviteCode() {
+    return axios.get('/discenter/getInviteCode');
   }
 };
 

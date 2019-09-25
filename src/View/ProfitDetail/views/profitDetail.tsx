@@ -120,11 +120,19 @@ export default class ProfitDetail extends Component<{}, State> {
         let listData = [...this.state.listData, ...data.resultData.records];
         this.setState({
           listData,
-          page: { ...this.state.page, current: current + 1 },
+          page: {
+            ...this.state.page,
+            current: current + 1,
+            total: data.resultData
+          },
           dataSource: this.state.dataSource.cloneWithRows(listData)
         });
       });
   }
+
+  onEndReached = () => {
+    this.getDistributorAccountIncome();
+  };
 
   formatPrice(price: string) {
     return Number(price).toFixed(2);
@@ -209,6 +217,7 @@ export default class ProfitDetail extends Component<{}, State> {
                 console.log('scroll');
               }}
               scrollRenderAheadDistance={500}
+              onEndReached={this.onEndReached}
               onEndReachedThreshold={10}
             />
           </div>

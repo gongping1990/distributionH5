@@ -25,3 +25,11 @@ export interface IOrder {
   system: number; //项目,可用值:0,1,2,3,4,5,6,7,8,9,10
   verticalCover: string; //竖版封面
 }
+
+export interface IConfig {
+  directQrcode: string;
+  id: number;
+  reviewQrcode: string;
+  subQrcode: string;
+  wechatId: string;
+}

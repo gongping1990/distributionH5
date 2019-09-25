@@ -2,20 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import api from '@/request/api';
-import wx from '@/utils/wx';
-import { ICenter, IOrder } from '../type/home.type';
+
+import { ICenter, IOrder, IConfig } from '../type/home.type';
 import styles from '../styles/index.module.scss';
 import { Title, TestItem, CourseItem } from '../component';
 import phoneIcon from '../../../assets/images/home/icon_phone.png';
 import gkIcon from '../../../assets/images/home/icon_gk.png';
 import banner from '../../../assets/images/home/banner@2x.png';
-
-interface IWeixin {
-  title: string;
-  doc: string;
-  url: string;
-  img: string;
-}
 
 interface Props {
   user: {
@@ -26,6 +19,7 @@ interface Props {
 }
 interface State {
   centerData: ICenter;
+  configData: IConfig;
 }
 
 class Home extends Component<Props, State> {
@@ -41,6 +35,13 @@ class Home extends Component<Props, State> {
       headimgurl: '', // 头像
       nickname: '', // 昵称
       orderList: []
+    },
+    configData: {
+      directQrcode: '',
+      id: 0,
+      reviewQrcode: '',
+      subQrcode: '',
+      wechatId: ''
     }
   };
 
@@ -57,7 +58,6 @@ class Home extends Component<Props, State> {
   };
 
   getPromoterCenter() {
-    console.log();
     api.distributie.getPromoterCenter().then(({ data }) => {
       if (data.resultData) {
         this.setState({
@@ -69,29 +69,23 @@ class Home extends Component<Props, State> {
     });
   }
 
+  getBaseConfig() {
+    api.customer.editBaseConfig().then(({ data }) => {
+      this.setState({
+        configData: data.resultData
+      });
+    });
+  }
+
   createGroup(courseId: number) {
     api.distributie
       .createGroup({
         courseId
       })
-      .then(() => {});
-  }
-
-  reWexin(params: IWeixin) {
-    let { title, doc, url, img } = params;
-    let appUrl = encodeURIComponent(window.location.href.split('#')[0]);
-    api.wechat
-      .share({
-        appUrl
-      })
       .then(({ data }) => {
-        wx.config(data.resultData, [
-          'onMenuShareTimeline',
-          'onMenuShareAppMessage'
-        ]);
-        wx.register(() => {
-          wx.shareConfig(title, doc, url, img);
-        });
+        this.props.history.push(
+          `/group?id=${data.resultData.orderId}&type=${data.resultData.bizSystem}&courseId=${data.resultData.courseId}`
+        );
       });
   }
 
@@ -102,6 +96,7 @@ class Home extends Component<Props, State> {
   render() {
     let centerData: ICenter = this.state.centerData as ICenter;
     let orderLisr: IOrder[] = centerData.orderList;
+    let { subQrcode } = this.state.configData;
     let { formatPrice, bindClickCourseItem } = this;
     return (
       <div className="container">
@@ -184,7 +179,8 @@ class Home extends Component<Props, State> {
               );
             })}
           </div>
-          <div>
+          <div className={styles.qrcodeWrap}>
+            <img className={styles.qrcode} src={subQrcode} alt="" />
             <img className={styles.banner} src={banner} alt="" />
           </div>
         </div>

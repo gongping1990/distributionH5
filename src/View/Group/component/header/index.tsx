@@ -1,24 +1,41 @@
 import React from 'react';
 import styles from './index.module.scss';
 
-interface Props {}
+interface Props {
+  alonePrice: number;
+  buyCount: number;
+  coverphoto: string;
+  desc: string;
+  groupPrice: number;
+  id: string;
+  name: string;
+}
 
-const Tab: React.FC<Props> = () => {
+const Tab: React.FC<Props> = ({
+  buyCount,
+  alonePrice,
+  coverphoto,
+  desc,
+  groupPrice,
+  name
+}) => {
   return (
     <div className={styles.header}>
-      <img className={styles.cover} src="" alt="" />
+      <img className={styles.cover} src={coverphoto} alt="" />
       <div className={styles.content}>
         <div className={styles.info}>
-          <p className={styles.title}>小语轻作文</p>
-          <span className={styles.text}>150节正课+150节复习课</span>
+          <p className={styles.title}>{name}</p>
+          <span className={styles.text}>{desc}</span>
         </div>
         <div className={styles.price}>
           <p>
-            <i>¥</i>0<span>（团长）</span>
-            <s>¥699</s>
+            <i>¥</i>
+            {groupPrice}
+            <span>（团长）</span>
+            <s>¥{alonePrice}</s>
           </p>
           <span>
-            <i>1269</i>
+            <i>{buyCount}</i>
             人已学习
           </span>
         </div>
