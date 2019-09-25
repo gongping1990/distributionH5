@@ -22,6 +22,7 @@ interface Props {
     nickname: string;
     headimgurl: string;
   };
+  history: any;
 }
 interface State {
   centerData: ICenter;
@@ -56,10 +57,15 @@ class Home extends Component<Props, State> {
   };
 
   getPromoterCenter() {
+    console.log();
     api.distributie.getPromoterCenter().then(({ data }) => {
-      this.setState({
-        centerData: data.resultData
-      });
+      if (data.resultData) {
+        this.setState({
+          centerData: data.resultData
+        });
+      } else {
+        this.props.history.replace('/detail');
+      }
     });
   }
 
