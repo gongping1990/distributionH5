@@ -7,16 +7,18 @@ interface IList {
   amount: number;
   id: number;
   withdrawStatus: number;
-  gmtCreate: number;
+  gmtCreate: string;
 }
 
 interface State {
   itemList: IList[];
   typeList: object;
   total: number;
+  dataSource: any;
 }
 
 export default class DiscountRecord extends Component<{}, State> {
+  lv: any = {};
   state = {
     page: {
       current: 1,
@@ -24,6 +26,9 @@ export default class DiscountRecord extends Component<{}, State> {
     },
     total: 0,
     itemList: [],
+    dataSource: new ListView.DataSource({
+      rowHasChanged: (row1: any, row2: any) => row1 !== row2
+    }),
     isLoading: false,
     typeList: {
       '1': '处理中',
@@ -43,44 +48,134 @@ export default class DiscountRecord extends Component<{}, State> {
 
   getWithdrawRecord() {
     let { current, size } = this.state.page;
-    let { itemList } = this.state;
-    api.distributie
-      .getWithdrawRecord({
-        current,
-        size
-      })
-      .then(({ data }) => {
-        if (current > 1) {
-          this.setState({
-            itemList: itemList.concat(data.resultData.records)
-          });
-        } else {
-          this.setState({
-            itemList: data.resultData.records
-          });
-        }
+    let { itemList, isLoading } = this.state;
+    // isLoading = true
+    // api.distributie
+    //   .getWithdrawRecord({
+    //     current,
+    //     size
+    //   })
+    //   .then(({ data }) => {
+    //
+    //     if (current > 1) {
+    //       this.setState({
+    //         itemList: itemList.cloneWithRows(itemList.concat(data.resultData.records))
+    //       });
+    //     } else {
+    //       this.setState({
+    //         itemList: itemList.cloneWithRows(data.resultData.records)
+    //       });
+    //     }
+    //
+    //     this.setState({
+    //       total: data.resultData.total
+    //     });
+    //     isLoading = false
+    //   },()=>{
+    //     isLoading = false
+    //   });
+    let array = [
+      {
+        amount: 120,
+        withdrawStatus: 1,
+        gmtCreate: '2019/9/23 18:23',
+        id: 98855252
+      },
+      {
+        amount: 110,
+        withdrawStatus: 1,
+        gmtCreate: '2019/9/23 18:23',
+        id: 123456
+      },
+      {
+        amount: 1900,
+        withdrawStatus: 1,
+        gmtCreate: '2019/9/13 17:23',
+        id: 96589
+      },
+      {
+        amount: 121,
+        withdrawStatus: 1,
+        gmtCreate: '2019/9/29 19:23',
+        id: 123456
+      },
+      {
+        amount: 32,
+        withdrawStatus: 1,
+        gmtCreate: '2019/5/23 13:23',
+        id: 1212121
+      },
+      {
+        amount: 100,
+        withdrawStatus: 1,
+        gmtCreate: '2019/09/03 12:23',
+        id: 123456
+      },
+      {
+        amount: 100,
+        withdrawStatus: 1,
+        gmtCreate: '2019/9/23 11:23',
+        id: 123456121212
+      },
+      {
+        amount: 121,
+        withdrawStatus: 1,
+        gmtCreate: '2019/9/23 18:23',
+        id: 123456121
+      },
+      {
+        amount: 100,
+        withdrawStatus: 2,
+        gmtCreate: '2019/9/23 18:23',
+        id: 1234565
+      },
+      {
+        amount: 43,
+        withdrawStatus: 2,
+        gmtCreate: '2019/9/23 18:23',
+        id: 1234564
+      },
+      {
+        amount: 12,
+        withdrawStatus: 2,
+        gmtCreate: '2019/9/23 18:23',
+        id: 1234563
+      },
+      {
+        amount: 100,
+        withdrawStatus: 2,
+        gmtCreate: '2019/9/23 18:23',
+        id: 1234561
+      },
+      {
+        amount: 44,
+        withdrawStatus: 2,
+        gmtCreate: '2019/7/23 18:23',
+        id: 1234562
+      }
+    ];
 
-        this.setState({
-          total: data.resultData.total
-        });
-      });
+    this.setState({
+      itemList: array,
+      dataSource: this.state.dataSource.cloneWithRows(array)
+    });
   }
 
-  onEndReached() {
+  onEndReached = () => {
     console.log('加载更多');
     let { page, total } = this.state;
     if (page.current < Math.ceil(total / page.size)) {
       page.current++;
       this.getWithdrawRecord();
     }
-  }
+  };
 
   formatPrice(price: number): string {
     return Number(+price / 100).toFixed(2);
   }
 
   render() {
-    let { itemList, typeList, typeColor, isLoading } = this.state;
+    let { itemList, typeList, typeColor, isLoading, dataSource } = this.state;
 
     const row = (item: any, sectionID: any, rowID: any) => {
       return (
@@ -105,9 +200,10 @@ export default class DiscountRecord extends Component<{}, State> {
         <div className={styles['p-discountRecord']}>
           {itemList.length ? (
             <ListView
-              dataSource={itemList}
+              ref={el => (this.lv = el)}
+              dataSource={dataSource}
               renderFooter={() => (
-                <div className={styles['item-footer']}>
+                <div style={{ paddingTop: 10, textAlign: 'center' }}>
                   {isLoading ? 'Loading...' : '已加载全部'}
                 </div>
               )}
@@ -115,9 +211,6 @@ export default class DiscountRecord extends Component<{}, State> {
               className="p-discountRecord-list"
               pageSize={10}
               useBodyScroll
-              onScroll={() => {
-                console.log('scroll');
-              }}
               scrollRenderAheadDistance={500}
               onEndReached={this.onEndReached}
               onEndReachedThreshold={10}
