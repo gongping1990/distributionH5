@@ -35,6 +35,13 @@ const distributie = {
   },
   getWithdrawRecord(params: { current: number; size: number }) {
     return axios.get('/distributorAccount/getWithdrawRecord', { params });
+  },
+  pageBindingRelationship(params: {
+    current: number;
+    size: number;
+    promoterId: string;
+  }) {
+    return axios.get('/distributie/pageBindingRelationship', { params });
   }
 };
 

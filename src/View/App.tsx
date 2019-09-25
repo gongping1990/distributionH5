@@ -109,6 +109,16 @@ class App extends React.Component<{}, State> {
                 exact
                 component={CumulativeOrder}
               ></Route>
+              <Route
+                path="/cumulativeInvitation/:id"
+                exact
+                component={CumulativeInvitation}
+              ></Route>
+              <Route
+                path="/cumulativeOrder"
+                exact
+                component={CumulativeOrder}
+              ></Route>
             </Switch>
           </Suspense>
         </Router>
