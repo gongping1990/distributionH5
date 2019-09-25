@@ -95,6 +95,10 @@ class Home extends Component<Props, State> {
       });
   }
 
+  toJump = (data: any) => {
+    this.props.history.push('/discountRecord');
+  };
+
   formatPrice(price: number): string {
     return (price / 100).toFixed(2);
   }
@@ -141,7 +145,7 @@ class Home extends Component<Props, State> {
               </Link>
             </div>
             <div className={styles.static}>
-              <div className={styles['static-item']}>
+              <div className={styles['static-item']} onClick={this.toJump}>
                 <p className={styles['static-num']}>{centerData.allInvite}</p>
                 <p className={styles['static-text']}>累计邀请</p>
               </div>

@@ -49,7 +49,7 @@ class App extends React.Component<{}, State> {
     } else if (name) {
       await api.user
         .loginWithPhone({
-          phone: '13699011543',
+          phone: '15884594704',
           code: '123654'
         })
         .then(({ data }) => {
@@ -103,6 +103,11 @@ class App extends React.Component<{}, State> {
                 path="/sharePageQzw"
                 exact
                 component={SharePageQzw}
+              ></Route>
+              <Route
+                path="/cumulativeOrder"
+                exact
+                component={CumulativeOrder}
               ></Route>
             </Switch>
           </Suspense>

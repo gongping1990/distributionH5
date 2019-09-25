@@ -32,6 +32,9 @@ const distributie = {
   },
   createGroup(params: { courseId: number }) {
     return axios.get('/distributionOrder/createGroup', { params });
+  },
+  getWithdrawRecord(params: { current: number; size: number }) {
+    return axios.get('/distributorAccount/getWithdrawRecord', { params });
   }
 };
 
