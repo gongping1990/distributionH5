@@ -29,6 +29,7 @@ const CumulativeOrder = React.lazy(() => import('./CumulativeOrder'));
 const SharePageGsw = React.lazy(() => import('./SharePageGsw'));
 const SharePageQzw = React.lazy(() => import('./SharePageQzw'));
 const PromotionRules = React.lazy(() => import('./PromotionRules'));
+const PromotionDetail = React.lazy(() => import('./PromotionDetail'));
 
 const state = store.getState();
 
@@ -141,6 +142,11 @@ class App extends React.Component<{}, State> {
                 path="/promotionRules"
                 exact
                 component={PromotionRules}
+              ></Route>
+              <Route
+                path="/promotionDetail"
+                exact
+                component={PromotionDetail}
               ></Route>
               <Redirect to="/"></Redirect>
             </Switch>
