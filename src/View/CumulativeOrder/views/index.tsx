@@ -19,6 +19,7 @@ interface State {
   tabActive: number;
   total: number;
   dataSource: any;
+  isLoading: boolean;
   page: {
     current: number;
     size: number;
@@ -84,39 +85,40 @@ export default class CumulativeOrder extends Component<{}, State> {
 
   getOrder() {
     let { current, size, incomeStatus } = this.state.page;
-    let { itemList, isLoading } = this.state;
-    isLoading = true;
+    let { itemList } = this.state;
+    this.setState({
+      isLoading: true
+    });
     api.distributie
       .getOrder({
         current,
         size,
         incomeStatus
       })
-      .then(
-        ({ data }) => {
-          if (current > 1) {
-            this.setState({
-              itemList: this.state.dataSource.cloneWithRows(
-                itemList.concat(data.resultData.records)
-              )
-            });
-          } else {
-            this.setState({
-              itemList: this.state.dataSource.cloneWithRows(
-                data.resultData.records
-              )
-            });
-          }
-
+      .then(({ data }) => {
+        if (current > 1) {
           this.setState({
-            total: data.resultData.total
+            itemList: this.state.dataSource.cloneWithRows(
+              itemList.concat(data.resultData.records)
+            )
           });
-          isLoading = false;
-        },
-        () => {
-          isLoading = false;
+        } else {
+          this.setState({
+            itemList: this.state.dataSource.cloneWithRows(
+              data.resultData.records
+            )
+          });
         }
-      );
+
+        this.setState({
+          total: data.resultData.total
+        });
+      })
+      .finally(() => {
+        this.setState({
+          isLoading: false
+        });
+      });
   }
 
   onEndReached = () => {
@@ -152,7 +154,11 @@ export default class CumulativeOrder extends Component<{}, State> {
           <div className={styles['left-wrap']}>
             <div className={styles['left-wrap-time']}>{item.date}</div>
             <div className={styles['left-wrap-user']}>
-              <img className={styles['left-wrap-img']} src={item.headimgurl} />
+              <img
+                className={styles['left-wrap-img']}
+                src={item.headimgurl}
+                alt=""
+              />
               <div>{item.name}</div>
             </div>
             <div>{item.courseName}</div>

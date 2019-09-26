@@ -17,7 +17,7 @@ const tip = (msg: string | object) => {
  * 清楚用户本地缓存信息，并显示登录弹框
  */
 const toLogin = () => {
-  console.log(111);
+  console.log(isWeiXin());
   if (isWeiXin()) {
     api.wechat
       .getAuthorizeUrl({

@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import styles from '../styles/index.module.scss';
-import sucessIcon from '../../../assets/images/discount/success-icon.png';
 import img1 from '../../../assets/images/promotion/tggz-img1.png';
 import img2 from '../../../assets/images/promotion/tggz-img2.png';
 import api from '@/request/api';
-import customer from '@/request/api/customer';
 
 interface State {
   imgUrl: any;
@@ -59,7 +57,7 @@ export default class PromotionRules extends Component<{}, State> {
             <p className={styles['-top-small']}>
               添加推广指导老师，获取推广指导
             </p>
-            <img className={styles['-top-img']} src={imgUrl} />
+            <img className={styles['-top-img']} src={imgUrl} alt="" />
           </div>
           <div className={styles['p-promotionRules-down']}>
             <div className={styles['-down-title']}>推广规则</div>
@@ -69,7 +67,11 @@ export default class PromotionRules extends Component<{}, State> {
                   <div className={styles['-down-item-title']}>{item.name}</div>
                   <div className={styles['-down-item-text']}>{item.text}</div>
                   {item.img ? (
-                    <img className={styles['-down-item-img']} src={item.img} />
+                    <img
+                      className={styles['-down-item-img']}
+                      src={item.img}
+                      alt=""
+                    />
                   ) : (
                     ''
                   )}

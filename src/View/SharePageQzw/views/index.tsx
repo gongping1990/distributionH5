@@ -59,13 +59,14 @@ export default class SharePageQzw extends Component<{}> {
     return (
       <div className="container">
         {isShowImg ? (
-          <img className={styles['p-shareImg']} src={shareUrl} />
+          <img className={styles['p-shareImg']} src={shareUrl} alt="" />
         ) : (
           <div className={styles['p-sharePageQzw']} id="sharePage">
             <div className={styles['p-sharePageQzw-header']}>
               <img
                 className={styles['-header-left']}
                 src={dataInfo.headimgurl}
+                alt=""
               />
               <div className={styles['-header-right']}>
                 <p className={styles['-name']}>最美的期待</p>
@@ -85,7 +86,11 @@ export default class SharePageQzw extends Component<{}> {
                   </div>
                 </div>
                 <div className={styles['-content-down-right']}>
-                  <img className={styles['-right-img']} src={dataInfo.qrUrl} />
+                  <img
+                    className={styles['-right-img']}
+                    src={dataInfo.qrUrl}
+                    alt=""
+                  />
                 </div>
               </div>
             </div>

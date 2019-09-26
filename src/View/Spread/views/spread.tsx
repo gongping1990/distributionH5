@@ -57,7 +57,7 @@ export default class Home extends Component<Props, State> {
   getFranchiseeCenter() {
     api.distributie.getFranchiseeCenter().then(({ data }) => {
       if (data.resultData) {
-        if (data.resultData.type == UserType.EXTENSION) {
+        if (data.resultData.type === UserType.EXTENSION) {
           this.props.history.replace('/detail');
         }
         this.setState({

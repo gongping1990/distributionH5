@@ -1,3 +1,13 @@
+import api from '@/request/api';
+import wx from '@/utils/wx';
+
+export interface IWeixin {
+  title: string;
+  doc: string;
+  url: string;
+  img: string;
+}
+
 export function isWeiXin() {
   //window.navigator.userAgent属性包含了浏览器类型、版本、操作系统类型、浏览器引擎类型等信息，这个属性可以用来判断浏览器类型
   var ua = window.navigator.userAgent.toLowerCase();
@@ -80,4 +90,23 @@ export function padStart(str: string, length: number, pad: any) {
     chars.push(charstr);
   }
   return chars.join('').substring(0, len - r.length) + r;
+}
+
+export function reWexin(params: IWeixin) {
+  let { title, doc, url, img } = params;
+  let appUrl = encodeURIComponent(window.location.href.split('#')[0]);
+  api.wechat
+    .share({
+      appUrl
+    })
+    .then(({ data }) => {
+      wx.config(data.resultData, [
+        'onMenuShareTimeline',
+        'onMenuShareAppMessage'
+      ]);
+      console.log(url);
+      wx.register(() => {
+        wx.shareConfig(title, doc, url, img);
+      });
+    });
 }

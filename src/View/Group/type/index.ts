@@ -15,10 +15,3 @@ export interface ICourse {
   id: string;
   name: string;
 }
-
-export interface IWeixin {
-  title: string;
-  doc: string;
-  url: string;
-  img: string;
-}

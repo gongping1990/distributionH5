@@ -23,7 +23,6 @@ const Result = React.lazy(() => import('./result'));
 const ProfitDetail = React.lazy(() => import('./ProfitDetail'));
 const DiscountRecord = React.lazy(() => import('./DiscountRecord'));
 const DiscountOperation = React.lazy(() => import('./DiscountOperation'));
-const DiscountResult = React.lazy(() => import('./DiscountResult'));
 const CumulativeInvitation = React.lazy(() => import('./CumulativeInvitation'));
 const CumulativeOrder = React.lazy(() => import('./CumulativeOrder'));
 const SharePageGsw = React.lazy(() => import('./SharePageGsw'));
@@ -33,15 +32,11 @@ const PromotionRules = React.lazy(() => import('./PromotionRules'));
 const state = store.getState();
 
 export interface State {}
-let a = 1;
 class App extends React.Component<{}, State> {
   state = {
     userInfo: state.user,
     isShow: false
   };
-  constructor(props: any) {
-    super(props);
-  }
 
   async componentDidMount() {
     let url = getQueryString('url');

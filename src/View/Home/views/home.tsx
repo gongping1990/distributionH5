@@ -13,10 +13,10 @@ import store from '@/store';
 
 const getUserInfo = store.getState().user;
 
-enum UserType {
-  EXTENSION, //推广人
-  FRANCHISEE //加盟商
-}
+// enum UserType {
+//   EXTENSION, //推广人
+//   FRANCHISEE //加盟商
+// }
 interface Props {
   user: {
     nickname: string;
@@ -68,6 +68,11 @@ class Home extends Component<Props, State> {
       case 1:
         this.createGroup(id);
         break;
+      default:
+        this.setState({
+          step: 1,
+          showMask: true
+        });
     }
   };
 
@@ -150,7 +155,7 @@ class Home extends Component<Props, State> {
     let { formatPrice, bindClickCourseItem, bindClickTest } = this;
     return (
       <div className="container">
-        {showMask && <Mask onClick={this.onClickMask} show={step == 1}></Mask>}
+        {showMask && <Mask onClick={this.onClickMask} show={step === 1}></Mask>}
 
         <div className={styles.header}>
           <div className={styles.user}>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ListView } from 'antd-mobile';
 import styles from '../styles/index.module.scss';
-import api from '@/request/api';
+// import api from '@/request/api';
 
 interface IList {
   amount: number;
@@ -47,8 +47,8 @@ export default class DiscountRecord extends Component<{}, State> {
   }
 
   getWithdrawRecord() {
-    let { current, size } = this.state.page;
-    let { itemList, isLoading } = this.state;
+    // let { current, size } = this.state.page;
+    // let { itemList, isLoading } = this.state;
     // isLoading = true
     // api.distributie
     //   .getWithdrawRecord({

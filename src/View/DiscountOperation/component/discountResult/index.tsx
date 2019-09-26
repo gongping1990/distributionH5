@@ -37,7 +37,7 @@ export default class DiscountResult extends Component<Props> {
   };
 
   render() {
-    let { textStatus, type, imgStatus, tipStatus } = this.state;
+    let { textStatus, imgStatus, tipStatus } = this.state;
     let { status, price, onClick } = this.props;
     return (
       <div className="container">
@@ -46,7 +46,7 @@ export default class DiscountResult extends Component<Props> {
             {status === Status.WAIT ? (
               <i className={styles.loader}></i>
             ) : (
-              <img className={styles.icon} src={imgStatus[status]} />
+              <img className={styles.icon} src={imgStatus[status]} alt="" />
             )}
 
             <p className={styles.text}>{textStatus[status]}</p>

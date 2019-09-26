@@ -43,8 +43,8 @@ export default class CumulativeInvitation extends Component<Props, State> {
   }
 
   pageBindingRelationship() {
-    let { current, size } = this.state.page;
-    let { itemList, isLoading, promoterId } = this.state;
+    // let { current, size } = this.state.page;
+    // let { itemList, isLoading, promoterId } = this.state;
     // isLoading = true
     // api.distributie
     //   .getWithdrawRecord({
@@ -95,7 +95,11 @@ export default class CumulativeInvitation extends Component<Props, State> {
       return (
         <div className={styles['p-cumulativeInvitation-item']} key={item.id}>
           <div className={styles['left-wrap']}>
-            <img className={styles['left-wrap-img']} src={item.headimgurl} />
+            <img
+              className={styles['left-wrap-img']}
+              src={item.headimgurl}
+              alt=""
+            />
             <div>{item.nickName}</div>
           </div>
           <div className={styles['right-wrap']}>

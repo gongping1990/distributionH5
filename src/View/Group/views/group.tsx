@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import qs from 'querystring';
-import { ICourse, IOrder, IWeixin } from '../type';
-import wx from '@/utils/wx';
+import { ICourse, IOrder } from '../type';
+import { reWexin } from '@/utils';
 import api from '@/request/api';
 import Header from '../component/header';
 import Content from '../component/content';
 import styles from '../styles/index.module.scss';
 
-enum ESystem {
-  POEM = 7, // (7,"poem","每日一首古诗词")
-  COMPOSITION = 8 //(8,"composition","小语轻作文")
-}
+// enum ESystem {
+//   POEM = 7, // (7,"poem","每日一首古诗词")
+//   COMPOSITION = 8 //(8,"composition","小语轻作文")
+// }
 
 enum IType {
   WAIT,
@@ -73,13 +73,12 @@ class Group extends Component<Props, State> {
   }
 
   componentDidUpdate(prevProps: Props, prevState: State) {
-    console.log(this.state.id, prevState);
-    if (this.state.id != prevState.id) {
+    if (this.state.id !== prevState.id) {
       this.init();
     }
   }
 
-  componentWillReceiveProps(nextProps: Props) {
+  UNSAFE_componentWillReceiveProps(nextProps: Props) {
     console.log(nextProps);
     let search: string = nextProps.location.search.replace(/^\?/, '');
     let query = qs.parse(search);
@@ -91,12 +90,6 @@ class Group extends Component<Props, State> {
   }
 
   init() {
-    this.reWexin({
-      title: '1',
-      doc: '1',
-      url: '',
-      img: ''
-    });
     this.getGroupOrderDetails();
   }
 
@@ -148,6 +141,7 @@ class Group extends Component<Props, State> {
     let { WAIT, ERROR, SUCCESS } = IType;
     switch (type) {
       case WAIT:
+        this.createGroup();
         break;
       case ERROR:
         break;
@@ -191,31 +185,14 @@ class Group extends Component<Props, State> {
     }, 1000);
   }
 
-  reWexin(params: IWeixin) {
+  reWexin() {
     let { id, type } = this.state;
-    let { title, doc, url, img } = params;
-    let appUrl = encodeURIComponent(window.location.href.split('#')[0]);
-    api.wechat
-      .share({
-        appUrl
-      })
-      .then(({ data }) => {
-        wx.config(data.resultData, [
-          'onMenuShareTimeline',
-          'onMenuShareAppMessage'
-        ]);
-        console.log(
-          `${window.location.origin}/redirect?id=${id}&mode=${type}&inviteCode=${this.props.user.inviteCode}&type=1`
-        );
-        wx.register(() => {
-          wx.shareConfig(
-            title,
-            doc,
-            `${window.location.origin}/redirect?id=${id}&mode=${type}&inviteCode=${this.props.user.inviteCode}&type=1`,
-            img
-          );
-        });
-      });
+    reWexin({
+      title: '1',
+      doc: '1',
+      url: `${window.location.origin}/redirect?id=${id}&mode=${type}&inviteCode=${this.props.user.inviteCode}&type=1`,
+      img: '1'
+    });
   }
 
   render() {

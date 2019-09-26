@@ -59,13 +59,14 @@ export default class DiscountResult extends Component<{}> {
     return (
       <div className="container">
         {isShowImg ? (
-          <img className={styles['p-shareImg']} src={shareUrl} />
+          <img className={styles['p-shareImg']} src={shareUrl} alt="" />
         ) : (
           <div className={styles['p-sharePageGsw']} id="sharePage">
             <div className={styles['p-sharePageGsw-header']}>
               <img
                 className={styles['-header-left']}
                 src={dataInfo.headimgurl}
+                alt=""
               />
               <div className={styles['-header-right']}>
                 <p className={styles['-name']}>最美的期待</p>
@@ -89,7 +90,11 @@ export default class DiscountResult extends Component<{}> {
                   </div>
                 </div>
                 <div className={styles['-content-down-right']}>
-                  <img className={styles['-right-img']} src={dataInfo.qrUrl} />
+                  <img
+                    className={styles['-right-img']}
+                    src={dataInfo.qrUrl}
+                    alt=""
+                  />
                 </div>
               </div>
             </div>
