@@ -3,15 +3,17 @@ import styles from '../styles/index.module.scss';
 import sucessIcon from '../../../assets/images/discount/success-icon.png';
 import img1 from '../../../assets/images/promotion/tggz-img1.png';
 import img2 from '../../../assets/images/promotion/tggz-img2.png';
+import api from '@/request/api';
+import customer from '@/request/api/customer';
 
 interface State {
-  dataInfo: any;
+  imgUrl: any;
   itemList: any[];
 }
 
 export default class PromotionRules extends Component<{}, State> {
   state = {
-    dataInfo: '',
+    imgUrl: '',
     itemList: [
       {
         id: 1,
@@ -34,8 +36,20 @@ export default class PromotionRules extends Component<{}, State> {
     ]
   };
 
+  componentDidMount() {
+    this.getInfo();
+  }
+
+  getInfo() {
+    api.customer.getBaseConfig().then(({ data }) => {
+      this.setState({
+        imgUrl: data.resultData.directQrcode
+      });
+    });
+  }
+
   render() {
-    let { dataInfo, itemList } = this.state;
+    let { imgUrl, itemList } = this.state;
 
     return (
       <div className="container">
@@ -45,7 +59,7 @@ export default class PromotionRules extends Component<{}, State> {
             <p className={styles['-top-small']}>
               添加推广指导老师，获取推广指导
             </p>
-            <img className={styles['-top-img']} src={sucessIcon} />
+            <img className={styles['-top-img']} src={imgUrl} />
           </div>
           <div className={styles['p-promotionRules-down']}>
             <div className={styles['-down-title']}>推广规则</div>
