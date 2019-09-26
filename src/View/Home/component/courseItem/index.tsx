@@ -4,6 +4,7 @@ import styles from './index.module.scss';
 
 interface Props {
   onClick(id: number, type: number): void;
+  showMask: boolean;
 }
 
 const Course: React.FC<Props & IOrder> = ({
@@ -11,7 +12,8 @@ const Course: React.FC<Props & IOrder> = ({
   courseName,
   courseId,
   aloneEarnPrice,
-  onClick
+  onClick,
+  showMask = false
 }) => {
   return (
     <div className={styles.course}>
@@ -25,7 +27,13 @@ const Course: React.FC<Props & IOrder> = ({
             预计可赚最多<i>{aloneEarnPrice}元</i>
           </span>
         </div>
-        <div className={styles.footer}>
+        <div className={`${styles.footer} ${showMask && styles.mask}`}>
+          {showMask && (
+            <div className={styles['mask-content']}>
+              <p>点击这里，即可邀请好友，赚取收益</p>
+              <i></i>
+            </div>
+          )}
           <p
             className={styles.yq}
             onClick={() => {

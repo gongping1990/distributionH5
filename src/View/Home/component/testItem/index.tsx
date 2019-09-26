@@ -8,9 +8,19 @@ interface Props {
   process: number;
   total: number;
   price: number;
+  onClick(): void;
+  index: number;
 }
 
-const Test: React.FC<Props> = ({ icon, title, msg, process, total, price }) => {
+const Test: React.FC<Props> = ({
+  icon,
+  title,
+  msg,
+  process,
+  total,
+  price,
+  onClick
+}) => {
   return (
     <div className={styles.test}>
       <img className={styles.icon} src={icon} alt="" />
@@ -27,6 +37,9 @@ const Test: React.FC<Props> = ({ icon, title, msg, process, total, price }) => {
             total === process ? styles.disabled : ''
           }`}
           disabled={total === process}
+          onClick={() => {
+            onClick();
+          }}
         >
           去邀请
         </button>

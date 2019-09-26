@@ -1,6 +1,7 @@
 @import '../../../styles/base.scss';
 
 .p-discountOperation {
+  padding-top: 1px;
   &-content {
     margin: 35px auto 30px;
     padding: 24px 23px;
@@ -78,4 +79,14 @@
 .disabled {
   box-shadow: none;
   background: #d9d5de;
+}
+
+.result {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: #fff;
+  z-index: 100;
 }

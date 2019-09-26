@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 import { ListView } from 'antd-mobile';
 import { StickyContainer, Sticky } from 'react-sticky';
@@ -59,7 +60,7 @@ export default class ProfitDetail extends Component<{}, State> {
       current: 1,
       size: 10,
       incomeStatus: EStatus.UNDEFINED,
-      total: 0
+      total: 1
     },
     listData: [],
     dataSource: new ListView.DataSource({
@@ -91,7 +92,8 @@ export default class ProfitDetail extends Component<{}, State> {
         page: {
           ...this.state.page,
           current: 1,
-          incomeStatus
+          incomeStatus,
+          total: 1
         }
       },
       () => {
@@ -109,7 +111,10 @@ export default class ProfitDetail extends Component<{}, State> {
   }
 
   getDistributorAccountIncome() {
-    let { current, size, incomeStatus } = this.state.page;
+    let { current, size, incomeStatus, total } = this.state.page;
+    if (this.state.listData.length >= total) {
+      return;
+    }
     api.distributie
       .getDistributorAccountIncome({
         current,
@@ -137,15 +142,23 @@ export default class ProfitDetail extends Component<{}, State> {
   formatPrice(price: string) {
     return Number(price).toFixed(2);
   }
+  formatTime(time: string) {
+    return dayjs(+time).format('YYYY-MM-DD');
+  }
 
   render() {
-    let { clickTabItem, formatPrice } = this;
+    let { clickTabItem, formatPrice, formatTime } = this;
     let { itemList, tabActive, accountInfo } = this.state;
 
     const row = (rowData: any, sectionID: any, rowID: any) => {
       return (
         <div className="hk-hairline--bottom">
-          <Item title="完成新手任务" date="2019-08-28" price="+20.00元"></Item>
+          <Item
+            title={rowData.desc}
+            date={formatTime(rowData.gmtCreate)}
+            price={`${formatPrice(rowData.amount)}元`}
+            type={rowData.incomeStatus}
+          ></Item>
         </div>
       );
     };
@@ -153,7 +166,7 @@ export default class ProfitDetail extends Component<{}, State> {
     return (
       <div className="container">
         <div className={styles.header}>
-          <Link className={styles.link} to="/">
+          <Link className={styles.link} to="/discountRecord">
             提现记录
             <i></i>
           </Link>

@@ -9,17 +9,27 @@ import { Title, TestItem, CourseItem } from '../component';
 import phoneIcon from '../../../assets/images/home/icon_phone.png';
 import gkIcon from '../../../assets/images/home/icon_gk.png';
 import banner from '../../../assets/images/home/banner@2x.png';
+import store from '@/store';
 
+const getUserInfo = store.getState().user;
+
+enum UserType {
+  EXTENSION, //推广人
+  FRANCHISEE //加盟商
+}
 interface Props {
   user: {
     nickname: string;
     headimgurl: string;
+    useId: string;
   };
   history: any;
 }
 interface State {
   centerData: ICenter;
   configData: IConfig;
+  showMask: boolean;
+  step: number;
 }
 
 class Home extends Component<Props, State> {
@@ -34,6 +44,7 @@ class Home extends Component<Props, State> {
       blockingAmount: 0, //冻结金额(分)
       headimgurl: '', // 头像
       nickname: '', // 昵称
+      useId: '', // 昵称
       orderList: []
     },
     configData: {
@@ -42,7 +53,9 @@ class Home extends Component<Props, State> {
       reviewQrcode: '',
       subQrcode: '',
       wechatId: ''
-    }
+    },
+    step: 0,
+    showMask: false
   };
 
   componentWillMount() {
@@ -57,9 +70,33 @@ class Home extends Component<Props, State> {
     }
   };
 
+  bindClickTest = () => {
+    window.scrollTo(0, 400);
+    this.setState({
+      showMask: true
+    });
+  };
+
+  onClickMask = () => {
+    let { step } = this.state;
+    if (!step) {
+      this.setState({
+        step: 1
+      });
+    } else {
+      this.setState({
+        step: 0,
+        showMask: false
+      });
+    }
+  };
+
   getPromoterCenter() {
     api.distributie.getPromoterCenter().then(({ data }) => {
       if (data.resultData) {
+        // if (data.resultData.type == UserType.FRANCHISEE) {
+        //   this.props.history.replace('/spread')
+        // }
         this.setState({
           centerData: data.resultData
         });
@@ -89,6 +126,15 @@ class Home extends Component<Props, State> {
       });
   }
 
+  toJumpOne = () => {
+    this.props.history.push({
+      pathname: `/cumulativeInvitation/${getUserInfo.userId}`
+    });
+  };
+  toJumpTwo = () => {
+    this.props.history.push('/cumulativeOrder');
+  };
+
   formatPrice(price: number): string {
     return (price / 100).toFixed(2);
   }
@@ -97,9 +143,34 @@ class Home extends Component<Props, State> {
     let centerData: ICenter = this.state.centerData as ICenter;
     let orderLisr: IOrder[] = centerData.orderList;
     let { subQrcode } = this.state.configData;
-    let { formatPrice, bindClickCourseItem } = this;
+    let { showMask, step } = this.state;
+    let { formatPrice, bindClickCourseItem, bindClickTest } = this;
     return (
       <div className="container">
+        {showMask && (
+          <div
+            className={`${styles.mask} ${step && styles.show}`}
+            onClick={this.onClickMask}
+          >
+            {step && (
+              <div className={styles.maskContent}>
+                <i></i>
+                <p>
+                  1.点击右上角分享按钮
+                  <br />
+                  2.发送给朋友或分享到朋友圈
+                </p>
+                <p>
+                  严禁发送到任何小语轻作文、
+                  <br />
+                  每日一首古诗词的微信群。
+                </p>
+                <span>（如有发现将永久取消推广资格）</span>
+              </div>
+            )}
+          </div>
+        )}
+
         <div className={styles.header}>
           <div className={styles.user}>
             <div className={styles['user-content']}>
@@ -136,11 +207,11 @@ class Home extends Component<Props, State> {
               </Link>
             </div>
             <div className={styles.static}>
-              <div className={styles['static-item']}>
+              <div className={styles['static-item']} onClick={this.toJumpOne}>
                 <p className={styles['static-num']}>{centerData.allInvite}</p>
                 <p className={styles['static-text']}>累计邀请</p>
               </div>
-              <div className={styles['static-item']}>
+              <div className={styles['static-item']} onClick={this.toJumpTwo}>
                 <p className={styles['static-num']}>{centerData.allOrder}</p>
                 <p className={styles['static-text']}>累计订单</p>
               </div>
@@ -156,7 +227,9 @@ class Home extends Component<Props, State> {
               msg="奖励"
               price={2}
               total={5}
+              index={0}
               process={centerData.allClick}
+              onClick={bindClickTest}
             ></TestItem>
             <TestItem
               icon={gkIcon}
@@ -164,7 +237,9 @@ class Home extends Component<Props, State> {
               msg="除佣金外，额外奖励"
               price={5}
               total={2}
+              index={1}
               process={centerData.allBuy}
+              onClick={bindClickTest}
             ></TestItem>
           </div>
           <Title>推广课程</Title>
@@ -175,6 +250,7 @@ class Home extends Component<Props, State> {
                   key={i}
                   onClick={bindClickCourseItem}
                   {...e}
+                  showMask={!i && showMask && !step}
                 ></CourseItem>
               );
             })}

@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import api from '@/request/api';
+import { Result } from '../component';
 import { formatPrice } from '@/utils';
 import styles from '../styles/index.module.scss';
 
+enum Status {
+  SUCCESS,
+  ERROR,
+  WAIT
+}
 interface IAccount {
   allIncome: number;
   balance: number;
@@ -11,6 +17,8 @@ interface IAccount {
 interface State {
   accountInfo: IAccount;
   price: string;
+  status: Status;
+  showResult: boolean;
 }
 
 export default class DiscountOperation extends Component<{}, State> {
@@ -20,7 +28,9 @@ export default class DiscountOperation extends Component<{}, State> {
       balance: 0,
       blockingAmount: 0
     },
-    price: '0'
+    price: '0',
+    status: 0,
+    showResult: false
   };
 
   componentWillMount() {
@@ -33,6 +43,12 @@ export default class DiscountOperation extends Component<{}, State> {
     });
   };
 
+  bindClickBtn = () => {
+    this.setState({
+      showResult: false
+    });
+  };
+
   getDistributorAccountInfo() {
     api.distributie.getDistributorAccountInfo().then(({ data }) => {
       this.setState({
@@ -42,19 +58,41 @@ export default class DiscountOperation extends Component<{}, State> {
   }
 
   postWithdraw = () => {
+    this.setState({
+      showResult: true
+    });
     api.distributie
       .withdraw({
         amount: Number(this.state.price) * 100
       })
-      .then(() => {});
+      .then(() => {
+        this.setState({
+          status: Status.SUCCESS
+        });
+      })
+      .catch(() => {
+        this.setState({
+          status: Status.ERROR
+        });
+      });
   };
 
   render() {
-    let { price } = this.state;
+    let { price, status, showResult } = this.state;
     let { balance } = this.state.accountInfo;
     let priceformat: number = price ? Number(price) : 0;
+    let actualPrice = Number(price) * 100;
     return (
       <div className="container">
+        {showResult && (
+          <div className={styles.result}>
+            <Result
+              price={price}
+              status={status}
+              onClick={this.bindClickBtn}
+            ></Result>
+          </div>
+        )}
         <div className={styles['p-discountOperation']}>
           <div className={styles['p-discountOperation-content']}>
             <p>请输入提现金额</p>
@@ -77,9 +115,11 @@ export default class DiscountOperation extends Component<{}, State> {
             </div>
           </div>
           <button
-            className={`${styles['p-discountOperation-btn']} ${priceformat <=
-              0 && styles.disabled}`}
-            disabled={priceformat <= 0}
+            className={`${styles['p-discountOperation-btn']} ${(priceformat <=
+              0 ||
+              actualPrice > Number(balance)) &&
+              styles.disabled}`}
+            disabled={priceformat <= 0 || actualPrice > Number(balance)}
             onClick={this.postWithdraw}
           >
             提现

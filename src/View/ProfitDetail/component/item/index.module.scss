@@ -14,3 +14,22 @@
 .success {
   color: #16d481;
 }
+
+.price {
+  @include flex-center;
+}
+
+.icon {
+  margin-right: 6px;
+  display: block;
+  width: 11px;
+  height: 15px;
+  background: url('../../../../assets/images/home/dj.png') no-repeat;
+  background-size: 100%;
+}
+
+.disabled {
+  p {
+    color: #a0a0a0;
+  }
+}

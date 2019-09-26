@@ -3,13 +3,15 @@
 .course {
   display: flex;
   padding: 15px;
+  padding-right: 0;
+  padding-bottom: 2px;
   margin-bottom: 15px;
   box-shadow: 0px 0px 15px 0px rgba(216, 215, 234, 0.5);
   border-radius: 15px;
 }
 
 .cover {
-  margin-right: 15px;
+  margin-right: 5px;
   width: 75px;
   height: 90px;
   border-radius: 10px;
@@ -29,6 +31,8 @@
 
 .info {
   flex: 1;
+  padding-left: 10px;
+  padding-right: 15px;
   display: flex;
   flex-direction: column;
 }
@@ -48,6 +52,8 @@
 }
 .footer {
   @include flex-center;
+  padding: 15px 8px;
+  border-radius: 10px;
 }
 .btn,
 .subBtn {
@@ -69,5 +75,29 @@
     height: 12px;
     background: url('../../../../assets/images/home/icon_yq.png') no-repeat;
     background-size: 100%;
+  }
+}
+
+.mask {
+  position: relative;
+  z-index: 1000;
+  box-shadow: 1px 1px 1px 2000px rgba(0, 0, 0, 0.8);
+  &-content {
+    @include flex-col-center;
+    position: absolute;
+    z-index: 1100;
+    bottom: 110%;
+    p {
+      font-size: 12px;
+      color: #fff;
+      margin-bottom: 9px;
+    }
+    i {
+      display: block;
+      width: 27px;
+      height: 27px;
+      background: url('../../../../assets/images/yd-arrow.png') no-repeat;
+      background-size: 100%;
+    }
   }
 }
