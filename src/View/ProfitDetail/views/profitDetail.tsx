@@ -69,6 +69,7 @@ export default class ProfitDetail extends Component<{}, State> {
   };
 
   componentDidMount() {
+    document.title = '收益明细';
     this.getDistributorAccountInfo();
     this.getDistributorAccountIncome();
   }

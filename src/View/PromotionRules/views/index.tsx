@@ -1,0 +1,70 @@
+import React, { Component } from 'react';
+import styles from '../styles/index.module.scss';
+import sucessIcon from '../../../assets/images/discount/success-icon.png';
+import img1 from '../../../assets/images/promotion/tggz-img1.png';
+import img2 from '../../../assets/images/promotion/tggz-img2.png';
+
+interface State {
+  dataInfo: any;
+  itemList: any[];
+}
+
+export default class PromotionRules extends Component<{}, State> {
+  state = {
+    dataInfo: '',
+    itemList: [
+      {
+        id: 1,
+        name: '收益说明',
+        text: '推广人的推广收益为推广课程下单金额的20',
+        img: ''
+      },
+      {
+        id: 2,
+        name: '如何进入推广中心',
+        text: '在XX公众号，点击菜单栏【推广人】进入推广中心',
+        img: img1
+      },
+      {
+        id: 3,
+        name: '如何提现',
+        text: '点击申请提现按钮，根据流程操作',
+        img: img2
+      }
+    ]
+  };
+
+  render() {
+    let { dataInfo, itemList } = this.state;
+
+    return (
+      <div className="container">
+        <div className={styles['p-promotionRules']}>
+          <div className={styles['p-promotionRules-top']}>
+            <p className={styles['-top-title']}>扫描下方二维</p>
+            <p className={styles['-top-small']}>
+              添加推广指导老师，获取推广指导
+            </p>
+            <img className={styles['-top-img']} src={sucessIcon} />
+          </div>
+          <div className={styles['p-promotionRules-down']}>
+            <div className={styles['-down-title']}>推广规则</div>
+            {itemList.map(item => {
+              return (
+                <div className={styles['-down-item']} key={item.id}>
+                  <div className={styles['-down-item-title']}>{item.name}</div>
+                  <div className={styles['-down-item-text']}>{item.text}</div>
+                  {item.img ? (
+                    <img className={styles['-down-item-img']} src={item.img} />
+                  ) : (
+                    ''
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  }
+}

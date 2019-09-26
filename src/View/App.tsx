@@ -1,15 +1,20 @@
 import React, { Suspense } from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from 'react-router-dom';
 import { Loading } from './Home/component';
 import store from '../store';
 import api from '../request/api';
 import { getQueryString } from '../utils';
 import { updateUserInfo } from '@/store/action';
-import Redirect from './redirect';
+import RedirectPage from './redirect';
 
 const Home = React.lazy(() => import('./Home'));
-const Draw = React.lazy(() => import('./Draw'));
+// const Draw = React.lazy(() => import('./Draw'));
 const Detail = React.lazy(() => import('./Detail'));
 const Spread = React.lazy(() => import('./Spread'));
 const Group = React.lazy(() => import('./Group'));
@@ -23,6 +28,7 @@ const CumulativeInvitation = React.lazy(() => import('./CumulativeInvitation'));
 const CumulativeOrder = React.lazy(() => import('./CumulativeOrder'));
 const SharePageGsw = React.lazy(() => import('./SharePageGsw'));
 const SharePageQzw = React.lazy(() => import('./SharePageQzw'));
+const PromotionRules = React.lazy(() => import('./PromotionRules'));
 
 const state = store.getState();
 
@@ -88,8 +94,8 @@ class App extends React.Component<{}, State> {
           <Suspense fallback={<Loading />}>
             <Switch>
               <Route path="/" exact component={Home}></Route>
-              <Route path="/redirect" exact component={Redirect}></Route>
-              <Route path="/draw" exact component={Draw}></Route>
+              <Route path="/redirect" exact component={RedirectPage}></Route>
+              {/* <Route path="/draw" exact component={Draw}></Route> */}
               <Route path="/detail" exact component={Detail}></Route>
               <Route path="/spread" exact component={Spread}></Route>
               <Route path="/group" exact component={Group}></Route>
@@ -127,10 +133,16 @@ class App extends React.Component<{}, State> {
                 component={CumulativeInvitation}
               ></Route>
               <Route
-                path="/cumulativeOrder"
+                path="/cumulativeOrder/:id"
                 exact
                 component={CumulativeOrder}
               ></Route>
+              <Route
+                path="/promotionRules"
+                exact
+                component={PromotionRules}
+              ></Route>
+              <Redirect to="/"></Redirect>
             </Switch>
           </Suspense>
         </Router>

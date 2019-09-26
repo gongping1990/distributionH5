@@ -5,7 +5,7 @@ import api from '@/request/api';
 
 import { ICenter, IOrder, IConfig } from '../type/home.type';
 import styles from '../styles/index.module.scss';
-import { Title, TestItem, CourseItem } from '../component';
+import { Title, TestItem, CourseItem, Mask } from '../component';
 import phoneIcon from '../../../assets/images/home/icon_phone.png';
 import gkIcon from '../../../assets/images/home/icon_gk.png';
 import banner from '../../../assets/images/home/banner@2x.png';
@@ -59,6 +59,7 @@ class Home extends Component<Props, State> {
   };
 
   componentWillMount() {
+    document.title = '推广中心';
     this.getPromoterCenter();
   }
 
@@ -132,7 +133,9 @@ class Home extends Component<Props, State> {
     });
   };
   toJumpTwo = () => {
-    this.props.history.push('/cumulativeOrder');
+    this.props.history.push({
+      pathname: `/cumulativeOrder/${getUserInfo.userId}`
+    });
   };
 
   formatPrice(price: number): string {
@@ -147,29 +150,7 @@ class Home extends Component<Props, State> {
     let { formatPrice, bindClickCourseItem, bindClickTest } = this;
     return (
       <div className="container">
-        {showMask && (
-          <div
-            className={`${styles.mask} ${step && styles.show}`}
-            onClick={this.onClickMask}
-          >
-            {step && (
-              <div className={styles.maskContent}>
-                <i></i>
-                <p>
-                  1.点击右上角分享按钮
-                  <br />
-                  2.发送给朋友或分享到朋友圈
-                </p>
-                <p>
-                  严禁发送到任何小语轻作文、
-                  <br />
-                  每日一首古诗词的微信群。
-                </p>
-                <span>（如有发现将永久取消推广资格）</span>
-              </div>
-            )}
-          </div>
-        )}
+        {showMask && <Mask onClick={this.onClickMask} show={step == 1}></Mask>}
 
         <div className={styles.header}>
           <div className={styles.user}>

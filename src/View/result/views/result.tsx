@@ -30,6 +30,7 @@ class Join extends Component<{}, State> {
   };
 
   componentWillMount() {
+    document.title = '加盟审核';
     this.getReviewResultById();
   }
 

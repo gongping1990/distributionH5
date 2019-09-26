@@ -3,7 +3,7 @@ import { Modal } from 'antd-mobile';
 import { Input } from '../component';
 import { Toast } from 'antd-mobile';
 import api from '@/request/api';
-import { checkPhone } from '@/utils';
+import { checkPhone, getQueryString } from '@/utils';
 import styles from '../styles/index.module.scss';
 
 export default class Introduce extends Component {
@@ -39,6 +39,11 @@ export default class Introduce extends Component {
 
   getapplyPromoter() {
     let { code, phone } = this.state;
+    let franchiseeId = getQueryString('franchiseeId');
+    let params: any = {
+      code,
+      phone
+    };
     if (!checkPhone(phone)) {
       Toast.info('请填写正确的手机号！');
       return;
@@ -47,6 +52,7 @@ export default class Introduce extends Component {
       Toast.info('请填写验证码！');
       return;
     }
+    franchiseeId && (params.franchiseeId = franchiseeId);
     api.distributie
       .applyPromoter({
         code,

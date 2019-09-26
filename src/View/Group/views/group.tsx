@@ -68,7 +68,7 @@ class Group extends Component<Props, State> {
   }
 
   componentDidMount() {
-    console.log(this.state.courseId);
+    document.title = '拼团详情';
     this.init();
   }
 

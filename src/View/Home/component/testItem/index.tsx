@@ -33,15 +33,13 @@ const Test: React.FC<Props> = ({
       </div>
       <div className={styles.right}>
         <button
-          className={`${styles.btn} ${
-            total === process ? styles.disabled : ''
-          }`}
+          className={`${styles.btn} ${total === process && styles.disabled}`}
           disabled={total === process}
           onClick={() => {
             onClick();
           }}
         >
-          去邀请
+          {total === process ? '已完成' : '去邀请'}
         </button>
         <span className={styles.progress}>
           完成<i>{process}</i>/{total}

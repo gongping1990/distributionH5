@@ -50,6 +50,9 @@ export default class Home extends Component<Props, State> {
   componentWillMount() {
     this.getFranchiseeCenter();
   }
+  componentDidMount() {
+    document.title = '加盟商中心';
+  }
 
   getFranchiseeCenter() {
     api.distributie.getFranchiseeCenter().then(({ data }) => {

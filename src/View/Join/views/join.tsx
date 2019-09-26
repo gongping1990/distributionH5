@@ -26,7 +26,7 @@ class Join extends Component<Props, State> {
   };
 
   componentDidMount() {
-    document.title = '申请成为加盟商';
+    document.title = '加盟商申请';
   }
 
   postApplyFranchisee() {

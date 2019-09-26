@@ -1,0 +1,100 @@
+@import '../../../styles/base.scss';
+
+.p-promotionRules {
+  width: 375px;
+  height: 955px;
+  background: linear-gradient(
+    180deg,
+    rgba(254, 111, 63, 1) 0%,
+    rgba(255, 165, 106, 1) 100%
+  );
+
+  &-top {
+    display: inline-block;
+    text-align: center;
+    width: 343px;
+    height: 270px;
+    margin: 24px 16px 0;
+    padding: 24px 0;
+    background: rgba(255, 249, 239, 1);
+    box-shadow: 0px 2px 8px 2px rgba(239, 141, 75, 0.6);
+    border-radius: 4px;
+
+    .-top-title {
+      font-size: 20px;
+      font-weight: 500;
+      color: rgba(51, 51, 51, 0.9);
+      line-height: 28px;
+    }
+
+    .-top-small {
+      font-size: 16px;
+      font-weight: 500;
+      color: rgba(51, 51, 51, 0.9);
+      line-height: 28px;
+    }
+
+    .-top-img {
+      margin: 8px auto 0;
+      width: 164px;
+      height: 164px;
+      border-radius: 8px;
+      border: 2px solid rgba(254, 129, 77, 1);
+    }
+  }
+
+  &-down {
+    margin: 44px auto 0;
+    padding: 0 18px;
+    width: 343px;
+    height: 586px;
+    background: rgba(255, 249, 239, 1);
+    box-shadow: 0px 2px 8px 2px rgba(239, 141, 75, 0.6);
+    border-radius: 4px;
+
+    .-down-title {
+      text-align: center;
+      margin: 0 auto;
+      transform: translateY(-20px);
+      width: 216px;
+      height: 40px;
+      background: linear-gradient(
+        360deg,
+        rgba(254, 149, 18, 1) 0%,
+        rgba(255, 206, 8, 1) 100%
+      );
+      box-shadow: 4px 2px 4px 2px rgba(255, 180, 13, 0.09);
+      border-radius: 23px;
+      font-size: 18px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 40px;
+      text-shadow: 0px 2px 4px rgba(212, 152, 10, 1);
+    }
+
+    .-down-item {
+      transform: translateY(-20px);
+      margin-top: 24px;
+
+      &-title {
+        font-size: 18px;
+        font-weight: 500;
+        color: rgba(255, 105, 59, 1);
+        line-height: 25px;
+      }
+
+      &-text {
+        margin-top: 8px;
+        font-size: 14px;
+        font-weight: 400;
+        color: rgba(37, 37, 37, 0.7);
+        line-height: 20px;
+      }
+
+      &-img {
+        margin-top: 12px;
+        width: 100%;
+      }
+    }
+  }
+}
