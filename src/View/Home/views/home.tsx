@@ -9,11 +9,15 @@ import { Title, TestItem, CourseItem } from '../component';
 import phoneIcon from '../../../assets/images/home/icon_phone.png';
 import gkIcon from '../../../assets/images/home/icon_gk.png';
 import banner from '../../../assets/images/home/banner@2x.png';
+import store from '@/store';
+
+const getUserInfo = store.getState().user;
 
 interface Props {
   user: {
     nickname: string;
     headimgurl: string;
+    useId: string;
   };
   history: any;
 }
@@ -34,6 +38,7 @@ class Home extends Component<Props, State> {
       blockingAmount: 0, //冻结金额(分)
       headimgurl: '', // 头像
       nickname: '', // 昵称
+      useId: '', // 昵称
       orderList: []
     },
     configData: {
@@ -89,6 +94,15 @@ class Home extends Component<Props, State> {
       });
   }
 
+  toJumpOne = () => {
+    this.props.history.push({
+      pathname: `/cumulativeInvitation/${getUserInfo.userId}`
+    });
+  };
+  toJumpTwo = () => {
+    this.props.history.push('/cumulativeOrder');
+  };
+
   formatPrice(price: number): string {
     return (price / 100).toFixed(2);
   }
@@ -136,11 +150,11 @@ class Home extends Component<Props, State> {
               </Link>
             </div>
             <div className={styles.static}>
-              <div className={styles['static-item']}>
+              <div className={styles['static-item']} onClick={this.toJumpOne}>
                 <p className={styles['static-num']}>{centerData.allInvite}</p>
                 <p className={styles['static-text']}>累计邀请</p>
               </div>
-              <div className={styles['static-item']}>
+              <div className={styles['static-item']} onClick={this.toJumpTwo}>
                 <p className={styles['static-num']}>{centerData.allOrder}</p>
                 <p className={styles['static-text']}>累计订单</p>
               </div>

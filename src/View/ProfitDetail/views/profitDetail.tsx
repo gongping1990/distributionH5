@@ -153,7 +153,7 @@ export default class ProfitDetail extends Component<{}, State> {
     return (
       <div className="container">
         <div className={styles.header}>
-          <Link className={styles.link} to="/">
+          <Link className={styles.link} to="/discountRecord">
             提现记录
             <i></i>
           </Link>
