@@ -18,7 +18,7 @@ export default class PromotionRules extends Component<{}, State> {
       {
         id: 1,
         name: '收益说明',
-        text: '推广人的推广收益为推广课程下单金额的20',
+        text: '推广人的推广收益为推广课程下单金额的20%',
         img: ''
       },
       {
