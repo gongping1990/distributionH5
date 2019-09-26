@@ -167,9 +167,9 @@ class Home extends Component<Props, State> {
                 </span>
               </div>
             </div>
-            <p className={styles.strategy}>
+            <Link to="/promotionRules" className={styles.strategy}>
               推广攻略 <i></i>
-            </p>
+            </Link>
           </div>
           <div className={styles.profit}>
             <div className={`${styles['profit-header']} hk-hairline--bottom`}>
