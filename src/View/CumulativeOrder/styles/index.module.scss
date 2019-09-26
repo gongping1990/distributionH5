@@ -77,4 +77,23 @@
       background-color: #ff7d36;
     }
   }
+
+  &-empty {
+    text-align: center;
+
+    .emptyIcon {
+      margin: 79px auto 43px;
+      background: url('../../../assets/images/home/lion.png') no-repeat;
+      background-size: 100%;
+      width: 191px;
+      height: 191px;
+    }
+
+    .emptyText {
+      height: 16px;
+      font-size: 17px;
+      font-weight: bold;
+      color: rgba(51, 51, 51, 1);
+    }
+  }
 }

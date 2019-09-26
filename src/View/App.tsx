@@ -23,6 +23,7 @@ const CumulativeInvitation = React.lazy(() => import('./CumulativeInvitation'));
 const CumulativeOrder = React.lazy(() => import('./CumulativeOrder'));
 const SharePageGsw = React.lazy(() => import('./SharePageGsw'));
 const SharePageQzw = React.lazy(() => import('./SharePageQzw'));
+const PromotionRules = React.lazy(() => import('./PromotionRules'));
 
 const state = store.getState();
 
@@ -127,9 +128,14 @@ class App extends React.Component<{}, State> {
                 component={CumulativeInvitation}
               ></Route>
               <Route
-                path="/cumulativeOrder"
+                path="/cumulativeOrder/:id"
                 exact
                 component={CumulativeOrder}
+              ></Route>
+              <Route
+                path="/promotionRules"
+                exact
+                component={PromotionRules}
               ></Route>
             </Switch>
           </Suspense>
