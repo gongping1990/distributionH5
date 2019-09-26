@@ -91,6 +91,7 @@ class Group extends Component<Props, State> {
 
   init() {
     this.getGroupOrderDetails();
+    this.reWexin();
   }
 
   getGroupOrderDetails() {

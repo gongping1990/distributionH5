@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import api from '@/request/api';
-
+import { reWexin } from '@/utils';
 import { ICenter, IOrder, IConfig } from '../type/home.type';
 import styles from '../styles/index.module.scss';
 import { Title, TestItem, CourseItem, Mask } from '../component';
@@ -13,15 +13,16 @@ import store from '@/store';
 
 const getUserInfo = store.getState().user;
 
-// enum UserType {
-//   EXTENSION, //推广人
-//   FRANCHISEE //加盟商
-// }
+enum UserType {
+  EXTENSION, //推广人
+  FRANCHISEE //加盟商
+}
 interface Props {
   user: {
     nickname: string;
     headimgurl: string;
     useId: string;
+    inviteCode: any;
   };
   history: any;
 }
@@ -63,7 +64,7 @@ class Home extends Component<Props, State> {
     this.getPromoterCenter();
   }
 
-  bindClickCourseItem = (id: number, type: number) => {
+  bindClickCourseItem = (id: number, type: number, mode: any) => {
     switch (type) {
       case 1:
         this.createGroup(id);
@@ -72,6 +73,12 @@ class Home extends Component<Props, State> {
         this.setState({
           step: 1,
           showMask: true
+        });
+        reWexin({
+          title: '1',
+          doc: '1',
+          url: `${window.location.origin}/redirect?&mode=${mode}&inviteCode=${this.props.user.inviteCode}&type=0`,
+          img: '1'
         });
     }
   };
@@ -100,9 +107,9 @@ class Home extends Component<Props, State> {
   getPromoterCenter() {
     api.distributie.getPromoterCenter().then(({ data }) => {
       if (data.resultData) {
-        // if (data.resultData.type == UserType.FRANCHISEE) {
-        //   this.props.history.replace('/spread')
-        // }
+        if (data.resultData.type == UserType.FRANCHISEE) {
+          this.props.history.replace('/spread');
+        }
         this.setState({
           centerData: data.resultData
         });
