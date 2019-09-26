@@ -100,7 +100,9 @@ class Home extends Component<Props, State> {
     });
   };
   toJumpTwo = () => {
-    this.props.history.push('/cumulativeOrder');
+    this.props.history.push({
+      pathname: `/cumulativeOrder/${getUserInfo.userId}`
+    });
   };
 
   formatPrice(price: number): string {

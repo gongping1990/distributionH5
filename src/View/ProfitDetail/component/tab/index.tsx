@@ -14,10 +14,10 @@ const Tab: React.FC<Props> = ({ onClick: clickTabItem, itemList, active }) => {
       {itemList.map((e: Item, i) => {
         return (
           <div
-            className={`${styles.item} ${i === active && styles.active}`}
+            className={`${styles.item} ${e.id === active && styles.active}`}
             key={e.id}
             onClick={() => {
-              clickTabItem(i);
+              clickTabItem(e.id);
             }}
           >
             {e.name}

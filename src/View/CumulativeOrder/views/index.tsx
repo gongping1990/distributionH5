@@ -1,72 +1,176 @@
 import React, { Component } from 'react';
 import styles from '../styles/index.module.scss';
 import Tab from '../../ProfitDetail/component/tab';
+import api from '@/request/api';
+import { ListView } from 'antd-mobile';
+
+interface IList {
+  distributionAmount: number;
+  id: number;
+  incomeStatus: number;
+  gmtCreate: string;
+  courseName: string;
+  thirdHeadimgurl: string;
+  thirdNickname: string;
+}
 
 interface State {
-  itemList: Object[];
+  itemList: IList[];
   tabActive: number;
+  total: number;
+  dataSource: any;
+  page: {
+    current: number;
+    size: number;
+    incomeStatus: number;
+  };
 }
 
 export default class CumulativeOrder extends Component<{}, State> {
+  lv: any = {};
   state = {
+    page: {
+      current: 1,
+      size: 10,
+      incomeStatus: 0
+    },
+    total: 0,
     tabActive: 0,
+    dataSource: new ListView.DataSource({
+      rowHasChanged: (row1: any, row2: any) => row1 !== row2
+    }),
+    isLoading: false,
     tabList: [
       { name: '全部的', id: 0 },
-      { name: '已获得', id: 1 },
-      { name: '冻结中', id: 2 },
-      { name: '已退款', id: 3 }
+      { name: '已获得', id: 10 },
+      { name: '冻结中', id: 1 },
+      { name: '已退款', id: 5 }
     ],
-    itemList: [
-      {
-        id: '1',
-        name: '小缪咪',
-        courseName: '小语轻作文',
-        headimgurl:
-          'https://pub.file.k12.vip/2019/09/10/1171235902187249666.jpg',
-        type: '1',
-        price: '30',
-        date: '2019-08-20'
-      },
-      {
-        id: '2',
-        name: '唐小夕',
-        courseName: '每日一首古诗词（升级版）',
-        headimgurl:
-          'https://pub.file.k12.vip/2019/09/10/1171235976753586178.png',
-        type: '2',
-        price: '50',
-        date: '2019-08-19'
-      },
-      {
-        id: '3',
-        name: '娃哈哈',
-        courseName: '小语轻作文',
-        headimgurl:
-          'https://pub.file.k12.vip/2019/09/10/1171236123625529346.jpg',
-        type: '3',
-        price: '198',
-        date: '2019-08-12'
-      }
-    ],
+    itemList: [],
     typeList: {
       '1': '冻结中',
-      '2': '已获得',
-      '3': '已退款'
+      '10': '已获得',
+      '5': '已退款'
     },
     typeColor: {
       '1': styles['tips-one'],
-      '2': styles['tips-two'],
-      '3': styles['tips-three']
+      '10': styles['tips-two'],
+      '5': styles['tips-three']
     }
   };
 
   clickTabItem = (index: number) => {
-    this.setState({
-      tabActive: index
-    });
+    console.log(index);
+    let incomeStatus = index;
+    this.setState(
+      {
+        tabActive: index,
+        itemList: [],
+        page: {
+          ...this.state.page,
+          current: 1,
+          incomeStatus
+        }
+      },
+      () => {
+        this.getOrder();
+      }
+    );
   };
+
+  componentDidMount() {
+    this.getOrder();
+  }
+
+  getOrder() {
+    let { current, size, incomeStatus } = this.state.page;
+    let { itemList, isLoading } = this.state;
+    isLoading = true;
+    api.distributie
+      .getOrder({
+        current,
+        size,
+        incomeStatus
+      })
+      .then(
+        ({ data }) => {
+          if (current > 1) {
+            this.setState({
+              itemList: this.state.dataSource.cloneWithRows(
+                itemList.concat(data.resultData.records)
+              )
+            });
+          } else {
+            this.setState({
+              itemList: this.state.dataSource.cloneWithRows(
+                data.resultData.records
+              )
+            });
+          }
+
+          this.setState({
+            total: data.resultData.total
+          });
+          isLoading = false;
+        },
+        () => {
+          isLoading = false;
+        }
+      );
+  }
+
+  onEndReached = () => {
+    console.log('加载更多');
+    let { page, total } = this.state;
+    if (this.state.isLoading) {
+      return;
+    }
+    if (page.current < Math.ceil(total / page.size)) {
+      page.current++;
+      this.getOrder();
+    }
+  };
+
+  formatPrice(price: number): string {
+    return Number(+price / 100).toFixed(2);
+  }
+
   render() {
-    let { itemList, typeList, typeColor, tabActive, tabList } = this.state;
+    let {
+      itemList,
+      typeList,
+      typeColor,
+      tabActive,
+      tabList,
+      isLoading,
+      dataSource
+    } = this.state;
+
+    const row = (item: any, sectionID: any, rowID: any) => {
+      return (
+        <div className={styles['p-cumulativeOrder-item']} key={item.id}>
+          <div className={styles['left-wrap']}>
+            <div className={styles['left-wrap-time']}>{item.date}</div>
+            <div className={styles['left-wrap-user']}>
+              <img className={styles['left-wrap-img']} src={item.headimgurl} />
+              <div>{item.name}</div>
+            </div>
+            <div>{item.courseName}</div>
+          </div>
+          <div className={styles['right-wrap']}>
+            <p
+              className={`${styles['right-wrap-text']} ${typeColor[item.type]}`}
+            >
+              {typeList[item.type]}
+            </p>
+            <p className={styles['right-wrap-price']}>
+              收益：+{this.formatPrice(item.distributionAmount)}元
+            </p>
+          </div>
+        </div>
+      );
+    };
+
     return (
       <div className="container">
         <div className={styles['p-cumulativeOrder']}>
@@ -77,35 +181,29 @@ export default class CumulativeOrder extends Component<{}, State> {
               active={tabActive}
             ></Tab>
           </div>
-          {itemList.map(item => {
-            return (
-              <div className={styles['p-cumulativeOrder-item']} key={item.id}>
-                <div className={styles['left-wrap']}>
-                  <div className={styles['left-wrap-time']}>{item.date}</div>
-                  <div className={styles['left-wrap-user']}>
-                    <img
-                      className={styles['left-wrap-img']}
-                      src={item.headimgurl}
-                    />
-                    <div>{item.name}</div>
-                  </div>
-                  <div>{item.courseName}</div>
+          {itemList.length ? (
+            <ListView
+              ref={el => (this.lv = el)}
+              dataSource={dataSource}
+              renderFooter={() => (
+                <div style={{ paddingTop: 10, textAlign: 'center' }}>
+                  {isLoading ? 'Loading...' : '已加载全部'}
                 </div>
-                <div className={styles['right-wrap']}>
-                  <p
-                    className={`${styles['right-wrap-text']} ${
-                      typeColor[item.type]
-                    }`}
-                  >
-                    {typeList[item.type]}
-                  </p>
-                  <p className={styles['right-wrap-price']}>
-                    收益：+{item.price}元
-                  </p>
-                </div>
-              </div>
-            );
-          })}
+              )}
+              renderRow={row}
+              className="p-discountRecord-list"
+              pageSize={10}
+              useBodyScroll
+              scrollRenderAheadDistance={500}
+              onEndReached={this.onEndReached}
+              onEndReachedThreshold={10}
+            />
+          ) : (
+            <div className={styles['p-cumulativeOrder-empty']}>
+              <div className={styles.emptyIcon}></div>
+              <div className={styles.emptyText}>暂无数据</div>
+            </div>
+          )}
         </div>
       </div>
     );

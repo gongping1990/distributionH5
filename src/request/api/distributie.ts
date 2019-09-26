@@ -21,6 +21,11 @@ const distributie = {
       params
     });
   },
+  getOrder(params: IIncome) {
+    return axios.get('/distributionOrder/getOrder', {
+      params
+    });
+  },
   getPromoterCenter() {
     return axios.get('/discenter/getPromoterCenter');
   },

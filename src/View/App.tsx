@@ -127,7 +127,7 @@ class App extends React.Component<{}, State> {
                 component={CumulativeInvitation}
               ></Route>
               <Route
-                path="/cumulativeOrder"
+                path="/cumulativeOrder/:id"
                 exact
                 component={CumulativeOrder}
               ></Route>
