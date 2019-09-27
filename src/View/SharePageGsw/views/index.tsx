@@ -3,7 +3,7 @@ import styles from '../styles/index.module.scss';
 import html2canvas from 'html2canvas';
 import qs from 'querystring';
 import api from '@/request/api';
-
+import bgImg from '../../../assets/images/share/img.png';
 interface Props {
   location: any;
 }
@@ -115,7 +115,7 @@ export default class DiscountResult extends Component<Props, State> {
               </div>
             </div>
             <div className={styles['p-sharePageGsw-content']}>
-              <div className={styles['-content-top']}></div>
+              <img className={styles['-content-top']} src={bgImg} alt="" />
               <div className={styles['-content-down']}>
                 <div className={styles['-content-down-left']}>
                   <div className={styles['-left-one']}>
