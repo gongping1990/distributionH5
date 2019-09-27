@@ -110,51 +110,44 @@ export default class Introduce extends Component<Props> {
     let { downTime } = this.state;
     return (
       <div className={styles.introduce}>
-        <div className={styles['introduce-btn-wrap']}>
-          <div className={styles['introduce-btn']}></div>
-        </div>
-        <Modal visible={true} popup wrapClassName={styles.popupWrap}>
-          <div className={styles.popup}>
-            <div className={`hk-hairline--bottom ${styles.input}`}>
-              <i className={styles['icon-phone']}></i>
-              <Input
-                name="phone"
-                type="phone"
-                value={this.state.phone}
-                placeholder="请输入手机号"
-                onChange={this.onInputChange}
-                onClose={this.onClickClose}
-              ></Input>
-            </div>
-            <div className={`hk-hairline--bottom ${styles.input}`}>
-              <i className={styles['icon-code']}></i>
-              <Input
-                name="code"
-                type="text"
-                value={this.state.code}
-                placeholder="请输入验证码"
-                onChange={this.onInputChange}
-              ></Input>
-              <button
-                disabled={!!downTime}
-                className={`${styles.codeBtn} ${
-                  downTime ? styles.disable : ''
-                }`}
-                onClick={this.bindclickSendCode}
-              >
-                {downTime ? `${downTime}s` : '获取验证码'}
-              </button>
-            </div>
-            <div
-              className={styles.btn}
-              onClick={() => {
-                this.getapplyPromoter();
-              }}
-            >
-              成为推广人
-            </div>
+        <div className={styles.popup}>
+          <div className={`hk-hairline--bottom ${styles.input}`}>
+            <i className={styles['icon-phone']}></i>
+            <Input
+              name="phone"
+              type="phone"
+              value={this.state.phone}
+              placeholder="请输入手机号"
+              onChange={this.onInputChange}
+              onClose={this.onClickClose}
+            ></Input>
           </div>
-        </Modal>
+          <div className={`hk-hairline--bottom ${styles.input}`}>
+            <i className={styles['icon-code']}></i>
+            <Input
+              name="code"
+              type="text"
+              value={this.state.code}
+              placeholder="请输入验证码"
+              onChange={this.onInputChange}
+            ></Input>
+            <button
+              disabled={!!downTime}
+              className={`${styles.codeBtn} ${downTime ? styles.disable : ''}`}
+              onClick={this.bindclickSendCode}
+            >
+              {downTime ? `${downTime}s` : '获取验证码'}
+            </button>
+          </div>
+          <div
+            className={styles.btn}
+            onClick={() => {
+              this.getapplyPromoter();
+            }}
+          >
+            成为推广人
+          </div>
+        </div>
       </div>
     );
   }

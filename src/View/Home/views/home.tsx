@@ -28,6 +28,7 @@ interface State {
   centerData: ICenter;
   configData: IConfig;
   showMask: boolean;
+  showShareMask: boolean;
   step: number;
 }
 
@@ -54,7 +55,8 @@ class Home extends Component<Props, State> {
       wechatId: ''
     },
     step: 0,
-    showMask: false
+    showMask: false,
+    showShareMask: false
   };
 
   componentWillMount() {
@@ -80,8 +82,7 @@ class Home extends Component<Props, State> {
         break;
       default:
         this.setState({
-          step: 1,
-          showMask: true
+          showShareMask: true
         });
         reWexin({
           title: '1',
@@ -100,17 +101,9 @@ class Home extends Component<Props, State> {
   };
 
   onClickMask = () => {
-    let { step } = this.state;
-    if (!step) {
-      this.setState({
-        step: 1
-      });
-    } else {
-      this.setState({
-        step: 0,
-        showMask: false
-      });
-    }
+    this.setState({
+      showShareMask: false
+    });
   };
 
   getPromoterCenter() {
@@ -159,6 +152,12 @@ class Home extends Component<Props, State> {
     });
   };
 
+  onCloseMak = () => {
+    this.setState({
+      showMask: false
+    });
+  };
+
   formatPrice(price: number): string {
     return (price / 100).toFixed(2);
   }
@@ -167,14 +166,12 @@ class Home extends Component<Props, State> {
     let centerData: ICenter = this.state.centerData as ICenter;
     let orderLisr: IOrder[] = centerData.orderList;
     let { directQrcode } = this.state.configData;
-    let { showMask, step } = this.state;
-    let { formatPrice, bindClickCourseItem, bindClickTest } = this;
+    let { showMask, step, showShareMask } = this.state;
+    let { formatPrice, bindClickCourseItem, bindClickTest, onCloseMak } = this;
     return (
       <div className="container">
-        {showMask && step === 1 && (
-          <Mask onClick={this.onClickMask} show={step === 1}></Mask>
-        )}
-
+        {showShareMask && <Mask onClick={this.onClickMask}></Mask>}
+        {showMask && <div className={styles.mask} onClick={onCloseMak}></div>}
         <div className={styles.header}>
           <div className={styles.user}>
             <div className={styles['user-content']}>

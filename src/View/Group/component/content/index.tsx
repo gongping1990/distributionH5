@@ -97,11 +97,13 @@ const Item: React.FC<Props> = ({
           重新开团
         </div>
       )}
-      {hasVatural.length && (
+      {hasVatural.length ? (
         <div className={styles.msg}>
           <span>注：匿名用户为系统在拼团截止时自动邀请加入该团的用户，</span>
           <span>并非您所邀请，因此您无法获得匿名用户购课的佣金。</span>
         </div>
+      ) : (
+        ''
       )}
     </div>
   );

@@ -54,6 +54,7 @@
   @include flex-center;
   padding: 15px 8px;
   border-radius: 10px;
+  background-color: #fff;
 }
 .btn,
 .subBtn {
@@ -81,7 +82,6 @@
 .mask {
   position: relative;
   z-index: 1200;
-  box-shadow: 1px 1px 1px 2000px rgba(0, 0, 0, 0.8);
   &-content {
     @include flex-col-center;
     position: absolute;
