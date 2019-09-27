@@ -95,7 +95,6 @@ class Group extends Component<Props, State> {
 
   init() {
     this.getGroupOrderDetails();
-    this.reWexin();
   }
 
   getGroupOrderDetails() {
@@ -124,9 +123,14 @@ class Group extends Component<Props, State> {
             });
           }
         }
-        this.setState({
-          orderData: data.resultData
-        });
+        this.setState(
+          {
+            orderData: data.resultData
+          },
+          () => {
+            this.reWexin();
+          }
+        );
       });
   }
 
@@ -193,12 +197,13 @@ class Group extends Component<Props, State> {
   }
 
   reWexin() {
-    let { id, type } = this.state;
+    let { id, type, orderData } = this.state;
+    let order: any = orderData;
     reWexin({
-      title: '1',
-      doc: '1',
+      title: order.groupbtitle,
+      doc: order.groupstitle,
       url: `${window.location.origin}/redirect?id=${id}&mode=${type}&inviteCode=${this.props.user.inviteCode}&type=1`,
-      img: '1'
+      img: order.groupimgurl
     });
   }
 

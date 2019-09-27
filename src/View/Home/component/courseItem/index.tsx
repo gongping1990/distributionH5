@@ -16,7 +16,8 @@ const Course: React.FC<Props & IOrder> = ({
   onClick,
   index,
   discernCode,
-  showMask = false
+  showMask = false,
+  groupOrderInfo
 }) => {
   return (
     <div className={styles.course}>
@@ -51,7 +52,7 @@ const Course: React.FC<Props & IOrder> = ({
               onClick(courseId, 1, discernCode, index);
             }}
           >
-            开团邀请
+            {!groupOrderInfo.havingOrder ? '开团邀请' : '开团中..'}
           </button>
           <button
             className={styles.btn}

@@ -1,5 +1,7 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { StickyContainer, Sticky } from 'react-sticky';
+import { getQueryString } from '@/utils';
 import styles from './index.module.scss';
 import bg1 from '@/assets/images/tkr/00.png';
 import bg2 from '@/assets/images/tkr/01.png';
@@ -22,51 +24,79 @@ export default class App extends React.Component {
   img3: any;
 
   state = {
-    active: 0
+    active: 0,
+    id: 0
   };
 
   constructor(props: any) {
     super(props);
+
     this.img1 = React.createRef();
     this.img2 = React.createRef();
     this.img3 = React.createRef();
   }
 
   componentDidMount() {
+    let id = getQueryString('id');
+    id &&
+      this.setState({
+        id
+      });
     setTimeout(() => {
       this.initScrollTop();
     }, 3000);
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScrollTop);
+  }
+
   initScrollTop() {
-    let { img1, img2, img3 } = this;
-    console.log(this.img1.current.offsetTop);
     // let { scroll, detailNav, img1, img2, img3 } = this.$refs;
     // let navTop = detailNav.offsetTop;
-    window.addEventListener('scroll', () => {
-      let scroll = this.ScollPostion();
-      let scrollTop: number = scroll.top as number;
-      let img1Top = img1.current.offsetTop - 57;
-      let img2Top = img2.current.offsetTop - 44;
-      let img3Top = img3.current.offsetTop - 44;
-      console.log(scrollTop, img1Top, img2Top, img3Top);
-      let active = 0;
-
-      if (scrollTop >= img1Top && scrollTop < img2Top) {
-        active = 0;
-      }
-      if (scrollTop >= img2Top && scrollTop < img3Top) {
-        active = 1;
-      }
-      if (scrollTop >= img3Top) {
-        active = 2;
-      }
-      console.log(active);
-      this.setState({
-        active
-      });
-    });
+    window.addEventListener('scroll', this.onScrollTop);
   }
+
+  onScrollTop = () => {
+    let { img1, img2, img3 } = this;
+    let scroll = this.ScollPostion();
+    let scrollTop: number = scroll.top as number;
+    let img1Top = img1.current.offsetTop - 57;
+    let img2Top = img2.current.offsetTop - 100;
+    let img3Top = img3.current.offsetTop - 100;
+    let active = 0;
+
+    if (scrollTop >= img1Top && scrollTop < img2Top) {
+      active = 0;
+    }
+    if (scrollTop >= img2Top && scrollTop < img3Top) {
+      active = 1;
+    }
+    if (scrollTop >= img3Top) {
+      active = 2;
+    }
+    this.setState({
+      active
+    });
+  };
+
+  binClickNavBtn = (type: number) => {
+    let { img1, img2, img3 } = this;
+    let img1Top = img1.current.offsetTop - 57;
+    let img2Top = img2.current.offsetTop - 100;
+    let img3Top = img3.current.offsetTop - 100;
+    switch (type) {
+      case 1:
+        window.scrollTo(0, img2Top);
+        break;
+      case 2:
+        window.scrollTo(0, img3Top);
+        break;
+      default:
+        window.scrollTo(0, img1Top);
+        break;
+    }
+  };
 
   ScollPostion() {
     var t, l, w, h;
@@ -90,7 +120,9 @@ export default class App extends React.Component {
   }
 
   public render() {
-    let { active } = this.state;
+    let { binClickNavBtn } = this;
+    let { active, id } = this.state;
+
     return (
       <div className={styles.page}>
         <div className={styles.banner}>
@@ -98,22 +130,35 @@ export default class App extends React.Component {
         </div>
         <StickyContainer>
           <div className={styles.content}>
-            <div className={styles.nav}>
-              <div className={styles['nav-btn-wrap']}>
-                <div
-                  className={`${styles['nav-btn']} ${styles.jr} ${!active &&
-                    styles.active}`}
-                ></div>
-                <div
-                  className={`${styles['nav-btn']} ${styles.qy} ${active ===
-                    1 && styles.active}`}
-                ></div>
-                <div
-                  className={`${styles['nav-btn']} ${styles.tg} ${active ===
-                    2 && styles.active}`}
-                ></div>
-              </div>
-            </div>
+            <Sticky>
+              {({ style }) => (
+                <div className={styles.nav} style={{ ...style }}>
+                  <div className={styles['nav-btn-wrap']}>
+                    <div
+                      onClick={() => {
+                        binClickNavBtn(0);
+                      }}
+                      className={`${styles['nav-btn']} ${styles.jr} ${!active &&
+                        styles.active}`}
+                    ></div>
+                    <div
+                      onClick={() => {
+                        binClickNavBtn(1);
+                      }}
+                      className={`${styles['nav-btn']} ${styles.qy} ${active ===
+                        1 && styles.active}`}
+                    ></div>
+                    <div
+                      onClick={() => {
+                        binClickNavBtn(2);
+                      }}
+                      className={`${styles['nav-btn']} ${styles.tg} ${active ===
+                        2 && styles.active}`}
+                    ></div>
+                  </div>
+                </div>
+              )}
+            </Sticky>
             <img ref={this.img1} src={bg2} alt="" />
             <img src={bg3} alt="" />
             <img src={bg4} alt="" />
@@ -125,6 +170,10 @@ export default class App extends React.Component {
             <img src={bg10} alt="" />
             <img src={bg11} alt="" />
             <img src={bg12} alt="" />
+            <Link
+              to={`/detail${id ? '?id=' + id : ''}`}
+              className={styles.btn}
+            ></Link>
           </div>
         </StickyContainer>
       </div>

@@ -47,7 +47,7 @@ export default class Introduce extends Component<Props> {
 
   getapplyPromoter() {
     let { code, phone } = this.state;
-    let franchiseeId = getQueryString('franchiseeId');
+    let franchiseeId = getQueryString('id');
     let params: any = {
       code,
       phone
@@ -61,14 +61,9 @@ export default class Introduce extends Component<Props> {
       return;
     }
     franchiseeId && (params.franchiseeId = franchiseeId);
-    api.distributie
-      .applyPromoter({
-        code,
-        phone
-      })
-      .then(({ data }) => {
-        this.props.history.push('/');
-      });
+    api.distributie.applyPromoter(params).then(() => {
+      this.props.history.push('/');
+    });
   }
 
   startDownTime() {

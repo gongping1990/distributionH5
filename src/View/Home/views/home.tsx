@@ -74,6 +74,12 @@ class Home extends Component<Props, State> {
     let item: any = this.state.centerData.orderList[index];
     switch (type) {
       case 1:
+        if (item.groupOrderInfo.havingOrder) {
+          this.props.history.push(
+            `/group?id=${item.groupOrderInfo.orderId}&type=${mode}&courseId=${item.groupOrderInfo.courseId}`
+          );
+          return;
+        }
         this.createGroup(id, mode);
         break;
       case 2:

@@ -65,6 +65,11 @@
 .subBtn {
   @include subBtn;
 }
+
+.disabled {
+  background: #d9d5de;
+  box-shadow: none;
+}
 .yq {
   @include flex-center;
   font-size: 12px;
