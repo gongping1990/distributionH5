@@ -19,6 +19,7 @@ interface State {
   typeList: object;
   total: number;
   dataSource: any;
+  isLoading: boolean;
 }
 
 export default class DiscountRecord extends Component<{}, State> {
@@ -28,7 +29,7 @@ export default class DiscountRecord extends Component<{}, State> {
       current: 1,
       size: 10
     },
-    total: 0,
+    total: 1,
     itemList: [],
     dataSource: new ListView.DataSource({
       rowHasChanged: (row1: any, row2: any) => row1 !== row2
@@ -53,7 +54,9 @@ export default class DiscountRecord extends Component<{}, State> {
   getWithdrawRecord() {
     let { current, size } = this.state.page;
     let { itemList, isLoading, page } = this.state;
-    isLoading = true;
+    this.setState({
+      isLoading: true
+    });
     api.distributie
       .getWithdrawRecord({
         current,
@@ -67,18 +70,19 @@ export default class DiscountRecord extends Component<{}, State> {
             page: { ...page, current: current + 1 },
             itemList: list,
             dataSource: this.state.dataSource.cloneWithRows(list),
-            total: data.resultData.total
+            total: data.resultData.total,
+            isLoading: false
           });
-          isLoading = false;
         },
         () => {
-          isLoading = false;
+          this.setState({
+            isLoading: false
+          });
         }
       );
   }
 
   onEndReached = () => {
-    console.log('加载更多');
     let { total, itemList } = this.state;
     if (itemList.length >= total) return;
     this.getWithdrawRecord();

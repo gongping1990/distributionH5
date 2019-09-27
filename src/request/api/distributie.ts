@@ -44,6 +44,9 @@ const distributie = {
   getInviteCode() {
     return axios.get('/discenter/getInviteCode');
   },
+  getPlaybill(params: { courseId: string; system: number }) {
+    return axios.get('/discenter/getPlaybill', { params });
+  },
   getWithdrawRecord(params: { current: number; size: number }) {
     return axios.get('/distributorAccount/getWithdrawRecord', { params });
   },

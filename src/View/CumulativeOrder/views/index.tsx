@@ -35,7 +35,7 @@ export default class CumulativeOrder extends Component<{}, State> {
       size: 10,
       incomeStatus: 0
     },
-    total: 0,
+    total: 1,
     tabActive: 0,
     dataSource: new ListView.DataSource({
       rowHasChanged: (row1: any, row2: any) => row1 !== row2
@@ -67,6 +67,7 @@ export default class CumulativeOrder extends Component<{}, State> {
       {
         tabActive: index,
         itemList: [],
+        total: 1,
         page: {
           ...this.state.page,
           current: 1,
@@ -85,7 +86,10 @@ export default class CumulativeOrder extends Component<{}, State> {
 
   getOrder() {
     let { current, size, incomeStatus } = this.state.page;
-    let { itemList } = this.state;
+    if (this.state.itemList.length >= this.state.total) {
+      return;
+    }
+
     this.setState({
       isLoading: true
     });
@@ -96,25 +100,16 @@ export default class CumulativeOrder extends Component<{}, State> {
         incomeStatus
       })
       .then(({ data }) => {
+        let listData = [...this.state.itemList, ...data.resultData.records];
         this.setState({
-          isLoading: false
-        });
-        if (current > 1) {
-          this.setState({
-            itemList: this.state.dataSource.cloneWithRows(
-              itemList.concat(data.resultData.records)
-            )
-          });
-        } else {
-          this.setState({
-            itemList: this.state.dataSource.cloneWithRows(
-              data.resultData.records
-            )
-          });
-        }
-
-        this.setState({
-          total: data.resultData.total
+          itemList: listData,
+          isLoading: false,
+          page: {
+            ...this.state.page,
+            current: current + 1
+          },
+          total: data.resultData.total,
+          dataSource: this.state.dataSource.cloneWithRows(listData)
         });
       })
       .catch(() => {
@@ -125,15 +120,10 @@ export default class CumulativeOrder extends Component<{}, State> {
   }
 
   onEndReached = () => {
-    console.log('加载更多');
-    let { page, total } = this.state;
     if (this.state.isLoading) {
       return;
     }
-    if (page.current < Math.ceil(total / page.size)) {
-      page.current++;
-      this.getOrder();
-    }
+    this.getOrder();
   };
 
   formatPrice(price: number): string {

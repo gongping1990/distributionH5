@@ -74,7 +74,7 @@ class Home extends Component<Props, State> {
     let item: any = this.state.centerData.orderList[index];
     switch (type) {
       case 1:
-        this.createGroup(id);
+        this.createGroup(id, mode);
         break;
       case 2:
         switch (mode) {
@@ -143,14 +143,14 @@ class Home extends Component<Props, State> {
     });
   }
 
-  createGroup(courseId: number) {
+  createGroup(courseId: number, mode: number) {
     api.distributie
       .createGroup({
         courseId
       })
       .then(({ data }) => {
         this.props.history.push(
-          `/group?id=${data.resultData.orderId}&type=${data.resultData.bizSystem}&courseId=${data.resultData.courseId}`
+          `/group?id=${data.resultData.orderId}&type=${mode}&courseId=${data.resultData.courseId}`
         );
       });
   }
