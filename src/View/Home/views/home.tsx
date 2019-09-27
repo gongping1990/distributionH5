@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import qs from 'querystring';
 import api from '@/request/api';
 import { reWexin } from '@/utils';
 import { ICenter, IOrder, IConfig } from '../type/home.type';
@@ -9,7 +10,6 @@ import { Title, TestItem, CourseItem, Mask } from '../component';
 import phoneIcon from '../../../assets/images/home/icon_phone.png';
 import gkIcon from '../../../assets/images/home/icon_gk.png';
 import banner from '../../../assets/images/home/banner@2x.png';
-import store from '@/store';
 
 enum UserType {
   EXTENSION, //推广人
@@ -65,10 +65,16 @@ class Home extends Component<Props, State> {
     this.getBaseConfig();
   }
 
-  bindClickCourseItem = (id: number, type: number, mode: any) => {
+  bindClickCourseItem = (
+    id: number,
+    type: number,
+    mode: any,
+    index: number
+  ) => {
+    let item: any = this.state.centerData.orderList[index];
     switch (type) {
       case 1:
-        this.createGroup(id);
+        this.createGroup(id, mode);
         break;
       case 2:
         switch (mode) {
@@ -81,14 +87,22 @@ class Home extends Component<Props, State> {
         }
         break;
       default:
+        let params = {
+          mode,
+          inviteCode: this.props.user.inviteCode,
+          type: 0
+        };
+        console.log(
+          `${window.location.origin}/redirect?${qs.stringify(params)}`
+        );
         this.setState({
           showShareMask: true
         });
         reWexin({
-          title: '1',
-          doc: '1',
-          url: `${window.location.origin}/redirect?&mode=${mode}&inviteCode=${this.props.user.inviteCode}&type=0`,
-          img: '1'
+          title: item.directbtitle,
+          doc: item.directstitle,
+          url: `${window.location.origin}/redirect?${qs.stringify(params)}`,
+          img: item.directimgurl
         });
     }
   };
@@ -129,14 +143,14 @@ class Home extends Component<Props, State> {
     });
   }
 
-  createGroup(courseId: number) {
+  createGroup(courseId: number, mode: number) {
     api.distributie
       .createGroup({
         courseId
       })
       .then(({ data }) => {
         this.props.history.push(
-          `/group?id=${data.resultData.orderId}&type=${data.resultData.bizSystem}&courseId=${data.resultData.courseId}`
+          `/group?id=${data.resultData.orderId}&type=${mode}&courseId=${data.resultData.courseId}`
         );
       });
   }
@@ -251,6 +265,7 @@ class Home extends Component<Props, State> {
                   key={i}
                   onClick={bindClickCourseItem}
                   {...e}
+                  index={i}
                   showMask={!i && showMask && !step}
                 ></CourseItem>
               );

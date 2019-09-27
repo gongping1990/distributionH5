@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import qs from 'querystring';
+import { components } from '@/View/Home';
 import { ICourse, IOrder } from '../type';
 import { reWexin } from '@/utils';
 import api from '@/request/api';
@@ -8,6 +9,7 @@ import Header from '../component/header';
 import Content from '../component/content';
 import styles from '../styles/index.module.scss';
 
+const { Mask } = components;
 // enum ESystem {
 //   POEM = 7, // (7,"poem","每日一首古诗词")
 //   COMPOSITION = 8 //(8,"composition","小语轻作文")
@@ -26,6 +28,7 @@ interface Props {
 }
 
 interface State {
+  showMask: boolean;
   id: string;
   type: string;
   courseId: string;
@@ -45,6 +48,7 @@ class Group extends Component<Props, State> {
     let search: string = this.props.location.search.replace(/^\?/, '');
     let query = qs.parse(search);
     this.state = {
+      showMask: false,
       courseId: (query.courseId as string) || '',
       id: (query.id as string) || '',
       type: (query.type as string) || '',
@@ -142,7 +146,9 @@ class Group extends Component<Props, State> {
     let { WAIT, ERROR, SUCCESS } = IType;
     switch (type) {
       case WAIT:
-        this.createGroup();
+        this.setState({
+          showMask: true
+        });
         break;
       case ERROR:
         break;
@@ -197,7 +203,7 @@ class Group extends Component<Props, State> {
   }
 
   render() {
-    let { downTime } = this.state;
+    let { downTime, showMask } = this.state;
     let { headimgurl } = this.props.user;
     let {
       courseInfo,
@@ -208,6 +214,15 @@ class Group extends Component<Props, State> {
     } = this.state.orderData;
     return (
       <div className="container">
+        {showMask && (
+          <Mask
+            onClick={() => {
+              this.setState({
+                showMask: false
+              });
+            }}
+          ></Mask>
+        )}
         <Header {...courseInfo}></Header>
         <div className={styles.content}>
           <p className={styles.title}>开团邀请说明</p>
