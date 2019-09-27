@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ListView } from 'antd-mobile';
 import styles from '../styles/index.module.scss';
-// import api from '@/request/api';
+import api from '@/request/api';
 
 interface IList {
   amount: number;
@@ -11,6 +11,10 @@ interface IList {
 }
 
 interface State {
+  page: {
+    current: number;
+    size: number;
+  };
   itemList: IList[];
   typeList: object;
   total: number;
@@ -47,127 +51,37 @@ export default class DiscountRecord extends Component<{}, State> {
   }
 
   getWithdrawRecord() {
-    // let { current, size } = this.state.page;
-    // let { itemList, isLoading } = this.state;
-    // isLoading = true
-    // api.distributie
-    //   .getWithdrawRecord({
-    //     current,
-    //     size
-    //   })
-    //   .then(({ data }) => {
-    //
-    //     if (current > 1) {
-    //       this.setState({
-    //         itemList: itemList.cloneWithRows(itemList.concat(data.resultData.records))
-    //       });
-    //     } else {
-    //       this.setState({
-    //         itemList: itemList.cloneWithRows(data.resultData.records)
-    //       });
-    //     }
-    //
-    //     this.setState({
-    //       total: data.resultData.total
-    //     });
-    //     isLoading = false
-    //   },()=>{
-    //     isLoading = false
-    //   });
-    let array = [
-      {
-        amount: 120,
-        withdrawStatus: 1,
-        gmtCreate: '2019/9/23 18:23',
-        id: 98855252
-      },
-      {
-        amount: 110,
-        withdrawStatus: 1,
-        gmtCreate: '2019/9/23 18:23',
-        id: 123456
-      },
-      {
-        amount: 1900,
-        withdrawStatus: 1,
-        gmtCreate: '2019/9/13 17:23',
-        id: 96589
-      },
-      {
-        amount: 121,
-        withdrawStatus: 1,
-        gmtCreate: '2019/9/29 19:23',
-        id: 123456
-      },
-      {
-        amount: 32,
-        withdrawStatus: 1,
-        gmtCreate: '2019/5/23 13:23',
-        id: 1212121
-      },
-      {
-        amount: 100,
-        withdrawStatus: 1,
-        gmtCreate: '2019/09/03 12:23',
-        id: 123456
-      },
-      {
-        amount: 100,
-        withdrawStatus: 1,
-        gmtCreate: '2019/9/23 11:23',
-        id: 123456121212
-      },
-      {
-        amount: 121,
-        withdrawStatus: 1,
-        gmtCreate: '2019/9/23 18:23',
-        id: 123456121
-      },
-      {
-        amount: 100,
-        withdrawStatus: 2,
-        gmtCreate: '2019/9/23 18:23',
-        id: 1234565
-      },
-      {
-        amount: 43,
-        withdrawStatus: 2,
-        gmtCreate: '2019/9/23 18:23',
-        id: 1234564
-      },
-      {
-        amount: 12,
-        withdrawStatus: 2,
-        gmtCreate: '2019/9/23 18:23',
-        id: 1234563
-      },
-      {
-        amount: 100,
-        withdrawStatus: 2,
-        gmtCreate: '2019/9/23 18:23',
-        id: 1234561
-      },
-      {
-        amount: 44,
-        withdrawStatus: 2,
-        gmtCreate: '2019/7/23 18:23',
-        id: 1234562
-      }
-    ];
+    let { current, size } = this.state.page;
+    let { itemList, isLoading, page } = this.state;
+    isLoading = true;
+    api.distributie
+      .getWithdrawRecord({
+        current,
+        size
+      })
+      .then(
+        ({ data }) => {
+          let list = [...this.state.itemList, ...data.resultData.records];
 
-    this.setState({
-      itemList: array,
-      dataSource: this.state.dataSource.cloneWithRows(array)
-    });
+          this.setState({
+            page: { ...page, current: current + 1 },
+            itemList: list,
+            dataSource: this.state.dataSource.cloneWithRows(list),
+            total: data.resultData.total
+          });
+          isLoading = false;
+        },
+        () => {
+          isLoading = false;
+        }
+      );
   }
 
   onEndReached = () => {
     console.log('加载更多');
-    let { page, total } = this.state;
-    if (page.current < Math.ceil(total / page.size)) {
-      page.current++;
-      this.getWithdrawRecord();
-    }
+    let { total, itemList } = this.state;
+    if (itemList.length >= total) return;
+    this.getWithdrawRecord();
   };
 
   formatPrice(price: number): string {
