@@ -26,6 +26,9 @@ const Input: React.FC<Props> = ({
           type={type}
           value={value}
           placeholder={placeholder}
+          onBlur={() => {
+            window.scrollTo(0, 0);
+          }}
           onChange={e => {
             if (onInputChange) {
               onInputChange(e, name);
