@@ -29,7 +29,7 @@ const SharePageGsw = React.lazy(() => import('./SharePageGsw'));
 const SharePageQzw = React.lazy(() => import('./SharePageQzw'));
 const PromotionRules = React.lazy(() => import('./PromotionRules'));
 const PromotionDetail = React.lazy(() => import('./PromotionDetail'));
-
+const Introduce = React.lazy(() => import('./Introduce'));
 const state = store.getState();
 
 export interface State {}
@@ -96,6 +96,7 @@ class App extends React.Component<{}, State> {
               <Route path="/spread" exact component={Spread}></Route>
               <Route path="/group" exact component={Group}></Route>
               <Route path="/join" exact component={Join}></Route>
+              <Route path="/introduce" exact component={Introduce}></Route>
               <Route
                 path="/withdraw"
                 exact

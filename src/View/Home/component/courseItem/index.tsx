@@ -3,8 +3,9 @@ import { IOrder } from '../../type/home.type';
 import styles from './index.module.scss';
 
 interface Props {
-  onClick(id: number, type: number, mode: any): void;
+  onClick(id: number, type: number, mode: any, index: number): void;
   showMask: boolean;
+  index: number;
 }
 
 const Course: React.FC<Props & IOrder> = ({
@@ -13,7 +14,7 @@ const Course: React.FC<Props & IOrder> = ({
   courseId,
   aloneEarnPrice,
   onClick,
-  system,
+  index,
   discernCode,
   showMask = false
 }) => {
@@ -39,7 +40,7 @@ const Course: React.FC<Props & IOrder> = ({
           <p
             className={styles.yq}
             onClick={() => {
-              onClick(courseId, 0, discernCode);
+              onClick(courseId, 0, discernCode, index);
             }}
           >
             <i></i>直接邀请
@@ -47,7 +48,7 @@ const Course: React.FC<Props & IOrder> = ({
           <button
             className={styles.subBtn}
             onClick={() => {
-              onClick(courseId, 1, discernCode);
+              onClick(courseId, 1, discernCode, index);
             }}
           >
             开团邀请
@@ -55,7 +56,7 @@ const Course: React.FC<Props & IOrder> = ({
           <button
             className={styles.btn}
             onClick={() => {
-              onClick(courseId, 2, discernCode);
+              onClick(courseId, 2, discernCode, index);
             }}
           >
             海报邀请
