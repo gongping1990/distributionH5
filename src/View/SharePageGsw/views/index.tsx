@@ -47,7 +47,9 @@ export default class DiscountResult extends Component<Props, State> {
       this.setState({
         dataInfo: data.resultData
       });
-      this.canvasImg();
+      setTimeout(() => {
+        this.canvasImg();
+      });
     });
   }
 
@@ -150,4 +152,6 @@ export default class DiscountResult extends Component<Props, State> {
       </div>
     );
   }
+
+  componentWillUnmount() {}
 }

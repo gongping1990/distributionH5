@@ -47,7 +47,9 @@ export default class SharePageQzw extends Component<Props, State> {
       this.setState({
         dataInfo: data.resultData
       });
-      this.canvasImg();
+      setTimeout(() => {
+        this.canvasImg();
+      });
     });
   }
 
