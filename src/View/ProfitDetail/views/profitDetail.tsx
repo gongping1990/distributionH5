@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
-import { ListView } from 'antd-mobile';
+import { ListView, Modal } from 'antd-mobile';
 import { StickyContainer, Sticky } from 'react-sticky';
 import Tab from '../component/tab';
 import Item from '../component/item';
 import { Item as ItemType } from '../component/tab/types';
 import api from '@/request/api';
 import styles from '../styles/index.module.scss';
+
+const alert = Modal.alert;
 
 interface State {
   itemList: ItemType[];
@@ -184,7 +186,17 @@ export default class ProfitDetail extends Component<{}, State> {
                 {formatPrice(accountInfo.blockingAmount)}
                 <i className={styles.icon}></i>
               </p>
-              <span className={styles['price-text']}>冻结余额(元）</span>
+              <span className={styles['price-text']}>
+                冻结余额(元）
+                <i
+                  className={styles.djicon}
+                  onClick={() =>
+                    alert('提示', `7天内用户未退款,该金额即可解冻！`, [
+                      { text: '知道了' }
+                    ])
+                  }
+                ></i>
+              </span>
             </div>
           </div>
           {/* 提现金额 end */}

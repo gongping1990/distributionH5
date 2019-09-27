@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import '../styles/index.scss';
 import styles from '../styles/index.module.scss';
 import { ListView } from 'antd-mobile';
+import api from '@/request/api';
 
 interface IList {
   nickName: string;
@@ -14,7 +16,10 @@ interface State {
   total: number;
   dataSource: any;
   isLoading: boolean;
-  promoterId: any;
+  page: {
+    current: number;
+    size: number;
+  };
 }
 
 interface Props {
@@ -28,8 +33,7 @@ export default class CumulativeInvitation extends Component<Props, State> {
       current: 1,
       size: 10
     },
-    total: 0,
-    promoterId: '',
+    total: 1,
     dataSource: new ListView.DataSource({
       rowHasChanged: (row1: any, row2: any) => row1 !== row2
     }),
@@ -39,53 +43,51 @@ export default class CumulativeInvitation extends Component<Props, State> {
 
   componentDidMount() {
     this.pageBindingRelationship();
-    console.log(this.props.match.params.id, 1111);
   }
 
   pageBindingRelationship() {
-    // let { current, size } = this.state.page;
-    // let { itemList, isLoading, promoterId } = this.state;
-    // isLoading = true
-    // api.distributie
-    //   .getWithdrawRecord({
-    //     current,
-    //     size,
-    //     promoterId
-    //   })
-    //   .then(({ data }) => {
-    //
-    //     if (current > 1) {
-    //       this.setState({
-    //         itemList: itemList.cloneWithRows(itemList.concat(data.resultData.records))
-    //       });
-    //     } else {
-    //       this.setState({
-    //         itemList: itemList.cloneWithRows(data.resultData.records)
-    //       });
-    //     }
-    //
-    //     this.setState({
-    //       total: data.resultData.total
-    //     });
-    //     isLoading = false
-    //   },()=>{
-    //     isLoading = false
-    //   });
-    let array: any = [];
+    let { current, size } = this.state.page;
+    let promoterId = this.props.match.params.id;
+
+    if (this.state.itemList.length >= this.state.total) {
+      return;
+    }
 
     this.setState({
-      itemList: array,
-      dataSource: this.state.dataSource.cloneWithRows(array)
+      isLoading: true
     });
+
+    api.distributie
+      .pageBindingRelationship({
+        current,
+        size,
+        promoterId
+      })
+      .then(
+        ({ data }) => {
+          let listData = [...this.state.itemList, ...data.resultData.records];
+          this.setState({
+            itemList: listData,
+            isLoading: false,
+            page: {
+              ...this.state.page,
+              current: current + 1
+            },
+            total: data.resultData.total,
+            dataSource: this.state.dataSource.cloneWithRows(listData)
+          });
+          this.forceUpdate();
+        },
+        () => {
+          this.setState({
+            isLoading: false
+          });
+        }
+      );
   }
 
   onEndReached = () => {
-    console.log('加载更多');
-    let { page, total } = this.state;
-    if (page.current < Math.ceil(total / page.size)) {
-      page.current++;
-      this.pageBindingRelationship();
-    }
+    this.pageBindingRelationship();
   };
 
   render() {
@@ -113,7 +115,7 @@ export default class CumulativeInvitation extends Component<Props, State> {
     };
 
     return (
-      <div className="container">
+      <div className="container cumulativeInvitation">
         <div className={styles['p-cumulativeInvitation']}>
           {itemList.length ? (
             <ListView

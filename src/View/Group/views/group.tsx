@@ -153,6 +153,7 @@ class Group extends Component<Props, State> {
         this.setState({
           showMask: true
         });
+        this.reWexin();
         break;
       case ERROR:
         break;

@@ -83,6 +83,7 @@ class Home extends Component<Props, State> {
         this.createGroup(id, mode);
         break;
       case 2:
+        localStorage.setItem('isFirst', 'true');
         switch (mode) {
           case 1:
             this.props.history.push(`/sharePageGsw?id=${id}&mode=${mode}`);
