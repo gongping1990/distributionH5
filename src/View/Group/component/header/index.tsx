@@ -29,9 +29,7 @@ const Tab: React.FC<Props> = ({
         </div>
         <div className={styles.price}>
           <p>
-            <i>¥</i>
-            {groupPrice}
-            <span>（团长）</span>
+            <i>¥</i>0<span>（团长）</span>
             <s>¥{alonePrice}</s>
           </p>
           <span>

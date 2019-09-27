@@ -25,6 +25,7 @@ export interface IOrder {
   playbillQrUrl: string; //海报二维码地址
   system: number; //项目,可用值:0,1,2,3,4,5,6,7,8,9,10
   verticalCover: string; //竖版封面
+  directQrcode: number;
 }
 
 export interface IConfig {
