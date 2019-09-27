@@ -96,6 +96,9 @@ export default class CumulativeOrder extends Component<{}, State> {
         incomeStatus
       })
       .then(({ data }) => {
+        this.setState({
+          isLoading: false
+        });
         if (current > 1) {
           this.setState({
             itemList: this.state.dataSource.cloneWithRows(
@@ -114,7 +117,7 @@ export default class CumulativeOrder extends Component<{}, State> {
           total: data.resultData.total
         });
       })
-      .finally(() => {
+      .catch(() => {
         this.setState({
           isLoading: false
         });
