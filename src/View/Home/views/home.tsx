@@ -60,6 +60,7 @@ class Home extends Component<Props, State> {
   componentWillMount() {
     document.title = '推广中心';
     this.getPromoterCenter();
+    this.getBaseConfig();
   }
 
   bindClickCourseItem = (id: number, type: number, mode: any) => {
@@ -118,7 +119,7 @@ class Home extends Component<Props, State> {
   }
 
   getBaseConfig() {
-    api.customer.editBaseConfig().then(({ data }) => {
+    api.customer.getBaseConfig().then(({ data }) => {
       this.setState({
         configData: data.resultData
       });
@@ -155,7 +156,7 @@ class Home extends Component<Props, State> {
   render() {
     let centerData: ICenter = this.state.centerData as ICenter;
     let orderLisr: IOrder[] = centerData.orderList;
-    let { subQrcode } = this.state.configData;
+    let { directQrcode } = this.state.configData;
     let { showMask, step } = this.state;
     let { formatPrice, bindClickCourseItem, bindClickTest } = this;
     return (
@@ -247,7 +248,7 @@ class Home extends Component<Props, State> {
             })}
           </div>
           <div className={styles.qrcodeWrap}>
-            <img className={styles.qrcode} src={subQrcode} alt="" />
+            <img className={styles.qrcode} src={directQrcode} alt="" />
             <img className={styles.banner} src={banner} alt="" />
           </div>
         </div>
