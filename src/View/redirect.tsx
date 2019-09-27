@@ -2,8 +2,8 @@ import React from 'react';
 import qs from 'querystring';
 
 enum ESystem {
-  POEM = '7', // (7,"poem","每日一首古诗词")
-  COMPOSITION = '8' //(8,"composition","小语轻作文")
+  POEM = '1', // (1,"poem","每日一首古诗词")
+  COMPOSITION = '2' //(2,"composition","小语轻作文")
 }
 interface Props {
   location: any;
