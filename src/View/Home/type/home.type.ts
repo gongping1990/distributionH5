@@ -18,12 +18,14 @@ export interface IOrder {
   courseName: string; // 课程名称
   coverphoto: string; //横版封面
   describe: string; //课程描述
+  discernCode: string; //课程标识
   groupEarnPrice: number; //团购可赚金额
   groupPrice: number; // 组团购买价格
   orderUrl: string; //购买地址
   playbillQrUrl: string; //海报二维码地址
   system: number; //项目,可用值:0,1,2,3,4,5,6,7,8,9,10
   verticalCover: string; //竖版封面
+  directQrcode: number;
 }
 
 export interface IConfig {

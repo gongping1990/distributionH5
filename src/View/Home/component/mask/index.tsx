@@ -9,7 +9,7 @@ interface Props {
 const Title: React.FC<Props> = ({ onClick, show }) => {
   return (
     <div
-      className={`${styles.mask} ${show && styles.show}`}
+      className={styles.mask}
       onClick={() => {
         onClick();
       }}

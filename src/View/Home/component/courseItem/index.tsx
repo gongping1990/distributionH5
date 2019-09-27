@@ -14,6 +14,7 @@ const Course: React.FC<Props & IOrder> = ({
   aloneEarnPrice,
   onClick,
   system,
+  discernCode,
   showMask = false
 }) => {
   return (
@@ -38,7 +39,7 @@ const Course: React.FC<Props & IOrder> = ({
           <p
             className={styles.yq}
             onClick={() => {
-              onClick(courseId, 0, system);
+              onClick(courseId, 0, discernCode);
             }}
           >
             <i></i>直接邀请
@@ -46,7 +47,7 @@ const Course: React.FC<Props & IOrder> = ({
           <button
             className={styles.subBtn}
             onClick={() => {
-              onClick(courseId, 1, system);
+              onClick(courseId, 1, discernCode);
             }}
           >
             开团邀请
@@ -54,7 +55,7 @@ const Course: React.FC<Props & IOrder> = ({
           <button
             className={styles.btn}
             onClick={() => {
-              onClick(courseId, 2, system);
+              onClick(courseId, 2, discernCode);
             }}
           >
             海报邀请

@@ -68,6 +68,16 @@ class Home extends Component<Props, State> {
       case 1:
         this.createGroup(id);
         break;
+      case 2:
+        switch (mode) {
+          case 1:
+            this.props.history.push(`/sharePageGsw?id=${id}&mode=${mode}`);
+            break;
+          case 2:
+            this.props.history.push(`/sharePageQzw?id=${id}&mode=${mode}`);
+            break;
+        }
+        break;
       default:
         this.setState({
           step: 1,
@@ -106,9 +116,9 @@ class Home extends Component<Props, State> {
   getPromoterCenter() {
     api.distributie.getPromoterCenter().then(({ data }) => {
       if (data.resultData) {
-        if (data.resultData.type == UserType.FRANCHISEE) {
-          this.props.history.replace('/spread');
-        }
+        // if (data.resultData.type == UserType.FRANCHISEE) {
+        //   this.props.history.replace('/spread');
+        // }
         this.setState({
           centerData: data.resultData
         });
@@ -161,7 +171,9 @@ class Home extends Component<Props, State> {
     let { formatPrice, bindClickCourseItem, bindClickTest } = this;
     return (
       <div className="container">
-        {showMask && <Mask onClick={this.onClickMask} show={step === 1}></Mask>}
+        {showMask && step === 1 && (
+          <Mask onClick={this.onClickMask} show={step === 1}></Mask>
+        )}
 
         <div className={styles.header}>
           <div className={styles.user}>
