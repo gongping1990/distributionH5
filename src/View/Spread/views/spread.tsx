@@ -125,11 +125,9 @@ class Spread extends Component<Props, State> {
             <div className={styles.static}>
               <div className={styles['static-item']} onClick={this.toJumpOne}>
                 <p className={styles['static-num']}>{allInvite}</p>
-                <p className={styles['static-text']} onClick={this.toJumpTwo}>
-                  累计邀请
-                </p>
+                <p className={styles['static-text']}>累计邀请</p>
               </div>
-              <div className={styles['static-item']}>
+              <div className={styles['static-item']} onClick={this.toJumpTwo}>
                 <p className={styles['static-num']}>{allOrder}</p>
                 <p className={styles['static-text']}>累计订单</p>
               </div>
