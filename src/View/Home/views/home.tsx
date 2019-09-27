@@ -11,8 +11,6 @@ import gkIcon from '../../../assets/images/home/icon_gk.png';
 import banner from '../../../assets/images/home/banner@2x.png';
 import store from '@/store';
 
-const getUserInfo = store.getState().user;
-
 enum UserType {
   EXTENSION, //推广人
   FRANCHISEE //加盟商
@@ -21,7 +19,7 @@ interface Props {
   user: {
     nickname: string;
     headimgurl: string;
-    useId: string;
+    userId: string;
     inviteCode: any;
   };
   history: any;
@@ -141,12 +139,12 @@ class Home extends Component<Props, State> {
 
   toJumpOne = () => {
     this.props.history.push({
-      pathname: `/cumulativeInvitation/${getUserInfo.userId}`
+      pathname: `/cumulativeInvitation/${this.props.user.userId}`
     });
   };
   toJumpTwo = () => {
     this.props.history.push({
-      pathname: `/cumulativeOrder/${getUserInfo.userId}`
+      pathname: `/cumulativeOrder/${this.props.user.userId}`
     });
   };
 

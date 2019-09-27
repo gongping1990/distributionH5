@@ -4,6 +4,7 @@ import api from '@/request/api';
 import { formatPrice } from '@/utils';
 import styles from '../styles/index.module.scss';
 import { components } from '../../Home';
+import { connect } from 'react-redux';
 
 const { Title } = components;
 enum UserType {
@@ -13,6 +14,7 @@ enum UserType {
 
 interface Props {
   history: any;
+  user: any;
 }
 interface State {
   centerData: {
@@ -30,7 +32,7 @@ interface State {
   };
 }
 
-export default class Home extends Component<Props, State> {
+class Spread extends Component<Props, State> {
   state = {
     centerData: {
       allIncome: 0,
@@ -66,6 +68,17 @@ export default class Home extends Component<Props, State> {
       }
     });
   }
+
+  toJumpOne = () => {
+    this.props.history.push({
+      pathname: `/cumulativeInvitation/${this.props.user.userId}`
+    });
+  };
+  toJumpTwo = () => {
+    this.props.history.push({
+      pathname: `/cumulativeOrder/${this.props.user.userId}`
+    });
+  };
 
   render() {
     let {
@@ -110,9 +123,11 @@ export default class Home extends Component<Props, State> {
               </Link>
             </div>
             <div className={styles.static}>
-              <div className={styles['static-item']}>
+              <div className={styles['static-item']} onClick={this.toJumpOne}>
                 <p className={styles['static-num']}>{allInvite}</p>
-                <p className={styles['static-text']}>累计邀请</p>
+                <p className={styles['static-text']} onClick={this.toJumpTwo}>
+                  累计邀请
+                </p>
               </div>
               <div className={styles['static-item']}>
                 <p className={styles['static-num']}>{allOrder}</p>
@@ -143,3 +158,11 @@ export default class Home extends Component<Props, State> {
     );
   }
 }
+
+const mapStateToProps = (state: any) => {
+  return {
+    user: state.user
+  };
+};
+
+export default connect(mapStateToProps)(Spread);
