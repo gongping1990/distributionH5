@@ -73,7 +73,8 @@
     background: rgba(255, 183, 3, 1);
     border: 2px solid rgba(255, 193, 3, 1);
   }
-  .tag {
+  .tag,
+  .tag1 {
     @include flex-center;
     position: absolute;
     left: 50%;
@@ -86,6 +87,11 @@
     border: 2px solid rgba(255, 254, 255, 1);
     border-radius: 8px;
     transform: translate(-50%, 50%);
+  }
+
+  .tag1 {
+    background: #9d9ca5;
+    color: #fff;
   }
 }
 .btn {

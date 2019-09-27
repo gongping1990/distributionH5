@@ -26,6 +26,10 @@ const Item: React.FC<Props> = ({
   let endDate = new Date(Number(endTime)).getTime();
   let end = tiem >= endDate;
   let error = end && groupOrderStatus === 1;
+  let hasVatural = groupOrders.filter(e => {
+    return e.vatural;
+  });
+
   return (
     <div className={styles.content}>
       {!end && groupOrderStatus === 1 && (
@@ -36,7 +40,7 @@ const Item: React.FC<Props> = ({
         </p>
       )}
       {(end || groupOrderStatus === 10) && (
-        <p className={styles.title}>{error ? '拼团失败' : '拼团成功'}</p>
+        <p className={styles.title}>{error ? '拼团失败' : '拼团已满'}</p>
       )}
       {!end && groupOrderStatus === 1 ? (
         <p className={styles.subtitle}>
@@ -44,13 +48,11 @@ const Item: React.FC<Props> = ({
           <i>1人</i>
           ，赶快邀请好友拼团吧
         </p>
-      ) : error ? (
-        <p className={styles.subtitle}>很遗憾并没有拼团成功，重新开团试试吧~</p>
       ) : (
         <p className={styles.subtitle}>
-          恭喜你新赚取了
-          <i>{income / 100}</i>
-          元收益
+          {error
+            ? '很遗憾并没有拼团成功，重新开团试试吧~'
+            : '拼团已完成，您可以重新开团'}
         </p>
       )}
       <div className={styles.list}>
@@ -62,6 +64,7 @@ const Item: React.FC<Props> = ({
           return (
             <div className={styles.item} key={item.id}>
               <img src={item.id ? item.headimgurl : avatarImg} alt="" />
+              {item.vatural && <i className={styles.tag1}>匿名</i>}
             </div>
           );
         })}
@@ -88,16 +91,18 @@ const Item: React.FC<Props> = ({
         <div
           className={styles.subBtn}
           onClick={() => {
-            onClick(2);
+            onClick(1);
           }}
         >
-          查看收益
+          重新开团
         </div>
       )}
-      <div className={styles.msg}>
-        <span>注：匿名用户为系统在拼团截止时自动邀请加入该团的用户，</span>
-        <span>并非您所邀请，因此您无法获得匿名用户购课的佣金。</span>
-      </div>
+      {hasVatural.length && (
+        <div className={styles.msg}>
+          <span>注：匿名用户为系统在拼团截止时自动邀请加入该团的用户，</span>
+          <span>并非您所邀请，因此您无法获得匿名用户购课的佣金。</span>
+        </div>
+      )}
     </div>
   );
 };
