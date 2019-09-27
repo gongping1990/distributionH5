@@ -6,7 +6,11 @@ import api from '@/request/api';
 import { checkPhone, getQueryString } from '@/utils';
 import styles from '../styles/index.module.scss';
 
-export default class Introduce extends Component {
+interface Props {
+  history: any;
+}
+
+export default class Introduce extends Component<Props> {
   state = {
     phone: '',
     code: '',
@@ -59,7 +63,7 @@ export default class Introduce extends Component {
         phone
       })
       .then(({ data }) => {
-        Toast.info('success');
+        this.props.history.push('/');
       });
   }
 
