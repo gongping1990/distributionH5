@@ -89,7 +89,7 @@ export default class SharePageQzw extends Component<Props, State> {
   }
 
   formatPrice(price: string): string {
-    return Number(+price / 100).toFixed(2);
+    return Number(+price / 100).toFixed(0);
   }
 
   render() {
