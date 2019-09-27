@@ -34,6 +34,10 @@ export default class SharePageQzw extends Component<Props, State> {
 
   componentDidMount() {
     this.getBaseConfig();
+    if (localStorage.isFirst === 'true') {
+      window.location.reload();
+      localStorage.isFirst = 'false';
+    }
   }
 
   getBaseConfig() {
