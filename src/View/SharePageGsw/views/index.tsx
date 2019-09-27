@@ -1,19 +1,54 @@
 import React, { Component } from 'react';
 import styles from '../styles/index.module.scss';
 import html2canvas from 'html2canvas';
+import qs from 'querystring';
+import api from '@/request/api';
 
-export default class DiscountResult extends Component<{}> {
+interface Props {
+  location: any;
+}
+
+interface State {
+  dataInfo: {
+    nickName: string;
+    headimgurl: string;
+    playbillQrUrl: string;
+    ptPrice: string;
+    ddgPrice: string;
+  };
+}
+
+export default class DiscountResult extends Component<Props, State> {
   state = {
     isShowImg: false,
     shareUrl: '',
     dataInfo: {
-      headimgurl: 'https://pub.file.k12.vip/2019/09/10/1171235902187249666.jpg',
-      qrUrl: 'https://pub.file.k12.vip/2019/09/10/1171327699295019010.jpg'
+      nickName: '',
+      headimgurl: '',
+      playbillQrUrl: '',
+      ptPrice: '',
+      ddgPrice: ''
     }
   };
 
   componentDidMount() {
-    this.canvasImg();
+    this.getBaseConfig();
+  }
+
+  getBaseConfig() {
+    let search = this.props.location.search.replace(/^\?/, '');
+    let query = qs.parse(search);
+    let params = {
+      courseId: query.id,
+      system: query.mode
+    } as any;
+
+    api.distributie.getPlaybill(params).then(({ data }) => {
+      this.setState({
+        dataInfo: data.resultData
+      });
+      // this.canvasImg();
+    });
   }
 
   canvasImg() {
@@ -53,6 +88,10 @@ export default class DiscountResult extends Component<{}> {
     });
   }
 
+  formatPrice(price: string): string {
+    return Number(+price / 100).toFixed(2);
+  }
+
   render() {
     let { dataInfo, isShowImg, shareUrl } = this.state;
 
@@ -69,7 +108,7 @@ export default class DiscountResult extends Component<{}> {
                 alt=""
               />
               <div className={styles['-header-right']}>
-                <p className={styles['-name']}>最美的期待</p>
+                <p className={styles['-name']}>{dataInfo.nickName}</p>
                 <p className={styles['-text']}>听了一个很棒的课程，推荐给你</p>
               </div>
             </div>
@@ -78,10 +117,14 @@ export default class DiscountResult extends Component<{}> {
               <div className={styles['-content-down']}>
                 <div className={styles['-content-down-left']}>
                   <div className={styles['-left-one']}>
-                    <p className={styles['-price']}>¥199</p>
+                    <p className={styles['-price']}>
+                      ¥{this.formatPrice(dataInfo.ddgPrice)}
+                    </p>
                     <div className={styles['-btn']}>限时抢报名</div>
                   </div>
-                  <div className={styles['-left-two']}>即将恢复原价699元</div>
+                  <div className={styles['-left-two']}>
+                    即将恢复原价{this.formatPrice(dataInfo.ptPrice)}元
+                  </div>
                   <div className={styles['-left-three']}>
                     150节精品课永久有效
                   </div>
@@ -92,7 +135,7 @@ export default class DiscountResult extends Component<{}> {
                 <div className={styles['-content-down-right']}>
                   <img
                     className={styles['-right-img']}
-                    src={dataInfo.qrUrl}
+                    src={dataInfo.playbillQrUrl}
                     alt=""
                   />
                 </div>
