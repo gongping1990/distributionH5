@@ -18,6 +18,7 @@ export interface IOrder {
   courseName: string; // 课程名称
   coverphoto: string; //横版封面
   describe: string; //课程描述
+  discernCode: string; //课程标识
   groupEarnPrice: number; //团购可赚金额
   groupPrice: number; // 组团购买价格
   orderUrl: string; //购买地址
