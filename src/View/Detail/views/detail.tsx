@@ -17,6 +17,10 @@ export default class Introduce extends Component<Props> {
     downTime: 0
   };
 
+  componentDidMount() {
+    document.title = '推广人招募 ';
+  }
+
   onInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     name: string

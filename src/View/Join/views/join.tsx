@@ -44,9 +44,10 @@ class Join extends Component<Props, State> {
         provinceId: pickerValue[1]
       })
       .then(({ data }) => {
+        Toast.hide();
         this.props.history.push('/result');
       })
-      .finally(() => {
+      .catch(() => {
         Toast.hide();
       });
   }
