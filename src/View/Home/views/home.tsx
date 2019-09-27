@@ -63,10 +63,21 @@ class Home extends Component<Props, State> {
     this.getBaseConfig();
   }
 
-  bindClickCourseItem = (id: number, type: number, mode: any) => {
+  bindClickCourseItem = (id: number, type: number, mode: any, code: any) => {
+    console.log(type, code);
     switch (type) {
       case 1:
         this.createGroup(id);
+        break;
+      case 2:
+        switch (code) {
+          case 1:
+            this.props.history.push(`/sharePageGsw?id=${id}&mode=${mode}`);
+            break;
+          case 2:
+            this.props.history.push(`/sharePageQzw?id=${id}&mode=${mode}`);
+            break;
+        }
         break;
       default:
         this.setState({
