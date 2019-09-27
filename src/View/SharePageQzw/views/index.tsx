@@ -3,6 +3,7 @@ import styles from '../styles/index.module.scss';
 import html2canvas from 'html2canvas';
 import api from '@/request/api';
 import qs from 'querystring';
+import bgImg from '../../../assets/images/share/shareQzw.png';
 
 interface Props {
   location: any;
@@ -33,6 +34,10 @@ export default class SharePageQzw extends Component<Props, State> {
 
   componentDidMount() {
     this.getBaseConfig();
+    if (localStorage.isFirst === 'true') {
+      window.location.reload();
+      localStorage.isFirst = 'false';
+    }
   }
 
   getBaseConfig() {
@@ -103,6 +108,7 @@ export default class SharePageQzw extends Component<Props, State> {
           <img className={styles['p-shareImg']} src={shareUrl} alt="" />
         ) : (
           <div className={styles['p-sharePageQzw']} id="sharePage">
+            <img className={styles['p-sharePageQzw-img']} src={bgImg} alt="" />
             <div className={styles['p-sharePageQzw-header']}>
               <img
                 className={styles['-header-left']}

@@ -47,12 +47,13 @@ const Course: React.FC<Props & IOrder> = ({
             <i></i>直接邀请
           </p>
           <button
-            className={styles.subBtn}
+            className={`${styles.subBtn} ${groupOrderInfo.havingOrder &&
+              styles.blue}`}
             onClick={() => {
               onClick(courseId, 1, discernCode, index);
             }}
           >
-            {!groupOrderInfo.havingOrder ? '开团邀请' : '开团中..'}
+            {!groupOrderInfo.havingOrder ? '开团邀请' : '开团中...'}
           </button>
           <button
             className={styles.btn}
