@@ -48,6 +48,7 @@ export default class DiscountRecord extends Component<{}, State> {
   };
 
   componentDidMount() {
+    document.title = '提现记录';
     this.getWithdrawRecord();
   }
 

@@ -33,6 +33,7 @@ export default class SharePageQzw extends Component<Props, State> {
   };
 
   componentDidMount() {
+    document.title = '分享海报';
     this.getBaseConfig();
     if (localStorage.isFirst === 'true') {
       window.location.reload();

@@ -35,6 +35,7 @@ export default class PromotionRules extends Component<{}, State> {
   };
 
   componentDidMount() {
+    document.title = '推广规则';
     this.getInfo();
   }
 

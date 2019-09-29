@@ -81,6 +81,7 @@ export default class CumulativeOrder extends Component<{}, State> {
   };
 
   componentDidMount() {
+    document.title = '累计订单';
     this.getOrder();
   }
 

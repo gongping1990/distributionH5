@@ -55,7 +55,9 @@ export default class PromotionDetail extends Component<Props, State> {
     ]
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    document.title = '加盟商详情页';
+  }
 
   toJump = () => {
     this.props.history.push({
