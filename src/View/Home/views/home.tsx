@@ -69,7 +69,8 @@ class Home extends Component<Props, State> {
     id: number,
     type: number,
     mode: any,
-    index: number
+    index: number,
+    system: any
   ) => {
     let item: any = this.state.centerData.orderList[index];
     switch (type) {
@@ -86,10 +87,10 @@ class Home extends Component<Props, State> {
         localStorage.setItem('isFirst', 'true');
         switch (mode) {
           case 1:
-            this.props.history.push(`/sharePageGsw?id=${id}&mode=${mode}`);
+            this.props.history.push(`/sharePageGsw?id=${id}&mode=${system}`);
             break;
           case 2:
-            this.props.history.push(`/sharePageQzw?id=${id}&mode=${mode}`);
+            this.props.history.push(`/sharePageQzw?id=${id}&mode=${system}`);
             break;
         }
         break;
