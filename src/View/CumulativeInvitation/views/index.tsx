@@ -106,9 +106,7 @@ export default class CumulativeInvitation extends Component<Props, State> {
             <div>{item.nickName}</div>
           </div>
           <div className={styles['right-wrap']}>
-            <p className={styles['right-text']}>
-              {item.type ? '已绑定' : '未绑定'}
-            </p>
+            <p className={styles['right-text']}>已绑定</p>
             <p className={styles['right-date']}>{item.applyTime}</p>
           </div>
         </div>
