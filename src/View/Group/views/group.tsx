@@ -78,12 +78,12 @@ class Group extends Component<Props, State> {
 
   componentDidUpdate(prevProps: Props, prevState: State) {
     if (this.state.id !== prevState.id) {
+      localStorage.removeItem('first');
       this.init();
     }
   }
 
   UNSAFE_componentWillReceiveProps(nextProps: Props) {
-    console.log(nextProps);
     let search: string = nextProps.location.search.replace(/^\?/, '');
     let query = qs.parse(search);
     this.setState({
@@ -94,6 +94,14 @@ class Group extends Component<Props, State> {
   }
 
   init() {
+    let first = localStorage.getItem('first');
+    console.log(localStorage.getItem('first'));
+    if (!first) {
+      localStorage.setItem('first', '1');
+      window.location.reload();
+    } else {
+      localStorage.removeItem('first');
+    }
     this.getGroupOrderDetails();
   }
 
@@ -153,7 +161,6 @@ class Group extends Component<Props, State> {
         this.setState({
           showMask: true
         });
-        this.reWexin();
         break;
       case ERROR:
         break;
