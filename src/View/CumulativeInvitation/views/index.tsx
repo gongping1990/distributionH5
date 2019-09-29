@@ -42,6 +42,7 @@ export default class CumulativeInvitation extends Component<Props, State> {
   };
 
   componentDidMount() {
+    document.title = '累计邀请';
     this.pageBindingRelationship();
   }
 

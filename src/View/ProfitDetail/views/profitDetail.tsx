@@ -143,7 +143,7 @@ export default class ProfitDetail extends Component<{}, State> {
   };
 
   formatPrice(price: string) {
-    return Number(price).toFixed(2);
+    return (Number(price) / 100).toFixed(2);
   }
   formatTime(time: string) {
     return dayjs(+time).format('YYYY-MM-DD');
