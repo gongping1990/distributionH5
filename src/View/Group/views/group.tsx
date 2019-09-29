@@ -183,7 +183,7 @@ class Group extends Component<Props, State> {
     //输出到页面
 
     this.setState({
-      downTime: ` ${hours}:${minutes}:${seconds} `
+      downTime: `${hours}:${minutes}:${seconds}`
     });
     //延迟一秒执行自己
     setTimeout(() => {

@@ -60,9 +60,9 @@ const Item: React.FC<Props> = ({
           <img src={headimgurl} alt="" />
           <i className={styles.tag}>团长</i>
         </div>
-        {groupOrders.map(item => {
+        {groupOrders.map((item, i) => {
           return (
-            <div className={styles.item} key={item.id}>
+            <div className={styles.item} key={i}>
               <img src={item.id ? item.headimgurl : avatarImg} alt="" />
               {item.vatural && <i className={styles.tag1}>匿名</i>}
             </div>
