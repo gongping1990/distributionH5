@@ -95,7 +95,6 @@ class Group extends Component<Props, State> {
 
   init() {
     let first = localStorage.getItem('first');
-    console.log(localStorage.getItem('first'));
     if (!first) {
       localStorage.setItem('first', '1');
       window.location.reload();
@@ -148,8 +147,9 @@ class Group extends Component<Props, State> {
         courseId: this.state.courseId
       })
       .then(({ data }) => {
+        let { type } = this.state;
         this.props.history.replace(
-          `/group?id=${data.resultData.orderId}&type=${data.resultData.bizSystem}&courseId=${data.resultData.courseId}`
+          `/group?id=${data.resultData.orderId}&type=${type}&courseId=${data.resultData.courseId}`
         );
       });
   }
@@ -205,12 +205,15 @@ class Group extends Component<Props, State> {
   }
 
   reWexin() {
-    let { id, type, orderData } = this.state;
+    let { id, type, orderData, courseId } = this.state;
     let order: any = orderData;
+    console.log(
+      `${window.location.origin}/redirect?id=${id}&mode=${type}&courseId=${courseId}&inviteCode=${this.props.user.inviteCode}&type=1`
+    );
     reWexin({
       title: order.groupbtitle,
       doc: order.groupstitle,
-      url: `${window.location.origin}/redirect?id=${id}&mode=${type}&inviteCode=${this.props.user.inviteCode}&type=1`,
+      url: `${window.location.origin}/redirect?id=${id}&mode=${type}&courseId=${courseId}&inviteCode=${this.props.user.inviteCode}&type=1`,
       img: order.groupimgurl
     });
   }

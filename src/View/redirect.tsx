@@ -7,8 +7,10 @@ enum ESystem {
 }
 interface Props {
   location: any;
+  history: any;
 }
 const redirect: React.FC<Props> = props => {
+  let userInfo = localStorage.getItem('userInfo');
   let search = props.location.search.replace(/^\?/, '');
   let query = qs.parse(search);
   let mode = query.mode || '0';
@@ -16,7 +18,17 @@ const redirect: React.FC<Props> = props => {
     inviteCode: query.inviteCode,
     type: query.type || '0'
   } as any;
+
   query.id && (params.groupOrderId = query.id);
+  if (userInfo) {
+    if (query.id) {
+      props.history.replace(
+        `/group?id=${query.id}&type=${query.type}&courseId=${query.courseId}`
+      );
+    } else {
+      props.history.replace('/');
+    }
+  }
 
   switch (mode) {
     case ESystem.POEM:
