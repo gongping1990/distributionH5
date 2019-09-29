@@ -182,6 +182,14 @@ button {
   transform: scale(0.5);
 }
 
+.am-list-body::before {
+  display: none !important;
+}
+
+.am-list-body::after {
+  display: none !important;
+}
+
 .hk-hairline--top::after {
   border-top-width: 1px;
 }

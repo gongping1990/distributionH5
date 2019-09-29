@@ -39,6 +39,13 @@
         border-radius: 50%;
         margin-right: 10px;
       }
+
+      &-text {
+        max-width: 180px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
     }
 
     .right-wrap {
@@ -59,7 +66,7 @@
       }
 
       &-price {
-        font-size: 15px;
+        font-size: 16px;
         margin-right: 16px;
         padding-bottom: 24px;
       }
