@@ -207,9 +207,6 @@ class Group extends Component<Props, State> {
   reWexin() {
     let { id, type, orderData, courseId } = this.state;
     let order: any = orderData;
-    console.log(
-      `${window.location.origin}/redirect?id=${id}&mode=${type}&courseId=${courseId}&inviteCode=${this.props.user.inviteCode}&type=1`
-    );
     reWexin({
       title: order.groupbtitle,
       doc: order.groupstitle,
