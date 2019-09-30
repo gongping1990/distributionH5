@@ -3,6 +3,7 @@ import styles from '../styles/index.module.scss';
 import Tab from '../../ProfitDetail/component/tab';
 import api from '@/request/api';
 import { ListView } from 'antd-mobile';
+import dayjs from 'dayjs';
 
 interface IList {
   distributionAmount: number;
@@ -131,6 +132,9 @@ export default class CumulativeOrder extends Component<{}, State> {
     return Number(+price / 100).toFixed(2);
   }
 
+  formatTime(price: string): string {
+    return dayjs(+price).format('YYYY-MM-DD HH:mm');
+  }
   render() {
     let {
       itemList,
@@ -146,22 +150,26 @@ export default class CumulativeOrder extends Component<{}, State> {
       return (
         <div className={styles['p-cumulativeOrder-item']} key={item.id}>
           <div className={styles['left-wrap']}>
-            <div className={styles['left-wrap-time']}>{item.date}</div>
+            <div className={styles['left-wrap-time']}>
+              {this.formatTime(item.gmtCreate)}
+            </div>
             <div className={styles['left-wrap-user']}>
               <img
                 className={styles['left-wrap-img']}
-                src={item.headimgurl}
+                src={item.thirdHeadimgurl}
                 alt=""
               />
-              <div>{item.name}</div>
+              <div>{item.thirdNickname}</div>
             </div>
-            <div>{item.courseName}</div>
+            <div className={styles['left-wrap-text']}>{item.courseName}</div>
           </div>
           <div className={styles['right-wrap']}>
             <p
-              className={`${styles['right-wrap-text']} ${typeColor[item.type]}`}
+              className={`${styles['right-wrap-text']} ${
+                typeColor[item.incomeStatus]
+              }`}
             >
-              {typeList[item.type]}
+              {typeList[item.incomeStatus]}
             </p>
             <p className={styles['right-wrap-price']}>
               收益：+{this.formatPrice(item.distributionAmount)}元

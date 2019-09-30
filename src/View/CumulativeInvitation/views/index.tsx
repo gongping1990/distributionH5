@@ -3,6 +3,7 @@ import '../styles/index.scss';
 import styles from '../styles/index.module.scss';
 import { ListView } from 'antd-mobile';
 import api from '@/request/api';
+import dayjs from 'dayjs';
 
 interface IList {
   nickName: string;
@@ -87,6 +88,10 @@ export default class CumulativeInvitation extends Component<Props, State> {
       );
   }
 
+  formatTime(price: string): string {
+    return dayjs(+price).format('YYYY-MM-DD HH:mm');
+  }
+
   onEndReached = () => {
     this.pageBindingRelationship();
   };
@@ -107,7 +112,9 @@ export default class CumulativeInvitation extends Component<Props, State> {
           </div>
           <div className={styles['right-wrap']}>
             <p className={styles['right-text']}>已绑定</p>
-            <p className={styles['right-date']}>{item.applyTime}</p>
+            <p className={styles['right-date']}>
+              {this.formatTime(item.applyTime)}
+            </p>
           </div>
         </div>
       );

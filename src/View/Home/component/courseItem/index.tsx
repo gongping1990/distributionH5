@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatPrice } from '@/utils';
 import { IOrder } from '../../type/home.type';
 import styles from './index.module.scss';
 
@@ -35,7 +36,7 @@ const Course: React.FC<Props & IOrder> = ({
         <div className={styles.info}>
           <p className={styles.title}>{courseName}</p>
           <span className={styles.msg}>
-            预计可赚最多<i>{aloneEarnPrice}元</i>
+            预计可赚最多<i>{formatPrice(aloneEarnPrice)}元</i>
           </span>
         </div>
         <div className={`${styles.footer} ${showMask && styles.mask}`}>
