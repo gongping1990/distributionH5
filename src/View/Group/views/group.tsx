@@ -38,6 +38,7 @@ interface State {
     groupEndTime: string;
     groupOrderStatus: number;
     income: number;
+    reaminGroupCount: number;
   };
   downTime: string;
 }
@@ -64,6 +65,7 @@ class Group extends Component<Props, State> {
           name: ''
         },
         groupEndTime: '',
+        reaminGroupCount: 0,
         groupOrderStatus: 0,
         income: 0
       },
@@ -223,6 +225,7 @@ class Group extends Component<Props, State> {
       groupEndTime,
       groupOrderStatus,
       income,
+      reaminGroupCount,
       groupOrders
     } = this.state.orderData;
     return (
@@ -244,7 +247,7 @@ class Group extends Component<Props, State> {
             团后可获得相应的收益，而不是购买此课程
           </p>
           <Content
-            reaminGroupCount={1}
+            reaminGroupCount={reaminGroupCount}
             headimgurl={headimgurl}
             downTime={downTime}
             endTime={groupEndTime}

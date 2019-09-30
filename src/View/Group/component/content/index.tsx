@@ -19,7 +19,7 @@ const Item: React.FC<Props> = ({
   endTime,
   groupOrderStatus,
   groupOrders = [],
-  income,
+  reaminGroupCount,
   onClick
 }) => {
   let tiem = new Date().getTime();
@@ -45,7 +45,7 @@ const Item: React.FC<Props> = ({
       {!end && groupOrderStatus === 1 ? (
         <p className={styles.subtitle}>
           仅差
-          <i>1人</i>
+          <i>{reaminGroupCount}人</i>
           ，赶快邀请好友拼团吧
         </p>
       ) : (
