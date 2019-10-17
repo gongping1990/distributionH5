@@ -128,7 +128,7 @@ export default class DiscountResult extends Component<Props, State> {
                     <p className={styles['-price']}>
                       ¥{this.formatPrice(dataInfo.ddgPrice)}
                     </p>
-                    <div className={styles['-btn']}>限时抢报名</div>
+                    <div className={styles['-btn']}>限时抢报</div>
                   </div>
                   <div className={styles['-left-two']}>
                     即将恢复原价{this.formatPrice(dataInfo.ptPrice)}元
