@@ -87,10 +87,14 @@ class Home extends Component<Props, State> {
         localStorage.setItem('isFirst', 'true');
         switch (mode) {
           case 1:
-            this.props.history.push(`/sharePageGsw?id=${id}&mode=${system}`);
+            this.props.history.push(
+              `/sharePageGsw?id=${id}&mode=${system}&userId=${this.props.user.userId}`
+            );
             break;
           case 2:
-            this.props.history.push(`/sharePageQzw?id=${id}&mode=${system}`);
+            this.props.history.push(
+              `/sharePageQzw?id=${id}&mode=${system}&userId=${this.props.user.userId}`
+            );
             break;
         }
         break;
