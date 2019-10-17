@@ -38,7 +38,6 @@ export default class SharePageQzw extends Component<Props, State> {
     if (localStorage.isFirst === 'true') {
       window.location.reload();
       localStorage.isFirst = 'false';
-      alert('刷新1');
     }
   }
 
@@ -55,7 +54,6 @@ export default class SharePageQzw extends Component<Props, State> {
       this.setState({
         dataInfo: data.resultData
       });
-      setTimeout(() => {}, 1000);
     });
   }
   canvasImg() {

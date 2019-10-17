@@ -53,9 +53,6 @@ export default class DiscountResult extends Component<Props, State> {
       this.setState({
         dataInfo: data.resultData
       });
-      setTimeout(() => {
-        this.canvasImg();
-      });
     });
   }
 
@@ -144,6 +141,7 @@ export default class DiscountResult extends Component<Props, State> {
                   <img
                     className={styles['-right-img']}
                     src={dataInfo.playbillQrUrl}
+                    onLoad={this.canvasImg.bind(this)}
                     alt=""
                   />
                 </div>
