@@ -98,7 +98,7 @@ export default class DiscountOperation extends Component<{}, State> {
             <p>请输入提现金额</p>
             <div className={styles.price}>
               <input
-                type="tel"
+                type="number"
                 value={price}
                 onChange={e =>
                   this.setState({
@@ -116,17 +116,25 @@ export default class DiscountOperation extends Component<{}, State> {
           </div>
           <button
             className={`${styles['p-discountOperation-btn']} ${(priceformat <=
-              0 ||
-              actualPrice > Number(balance)) &&
+              10 ||
+              actualPrice > Number(balance) ||
+              priceformat > 1000) &&
               styles.disabled}`}
-            disabled={priceformat <= 0 || actualPrice > Number(balance)}
+            disabled={
+              priceformat <= 10 ||
+              actualPrice > Number(balance) ||
+              priceformat > 1000
+            }
             onClick={this.postWithdraw}
           >
             提现
           </button>
           <div className={styles['p-discountOperation-tip']}>
-            <p>仅支持提现至微信支付账号</p>
-            <p>单日最大提现金额为5,000元人民币</p>
+            <p>
+              仅支持提现至微信支付账号 <br />
+              1.每天只能提现1次 <br />
+              2.单日最小提现金额为10元 <br /> 3.最大单日提现金额为1,000元
+            </p>
           </div>
         </div>
       </div>

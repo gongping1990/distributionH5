@@ -54,7 +54,7 @@ export default class PromotionRules extends Component<{}, State> {
       <div className="container">
         <div className={styles['p-promotionRules']}>
           <div className={styles['p-promotionRules-top']}>
-            <p className={styles['-top-title']}>扫描下方二维</p>
+            <p className={styles['-top-title']}>扫描下方二维码</p>
             <p className={styles['-top-small']}>
               添加推广指导老师，获取推广指导
             </p>
