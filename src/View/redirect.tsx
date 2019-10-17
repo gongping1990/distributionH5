@@ -29,15 +29,18 @@ const redirect: React.FC<Props> = props => {
     } else {
       props.history.replace('/');
     }
+  } else {
+    switch (mode) {
+      case ESystem.POEM:
+        console.log(
+          'http://poem.test.k12.vip/newDetail?' + qs.stringify(params)
+        );
+        window.location.href =
+          'http://poem.test.k12.vip/newDetail?' + qs.stringify(params);
+        break;
+    }
   }
 
-  switch (mode) {
-    case ESystem.POEM:
-      console.log('http://poem.test.k12.vip/newDetail?' + qs.stringify(params));
-      window.location.href =
-        'http://poem.test.k12.vip/newDetail?' + qs.stringify(params);
-      break;
-  }
   return <div></div>;
 };
 
