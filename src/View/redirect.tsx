@@ -20,6 +20,7 @@ const redirect: React.FC<Props> = props => {
   } as any;
 
   query.id && (params.groupOrderId = query.id);
+  alert(userInfo);
   if (userInfo) {
     if (query.id) {
       props.history.replace(
