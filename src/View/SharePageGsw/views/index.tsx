@@ -148,8 +148,10 @@ export default class DiscountResult extends Component<Props, State> {
               </div>
             </div>
             <div className={styles['p-sharePageGsw-footer']}>
-              <p>1、长按上方图片保存至手机相册</p>
-              <p>2、将图片发送给好友或发送到朋友圈</p>
+              <div className={styles['-footer-div']}>
+                <p>1、长按上方图片保存至手机相册</p>
+                <p>2、将图片发送给好友或发送到朋友圈</p>
+              </div>
             </div>
           </div>
         )}

@@ -113,6 +113,7 @@
   }
 
   &-footer {
+    @include flex-col-center;
     text-align: center;
     padding: 4px 0;
     margin: 8px 16px 12px;
@@ -122,6 +123,10 @@
     font-weight: 400;
     color: rgba(255, 255, 255, 0.8);
     line-height: 14px;
+
+    .-footer-div {
+      text-align: left;
+    }
   }
 }
 
