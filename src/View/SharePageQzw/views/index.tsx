@@ -4,6 +4,7 @@ import html2canvas from 'html2canvas';
 import api from '@/request/api';
 import qs from 'querystring';
 import bgImg from '../../../assets/images/share/shareQzw.png';
+import qrImg from '../../../assets/images/1.jpg';
 
 interface Props {
   location: any;
@@ -139,11 +140,7 @@ export default class SharePageQzw extends Component<Props, State> {
                   </div>
                 </div>
                 <div className={styles['-content-down-right']}>
-                  <img
-                    className={styles['-right-img']}
-                    src={dataInfo.playbillQrUrl}
-                    alt=""
-                  />
+                  <img className={styles['-right-img']} src={qrImg} alt="" />
                 </div>
               </div>
             </div>
