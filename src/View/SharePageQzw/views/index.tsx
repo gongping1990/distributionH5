@@ -38,6 +38,7 @@ export default class SharePageQzw extends Component<Props, State> {
     if (localStorage.isFirst === 'true') {
       window.location.reload();
       localStorage.isFirst = 'false';
+      alert('刷新');
     }
   }
 
