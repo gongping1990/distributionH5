@@ -45,7 +45,8 @@ export default class DiscountResult extends Component<Props, State> {
     let query = qs.parse(search);
     let params = {
       courseId: query.id,
-      system: query.mode
+      system: query.mode,
+      userId: query.userId
     } as any;
 
     api.distributie.getPlaybill(params).then(({ data }) => {
