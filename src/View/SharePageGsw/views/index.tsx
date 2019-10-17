@@ -53,9 +53,6 @@ export default class DiscountResult extends Component<Props, State> {
       this.setState({
         dataInfo: data.resultData
       });
-      setTimeout(() => {
-        this.canvasImg();
-      });
     });
   }
 
@@ -128,7 +125,7 @@ export default class DiscountResult extends Component<Props, State> {
                     <p className={styles['-price']}>
                       ¥{this.formatPrice(dataInfo.ddgPrice)}
                     </p>
-                    <div className={styles['-btn']}>限时抢报名</div>
+                    <div className={styles['-btn']}>限时抢报</div>
                   </div>
                   <div className={styles['-left-two']}>
                     即将恢复原价{this.formatPrice(dataInfo.ptPrice)}元
@@ -144,14 +141,17 @@ export default class DiscountResult extends Component<Props, State> {
                   <img
                     className={styles['-right-img']}
                     src={dataInfo.playbillQrUrl}
+                    onLoad={this.canvasImg.bind(this)}
                     alt=""
                   />
                 </div>
               </div>
             </div>
             <div className={styles['p-sharePageGsw-footer']}>
-              <p>1、长按上方图片保存至手机相册</p>
-              <p>2、将图片发送给好友或发送到朋友圈</p>
+              <div className={styles['-footer-div']}>
+                <p>1、长按上方图片保存至手机相册</p>
+                <p>2、将图片发送给好友或发送到朋友圈</p>
+              </div>
             </div>
           </div>
         )}
