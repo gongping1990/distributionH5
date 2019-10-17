@@ -38,7 +38,7 @@ export default class SharePageQzw extends Component<Props, State> {
     if (localStorage.isFirst === 'true') {
       window.location.reload();
       localStorage.isFirst = 'false';
-      alert('刷新');
+      alert('刷新1');
     }
   }
 
@@ -55,12 +55,9 @@ export default class SharePageQzw extends Component<Props, State> {
       this.setState({
         dataInfo: data.resultData
       });
-      setTimeout(() => {
-        this.canvasImg();
-      }, 1000);
+      setTimeout(() => {}, 1000);
     });
   }
-
   canvasImg() {
     let _self = this;
     let content_html: any = document.getElementById('sharePage'); //要转化的di
@@ -143,6 +140,7 @@ export default class SharePageQzw extends Component<Props, State> {
                   <img
                     className={styles['-right-img']}
                     src={dataInfo.playbillQrUrl}
+                    onLoad={this.canvasImg.bind(this)}
                     alt=""
                   />
                 </div>
