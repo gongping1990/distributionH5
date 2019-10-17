@@ -31,7 +31,7 @@ export default class DiscountResult extends Component<Props> {
     },
     tipStatus: {
       '0': '提现将在30分钟内到账，请至微信支付查看',
-      '1': '提现失败原因：由第三方平台返回',
+      '1': '系统繁忙请稍后再试',
       '2': '提现申请正在处理中，请稍后'
     }
   };

@@ -28,12 +28,13 @@ export default class DiscountOperation extends Component<{}, State> {
       balance: 0,
       blockingAmount: 0
     },
-    price: '0',
+    price: '',
     status: 0,
     showResult: false
   };
 
   componentWillMount() {
+    document.title = '提现';
     this.getDistributorAccountInfo();
   }
 

@@ -54,12 +54,8 @@ export default class SharePageQzw extends Component<Props, State> {
       this.setState({
         dataInfo: data.resultData
       });
-      setTimeout(() => {
-        this.canvasImg();
-      });
     });
   }
-
   canvasImg() {
     let _self = this;
     let content_html: any = document.getElementById('sharePage'); //要转化的di
@@ -142,6 +138,7 @@ export default class SharePageQzw extends Component<Props, State> {
                   <img
                     className={styles['-right-img']}
                     src={dataInfo.playbillQrUrl}
+                    onLoad={this.canvasImg.bind(this)}
                     alt=""
                   />
                 </div>
