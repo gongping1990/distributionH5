@@ -239,10 +239,10 @@ export default class App extends React.Component<Props, State> {
             <img src={bg10} alt="" />
             <img src={bg11} alt="" />
             <img src={bg12} alt="" />
-            <Link
-              to={`/detail${id ? '?id=' + id : ''}`}
+            <div
               className={styles.btn}
-            ></Link>
+              onClick={this.getUserIdentity.bind(this)}
+            ></div>
           </div>
         </StickyContainer>
       </div>
