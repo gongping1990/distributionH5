@@ -153,11 +153,13 @@ class Group extends Component<Props, State> {
         this.props.history.replace(
           `/group?id=${data.resultData.orderId}&type=${type}&courseId=${data.resultData.courseId}`
         );
+        this.init();
       });
   }
 
   onClick = (type: number) => {
     let { WAIT, ERROR, SUCCESS } = IType;
+    console.log(WAIT, ERROR, SUCCESS, type);
     switch (type) {
       case WAIT:
         this.setState({
@@ -165,6 +167,7 @@ class Group extends Component<Props, State> {
         });
         break;
       case ERROR:
+        this.createGroup();
         break;
       case SUCCESS:
         this.createGroup();

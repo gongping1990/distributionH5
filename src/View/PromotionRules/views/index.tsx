@@ -22,7 +22,7 @@ export default class PromotionRules extends Component<{}, State> {
       {
         id: 2,
         name: '如何进入推广中心',
-        text: '在XX公众号，点击菜单栏【推广人】进入推广中心',
+        text: '在【乐小狮福利社】公众号，点击菜单栏【推广人】进入推广中心',
         img: img1
       },
       {

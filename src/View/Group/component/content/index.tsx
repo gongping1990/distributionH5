@@ -25,7 +25,7 @@ const Item: React.FC<Props> = ({
   let tiem = new Date().getTime();
   let endDate = new Date(Number(endTime)).getTime();
   let end = tiem >= endDate;
-  let error = end && groupOrderStatus === 1;
+  let error = groupOrderStatus === 20;
   let hasVatural = groupOrders.filter(e => {
     return e.vatural;
   });

@@ -5,10 +5,12 @@ enum ESystem {
   POEM = '1', // (1,"poem","每日一首古诗词")
   COMPOSITION = '2' //(2,"composition","小语轻作文")
 }
+
 interface Props {
   location: any;
   history: any;
 }
+
 const redirect: React.FC<Props> = props => {
   let userInfo = localStorage.getItem('userInfo');
   let search = props.location.search.replace(/^\?/, '');
@@ -35,6 +37,10 @@ const redirect: React.FC<Props> = props => {
       case ESystem.POEM:
         window.location.href =
           'http://poem.test.k12.vip/newDetail?' + qs.stringify(params);
+        break;
+      case ESystem.COMPOSITION:
+        window.location.href =
+          'http://composition.test.k12.vip?' + qs.stringify(params);
         break;
     }
   }

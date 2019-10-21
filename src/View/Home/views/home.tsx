@@ -135,14 +135,14 @@ class Home extends Component<Props, State> {
   getPromoterCenter() {
     api.distributie.getPromoterCenter().then(({ data }) => {
       if (data.resultData) {
-        // if (data.resultData.type == UserType.FRANCHISEE) {
-        //   this.props.history.replace('/spread');
-        // }
+        if (data.resultData.type == UserType.FRANCHISEE) {
+          this.props.history.replace('/spread');
+        }
         this.setState({
           centerData: data.resultData
         });
       } else {
-        this.props.history.replace('/detail');
+        this.props.history.replace('/introduce');
       }
     });
   }
