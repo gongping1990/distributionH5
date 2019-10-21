@@ -15,17 +15,27 @@ import bg9 from '@/assets/images/tkr/08.png';
 import bg10 from '@/assets/images/tkr/09.png';
 import bg11 from '@/assets/images/tkr/10.png';
 import bg12 from '@/assets/images/tkr/11.png';
+import api from '@/request/api';
+import { IConfig } from '@/View/Home/type/home.type';
 
 let imgArr = [bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11, bg12];
 
-export default class App extends React.Component {
+interface State {
+  configData: IConfig;
+}
+
+export default class App extends React.Component<State> {
   img1: any;
   img2: any;
   img3: any;
 
   state = {
     active: 0,
-    id: 0
+    id: 0,
+    configData: {
+      directQrcode: '',
+      wechatId: ''
+    }
   };
 
   constructor(props: any) {
@@ -38,6 +48,9 @@ export default class App extends React.Component {
 
   componentDidMount() {
     let id = getQueryString('id');
+    let userInfo: string | null = window.localStorage.getItem('userInfo');
+    // let praseUser = JSON.parse(userInfo)
+    // console.log(praseUser,11)
     id &&
       this.setState({
         id
@@ -45,10 +58,34 @@ export default class App extends React.Component {
     setTimeout(() => {
       this.initScrollTop();
     }, 3000);
+
+    this.getBaseConfig();
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.onScrollTop);
+  }
+
+  getBaseConfig() {
+    api.customer.getBaseConfig().then(({ data }) => {
+      this.setState({
+        configData: data.resultData
+      });
+    });
+  }
+
+  getUserIdentity() {
+    // let userInfo: string | null  = localStorage.getItem('userInfo');
+    // let praseUser = JSON.parse(userInfo)
+    api.distributie
+      .getUserIdentity({
+        userId: ''
+      })
+      .then(({ data }) => {
+        this.setState({
+          dataInfo: data.resultData
+        });
+      });
   }
 
   initScrollTop() {
@@ -121,7 +158,7 @@ export default class App extends React.Component {
 
   public render() {
     let { binClickNavBtn } = this;
-    let { active, id } = this.state;
+    let { active, id, configData } = this.state;
 
     return (
       <div className={styles.page}>
@@ -159,7 +196,18 @@ export default class App extends React.Component {
                 </div>
               )}
             </Sticky>
-            <img ref={this.img1} src={bg2} alt="" />
+            <div className={styles.img_div}>
+              <img ref={this.img1} src={bg2} alt="" />
+              <div
+                className={styles.img_btn}
+                onClick={this.getUserIdentity}
+              ></div>
+              <img className={styles.img_qr} src={configData.directQrcode} />
+              <div className={styles.img_text}>
+                <p>群内每日推广培训</p>
+                <p> 微信号：{configData.wechatId}</p>
+              </div>
+            </div>
             <img src={bg3} alt="" />
             <img src={bg4} alt="" />
             <img src={bg5} alt="" />

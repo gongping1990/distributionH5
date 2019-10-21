@@ -48,6 +48,36 @@
   }
 }
 
+.img_div {
+  position: relative;
+
+  .img_btn {
+    position: absolute;
+    top: 110px;
+    left: 200px;
+    width: 120px;
+    height: 40px;
+  }
+
+  .img_qr {
+    position: absolute;
+    top: 192px;
+    left: 245px;
+    width: 68px;
+    border-radius: 13px;
+  }
+
+  .img_text {
+    position: absolute;
+    top: 230px;
+    left: 52px;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(141, 58, 20, 1);
+    line-height: 18px;
+  }
+}
+
 .btn {
   position: absolute;
   width: 334px;

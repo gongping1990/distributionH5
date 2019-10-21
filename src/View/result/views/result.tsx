@@ -60,7 +60,7 @@ class Join extends Component<{}, State> {
 
         <p className={styles.title}>
           {resultData.status === EStatus.SUCCESS
-            ? '恭喜你成为XX加盟商'
+            ? '恭喜你成为【乐小狮福利社】加盟商'
             : resultData.status === EStatus.WAIT
             ? '申请提交成功请耐心等待管理员审核！'
             : '很遗憾，审核未通过'}
@@ -83,7 +83,7 @@ class Join extends Component<{}, State> {
           </Link>
         ) : (
           <div className={styles.qrcode}>
-            <img src="" alt="" />
+            <img src={resultData.reviewQrcode} alt="" />
           </div>
         )}
       </div>

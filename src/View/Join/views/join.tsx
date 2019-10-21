@@ -48,7 +48,9 @@ class Join extends Component<Props, State> {
         this.props.history.push('/result');
       })
       .catch(() => {
-        Toast.hide();
+        setTimeout(() => {
+          Toast.hide();
+        }, 3000);
       });
   }
 
@@ -217,7 +219,7 @@ class Join extends Component<Props, State> {
           ></Input>
           <button
             disabled={!!downTime}
-            className={`${styles.codeBtn} ${downTime ? styles.disabled : ''}`}
+            className={`${styles.codeBtn}`}
             onClick={this.bindclickSendCode}
           >
             {downTime ? `${downTime}秒后重新获取` : '获取验证码'}

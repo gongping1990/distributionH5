@@ -56,6 +56,9 @@ const distributie = {
     promoterId: string;
   }) {
     return axios.get('/distributie/pageBindingRelationship', { params });
+  },
+  getUserIdentity(params: { userId: string }) {
+    return axios.get('/distributie/getUserIdentity', { params });
   }
 };
 
