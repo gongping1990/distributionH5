@@ -30,6 +30,7 @@ const SharePageQzw = React.lazy(() => import('./SharePageQzw'));
 const PromotionRules = React.lazy(() => import('./PromotionRules'));
 const PromotionDetail = React.lazy(() => import('./PromotionDetail'));
 const Introduce = React.lazy(() => import('./Introduce'));
+const InviteFriends = React.lazy(() => import('./InviteFriends'));
 const state = store.getState();
 
 export interface State {}
@@ -143,6 +144,11 @@ class App extends React.Component<{}, State> {
                 path="/promotionDetail"
                 exact
                 component={PromotionDetail}
+              ></Route>{' '}
+              <Route
+                path="/inviteFriends"
+                exact
+                component={InviteFriends}
               ></Route>
               <Redirect to="/"></Redirect>
             </Switch>

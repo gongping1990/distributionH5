@@ -82,6 +82,12 @@ class Spread extends Component<Props, State> {
     });
   };
 
+  toJumpThree = () => {
+    this.props.history.push({
+      pathname: `/inviteFriends`
+    });
+  };
+
   render() {
     let {
       nickname,
@@ -153,7 +159,9 @@ class Spread extends Component<Props, State> {
             <span>今日邀请</span>
           </div>
         </div>
-        <div className={styles.btn}>邀请好友成为推广人</div>
+        <div className={styles.btn} onClick={this.toJumpThree}>
+          邀请好友成为推广人
+        </div>
       </div>
     );
   }

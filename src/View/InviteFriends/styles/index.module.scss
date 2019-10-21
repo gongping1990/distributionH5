@@ -1,0 +1,46 @@
+@import '../../../styles/base.scss';
+
+.p-inviteFriends {
+  position: relative;
+  background: url('../../../assets/images/friends/bg.png');
+  background-size: 100%;
+  height: 100vh;
+
+  &-btn {
+    display: inline-block;
+    margin: 488px 19px 0 19px;
+    .btn_img {
+      width: 100%;
+    }
+  }
+
+  &-mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+
+    .mask_bg {
+      text-align: right;
+      margin-top: 13px;
+      margin-right: 23px;
+      font-size: 19px;
+      font-weight: 500;
+      color: rgba(255, 254, 254, 1);
+      line-height: 23px;
+    }
+
+    .mask_icon {
+      margin-right: 13px;
+      margin-bottom: 14px;
+      width: 34px;
+    }
+
+    .mask_p {
+      margin-left: 100px;
+      text-align: left;
+    }
+  }
+}

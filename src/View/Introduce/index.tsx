@@ -18,12 +18,16 @@ import bg12 from '@/assets/images/tkr/11.png';
 import api from '@/request/api';
 import { IConfig } from '@/View/Home/type/home.type';
 import store from '@/store';
+import { Toast } from 'antd-mobile';
+import qs from 'querystring';
 
 let imgArr = [bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11, bg12];
 const state = store.getState();
 
 interface Props {
   history: any;
+  match: any;
+  location: any;
 }
 
 interface State {
@@ -57,6 +61,7 @@ export default class App extends React.Component<Props, State> {
   }
 
   componentDidMount() {
+    console.log(qs.parse(this.props.location.search.replace(/^\?/, '')), 11111);
     let id: any = getQueryString('id');
     id &&
       this.setState({
@@ -83,6 +88,7 @@ export default class App extends React.Component<Props, State> {
 
   getUserIdentity = () => {
     let userInfo = this.state.userInfo;
+    let paramsUrl = qs.parse(this.props.location.search.replace(/^\?/, ''));
     // console.log(userInfo,111)
     api.distributie
       .getUserIdentity({
@@ -96,14 +102,12 @@ export default class App extends React.Component<Props, State> {
             });
             break;
           case 1:
-            this.props.history.push({
-              pathname: `/spread`
-            });
+            Toast.info('你已是加盟商，无法成为推广人');
             break;
           case 10:
-            this.props.history.push({
-              pathname: `/detail`
-            });
+            this.props.history.push(
+              `/detail?inviteCode=${paramsUrl.inviteCode}`
+            );
             break;
         }
       });

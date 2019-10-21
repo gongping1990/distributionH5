@@ -10,6 +10,7 @@ import img7 from '../../../assets/images/promotion/detail_07.png';
 import img8 from '../../../assets/images/promotion/detail_08.png';
 import api from '@/request/api';
 import store from '@/store';
+import { Toast } from 'antd-mobile';
 
 const state = store.getState();
 interface Props {
@@ -73,14 +74,18 @@ export default class PromotionDetail extends Component<Props, State> {
       .then(({ data }) => {
         switch (+data.resultData.type) {
           case 0:
-            this.props.history.push({
-              pathname: `/home`
-            });
+            Toast.info('你已是推广人，无法成为加盟商');
             break;
           case 1:
-            this.props.history.push({
-              pathname: `/spread`
-            });
+            if (data.resultData.auditStatus === 1) {
+              this.props.history.push({
+                pathname: `/spread`
+              });
+            } else {
+              this.props.history.push({
+                pathname: `/result`
+              });
+            }
             break;
           case 10:
             this.props.history.push({
