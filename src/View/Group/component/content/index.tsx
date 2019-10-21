@@ -39,7 +39,7 @@ const Item: React.FC<Props> = ({
           结束
         </p>
       )}
-      {(end || groupOrderStatus === 10) && (
+      {(groupOrderStatus === 20 || groupOrderStatus === 10) && (
         <p className={styles.title}>{error ? '拼团失败' : '拼团已满'}</p>
       )}
       {!end && groupOrderStatus === 1 ? (
