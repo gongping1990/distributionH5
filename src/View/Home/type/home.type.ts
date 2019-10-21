@@ -31,8 +31,8 @@ export interface IOrder {
 
 export interface IConfig {
   directQrcode: string;
-  id: number;
-  reviewQrcode: string;
-  subQrcode: string;
   wechatId: string;
+  id?: number;
+  reviewQrcode?: string;
+  subQrcode?: string;
 }

@@ -17,14 +17,23 @@ import bg11 from '@/assets/images/tkr/10.png';
 import bg12 from '@/assets/images/tkr/11.png';
 import api from '@/request/api';
 import { IConfig } from '@/View/Home/type/home.type';
+import store from '@/store';
 
 let imgArr = [bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11, bg12];
+const state = store.getState();
+
+interface Props {
+  history: any;
+}
 
 interface State {
+  active: number;
+  id: number;
+  userInfo: any;
   configData: IConfig;
 }
 
-export default class App extends React.Component<State> {
+export default class App extends React.Component<Props, State> {
   img1: any;
   img2: any;
   img3: any;
@@ -32,6 +41,7 @@ export default class App extends React.Component<State> {
   state = {
     active: 0,
     id: 0,
+    userInfo: state.user,
     configData: {
       directQrcode: '',
       wechatId: ''
@@ -47,13 +57,10 @@ export default class App extends React.Component<State> {
   }
 
   componentDidMount() {
-    let id = getQueryString('id');
-    let userInfo: string | null = window.localStorage.getItem('userInfo');
-    // let praseUser = JSON.parse(userInfo)
-    // console.log(praseUser,11)
+    let id: any = getQueryString('id');
     id &&
       this.setState({
-        id
+        id: id
       });
     setTimeout(() => {
       this.initScrollTop();
@@ -74,19 +81,33 @@ export default class App extends React.Component<State> {
     });
   }
 
-  getUserIdentity() {
-    // let userInfo: string | null  = localStorage.getItem('userInfo');
-    // let praseUser = JSON.parse(userInfo)
+  getUserIdentity = () => {
+    let userInfo = this.state.userInfo;
+    // console.log(userInfo,111)
     api.distributie
       .getUserIdentity({
-        userId: ''
+        userId: userInfo.userId
       })
       .then(({ data }) => {
-        this.setState({
-          dataInfo: data.resultData
-        });
+        switch (+data.resultData.type) {
+          case 0:
+            this.props.history.push({
+              pathname: `/home`
+            });
+            break;
+          case 1:
+            this.props.history.push({
+              pathname: `/spread`
+            });
+            break;
+          case 10:
+            this.props.history.push({
+              pathname: `/detail`
+            });
+            break;
+        }
       });
-  }
+  };
 
   initScrollTop() {
     // let { scroll, detailNav, img1, img2, img3 } = this.$refs;
@@ -200,7 +221,7 @@ export default class App extends React.Component<State> {
               <img ref={this.img1} src={bg2} alt="" />
               <div
                 className={styles.img_btn}
-                onClick={this.getUserIdentity}
+                onClick={this.getUserIdentity.bind(this)}
               ></div>
               <img className={styles.img_qr} src={configData.directQrcode} />
               <div className={styles.img_text}>
