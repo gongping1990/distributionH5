@@ -1,5 +1,6 @@
 import React from 'react';
 import qs from 'querystring';
+import api from '@/request/api';
 
 enum ESystem {
   POEM = '1', // (1,"poem","每日一首古诗词")
@@ -14,7 +15,7 @@ interface Props {
 const redirect: React.FC<Props> = props => {
   let userInfo = localStorage.getItem('userInfo');
   let search = props.location.search.replace(/^\?/, '');
-  let query = qs.parse(search);
+  let query: any = qs.parse(search);
   let mode = query.mode || '0';
   let params = {
     inviteCode: query.inviteCode,
@@ -23,27 +24,33 @@ const redirect: React.FC<Props> = props => {
 
   query.id && (params.groupOrderId = query.id);
   query.courseId && (params.courseId = query.courseId);
-  alert(userInfo);
-  if (userInfo) {
-    if (query.id) {
-      props.history.replace(
-        `/group?id=${query.id}&type=${query.type}&courseId=${query.courseId}`
-      );
-    } else {
-      props.history.replace('/');
-    }
-  } else {
-    switch (mode) {
-      case ESystem.POEM:
-        window.location.href =
-          'http://poem.test.k12.vip/newDetail?' + qs.stringify(params);
-        break;
-      case ESystem.COMPOSITION:
-        window.location.href =
-          'http://composition.test.k12.vip?' + qs.stringify(params);
-        break;
-    }
-  }
+  let { courseId, id } = query;
+
+  api.distributie
+    .getGroupOrderDetails({
+      courseId,
+      id
+    })
+    .then(({ data }) => {
+      let resData = data.resultData;
+
+      if (resData.self) {
+        props.history.replace(
+          `/group?id=${query.id}&type=${query.type}&courseId=${query.courseId}`
+        );
+      } else {
+        switch (mode) {
+          case ESystem.POEM:
+            window.location.href =
+              'http://poem.test.k12.vip/newDetail?' + qs.stringify(params);
+            break;
+          case ESystem.COMPOSITION:
+            window.location.href =
+              'http://composition.test.k12.vip?' + qs.stringify(params);
+            break;
+        }
+      }
+    });
 
   return <div></div>;
 };
