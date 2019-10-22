@@ -168,9 +168,9 @@ class Home extends Component<Props, State> {
   }
 
   toJumpOne = () => {
-    this.props.history.push({
-      pathname: `/cumulativeInvitation/${this.props.user.userId}`
-    });
+    this.props.history.push(
+      `/cumulativeInvitation?userId=${this.props.user.userId}&type=0`
+    );
   };
   toJumpTwo = () => {
     this.props.history.push({

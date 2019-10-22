@@ -57,6 +57,13 @@ const distributie = {
   }) {
     return axios.get('/distributie/pageBindingRelationship', { params });
   },
+  listByPromoterByFranchisee(params: {
+    current: number;
+    size: number;
+    promoterId: string;
+  }) {
+    return axios.get('/distributie/listByPromoterByFranchisee', { params });
+  },
   getUserIdentity(params: { userId: string }) {
     return axios.get('/distributie/getUserIdentity', { params });
   }

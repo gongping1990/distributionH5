@@ -4,6 +4,7 @@ import styles from '../styles/index.module.scss';
 import { ListView } from 'antd-mobile';
 import api from '@/request/api';
 import dayjs from 'dayjs';
+import qs from 'querystring';
 
 interface IList {
   nickName: string;
@@ -24,7 +25,7 @@ interface State {
 }
 
 interface Props {
-  match: any;
+  location: any;
 }
 
 export default class CumulativeInvitation extends Component<Props, State> {
@@ -49,7 +50,13 @@ export default class CumulativeInvitation extends Component<Props, State> {
 
   pageBindingRelationship() {
     let { current, size } = this.state.page;
-    let promoterId = this.props.match.params.id;
+
+    let paramsUrl = qs.parse(this.props.location.search.replace(/^\?/, ''));
+    let promoterId: any = paramsUrl.userId;
+    let pullUrl =
+      paramsUrl.type === '1'
+        ? api.distributie.listByPromoterByFranchisee
+        : api.distributie.pageBindingRelationship;
 
     if (this.state.itemList.length >= this.state.total) {
       return;
@@ -59,33 +66,31 @@ export default class CumulativeInvitation extends Component<Props, State> {
       isLoading: true
     });
 
-    api.distributie
-      .pageBindingRelationship({
-        current,
-        size,
-        promoterId
-      })
-      .then(
-        ({ data }) => {
-          let listData = [...this.state.itemList, ...data.resultData.records];
-          this.setState({
-            itemList: listData,
-            isLoading: false,
-            page: {
-              ...this.state.page,
-              current: current + 1
-            },
-            total: data.resultData.total,
-            dataSource: this.state.dataSource.cloneWithRows(listData)
-          });
-          this.forceUpdate();
-        },
-        () => {
-          this.setState({
-            isLoading: false
-          });
-        }
-      );
+    pullUrl({
+      current,
+      size,
+      promoterId
+    }).then(
+      ({ data }) => {
+        let listData = [...this.state.itemList, ...data.resultData.records];
+        this.setState({
+          itemList: listData,
+          isLoading: false,
+          page: {
+            ...this.state.page,
+            current: current + 1
+          },
+          total: data.resultData.total,
+          dataSource: this.state.dataSource.cloneWithRows(listData)
+        });
+        this.forceUpdate();
+      },
+      () => {
+        this.setState({
+          isLoading: false
+        });
+      }
+    );
   }
 
   formatTime(price: string): string {

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ListView } from 'antd-mobile';
 import styles from '../styles/index.module.scss';
 import api from '@/request/api';
+import dayjs from 'dayjs';
 
 interface IList {
   amount: number;
@@ -93,6 +94,10 @@ export default class DiscountRecord extends Component<{}, State> {
     return Number(+price / 100).toFixed(2);
   }
 
+  formatTime(price: string): string {
+    return dayjs(+price).format('YYYY-MM-DD HH:mm');
+  }
+
   render() {
     let { itemList, typeList, typeColor, isLoading, dataSource } = this.state;
 
@@ -101,7 +106,9 @@ export default class DiscountRecord extends Component<{}, State> {
         <div className={styles['p-discountRecord-item']}>
           <div>
             <p className={styles['left-text']}>余额提现</p>
-            <p className={styles['left-date']}>{item.gmtCreate}</p>
+            <p className={styles['left-date']}>
+              {this.formatTime(item.gmtCreate)}
+            </p>
           </div>
           <div
             className={`${styles['tips-all']} ${
