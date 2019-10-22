@@ -122,7 +122,7 @@ export default class DiscountOperation extends Component<{}, State> {
               priceformat > 1000) &&
               styles.disabled}`}
             disabled={
-              priceformat <= 10 ||
+              priceformat < 10 ||
               actualPrice > Number(balance) ||
               priceformat > 1000
             }
