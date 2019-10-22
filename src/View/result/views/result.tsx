@@ -5,6 +5,7 @@ import styles from '../styles/index.module.scss';
 
 import successIcon from '@/assets/images/result/success.png';
 import errorIcon from '@/assets/images/result/error.png';
+import qrcode from '@/assets/images/result/qr.jpg';
 
 enum EStatus {
   WAIT,
@@ -44,6 +45,8 @@ class Join extends Component<{}, State> {
 
   render() {
     let { resultData } = this.state;
+    let qrUrl =
+      resultData.status === EStatus.WAIT ? qrcode : resultData.reviewQrcode;
     return (
       <div className={styles.container}>
         {resultData.status === EStatus.WAIT ? (
@@ -83,7 +86,7 @@ class Join extends Component<{}, State> {
           </Link>
         ) : (
           <div className={styles.qrcode}>
-            <img src={resultData.reviewQrcode} alt="" />
+            <img src={qrUrl} alt="" />
           </div>
         )}
       </div>

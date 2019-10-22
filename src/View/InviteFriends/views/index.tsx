@@ -27,11 +27,11 @@ export default class PromotionDetail extends Component<Props, State> {
   }
 
   changeMask = (data: boolean) => {
-    // this.setState({
-    //   isShowMask : data
-    // })
+    this.setState({
+      isShowMask: data
+    });
 
-    this.props.history.push(`/introduce?inviteCode=123`);
+    // this.props.history.push(`/introduce?inviteCode=123`);
   };
 
   reWexin() {
