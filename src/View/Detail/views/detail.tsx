@@ -61,7 +61,7 @@ export default class Introduce extends Component<Props> {
       return;
     }
     franchiseeId && (params.franchiseeId = franchiseeId);
-    alert(JSON.stringify(params));
+    // alert(JSON.stringify(params));
     api.distributie.applyPromoter(params).then(() => {
       Toast.info('注册成功！');
       setTimeout(() => {
