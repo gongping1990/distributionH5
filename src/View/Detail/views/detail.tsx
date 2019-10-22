@@ -47,7 +47,7 @@ export default class Introduce extends Component<Props> {
 
   getapplyPromoter() {
     let { code, phone } = this.state;
-    let franchiseeId = getQueryString('inviteCode');
+    let franchiseeId = getQueryString('id');
     let params: any = {
       code,
       phone

@@ -44,7 +44,7 @@ export default class PromotionDetail extends Component<Props, State> {
     reWexin({
       title: '推广人招募',
       doc: '乐小狮大语文推广行动，分享课程赚现金，快来加入我们吧！',
-      url: `${window.location.origin}/introduce?inviteCode=${userInfo.inviteCode}`,
+      url: `${window.location.origin}/introduce?id=${userInfo.userId}`,
       img: 'https://pub.file.k12.vip/2019/10/22/1186477068570345474.jpg'
     });
   }

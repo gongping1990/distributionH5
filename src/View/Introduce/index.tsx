@@ -105,9 +105,7 @@ export default class App extends React.Component<Props, State> {
             Toast.info('你已是加盟商，无法成为推广人');
             break;
           case 10:
-            this.props.history.push(
-              `/detail?inviteCode=${paramsUrl.inviteCode}`
-            );
+            this.props.history.push(`/detail?id=${paramsUrl.id}`);
             break;
         }
       });
