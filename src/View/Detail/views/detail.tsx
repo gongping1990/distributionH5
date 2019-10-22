@@ -60,8 +60,8 @@ export default class Introduce extends Component<Props> {
       Toast.info('请填写验证码！');
       return;
     }
-    alert(franchiseeId);
     franchiseeId && (params.franchiseeId = franchiseeId);
+    alert(JSON.stringify(params));
     api.distributie.applyPromoter(params).then(() => {
       Toast.info('注册成功！');
       setTimeout(() => {
