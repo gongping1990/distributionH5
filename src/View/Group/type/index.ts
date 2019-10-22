@@ -11,6 +11,7 @@ export interface ICourse {
   buyCount: number;
   coverphoto: string;
   desc: string;
+  lessonDescribe: string;
   groupPrice: number;
   id: string;
   name: string;

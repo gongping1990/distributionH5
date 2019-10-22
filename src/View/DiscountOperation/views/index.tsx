@@ -9,6 +9,11 @@ enum Status {
   ERROR,
   WAIT
 }
+
+interface Props {
+  history: any;
+}
+
 interface IAccount {
   allIncome: number;
   balance: number;
@@ -21,7 +26,7 @@ interface State {
   showResult: boolean;
 }
 
-export default class DiscountOperation extends Component<{}, State> {
+export default class DiscountOperation extends Component<Props, State> {
   state = {
     accountInfo: {
       allIncome: 0,
@@ -47,6 +52,9 @@ export default class DiscountOperation extends Component<{}, State> {
   bindClickBtn = () => {
     this.setState({
       showResult: false
+    });
+    this.props.history.push({
+      pathname: `/profit`
     });
   };
 
@@ -116,7 +124,7 @@ export default class DiscountOperation extends Component<{}, State> {
             </div>
           </div>
           <button
-            className={`${styles['p-discountOperation-btn']} ${(priceformat <=
+            className={`${styles['p-discountOperation-btn']} ${(priceformat <
               10 ||
               actualPrice > Number(balance) ||
               priceformat > 1000) &&

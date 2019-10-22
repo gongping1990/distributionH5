@@ -60,6 +60,7 @@ class Group extends Component<Props, State> {
           buyCount: 0,
           coverphoto: '',
           desc: '',
+          lessonDescribe: '',
           groupPrice: 0,
           id: '',
           name: ''
@@ -132,9 +133,11 @@ class Group extends Component<Props, State> {
             });
           }
         }
+        let resData = data.resultData;
+        resData.courseInfo.lessonDescribe = resData.lessonDescribe;
         this.setState(
           {
-            orderData: data.resultData
+            orderData: resData
           },
           () => {
             this.reWexin();

@@ -47,7 +47,7 @@ export default class Introduce extends Component<Props> {
 
   getapplyPromoter() {
     let { code, phone } = this.state;
-    let franchiseeId = getQueryString('id');
+    let franchiseeId = getQueryString('inviteCode');
     let params: any = {
       code,
       phone
@@ -60,6 +60,7 @@ export default class Introduce extends Component<Props> {
       Toast.info('请填写验证码！');
       return;
     }
+    alert(franchiseeId);
     franchiseeId && (params.franchiseeId = franchiseeId);
     api.distributie.applyPromoter(params).then(() => {
       Toast.info('注册成功！');

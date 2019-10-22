@@ -6,6 +6,7 @@ interface Props {
   buyCount: number;
   coverphoto: string;
   desc: string;
+  lessonDescribe: string;
   groupPrice: number;
   id: string;
   name: string;
@@ -16,6 +17,7 @@ const Tab: React.FC<Props> = ({
   alonePrice,
   coverphoto,
   desc,
+  lessonDescribe,
   groupPrice,
   name
 }) => {
@@ -25,7 +27,7 @@ const Tab: React.FC<Props> = ({
       <div className={styles.content}>
         <div className={styles.info}>
           <p className={styles.title}>{name}</p>
-          <span className={styles.text}>{desc}</span>
+          <span className={styles.text}>{lessonDescribe}</span>
         </div>
         <div className={styles.price}>
           <p>

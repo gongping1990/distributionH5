@@ -61,7 +61,7 @@ export default class App extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    console.log(qs.parse(this.props.location.search.replace(/^\?/, '')), 11111);
+    // console.log(qs.parse(this.props.location.search.replace(/^\?/, '')), 11111);
     let id: any = getQueryString('id');
     id &&
       this.setState({
