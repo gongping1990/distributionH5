@@ -83,6 +83,7 @@ class Spread extends Component<Props, State> {
   };
 
   toJumpThree = () => {
+    localStorage.setItem('isFirst', 'true');
     this.props.history.push({
       pathname: `/inviteFriends`
     });
