@@ -26,7 +26,7 @@ const redirect: React.FC<Props> = props => {
   query.courseId && (params.courseId = query.courseId);
   let { courseId, id } = query;
 
-  if (query.type == '0') {
+  if (query.type != '0') {
     api.distributie
       .getGroupOrderDetails({
         courseId,
