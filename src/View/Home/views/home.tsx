@@ -102,7 +102,8 @@ class Home extends Component<Props, State> {
         let params = {
           mode,
           inviteCode: this.props.user.inviteCode,
-          type: 0
+          type: 0,
+          courseId: id
         };
         console.log(
           `${window.location.origin}/redirect?${qs.stringify(params)}`
