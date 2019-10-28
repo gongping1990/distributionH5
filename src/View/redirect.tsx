@@ -26,31 +26,45 @@ const redirect: React.FC<Props> = props => {
   query.courseId && (params.courseId = query.courseId);
   let { courseId, id } = query;
 
-  api.distributie
-    .getGroupOrderDetails({
-      courseId,
-      id
-    })
-    .then(({ data }) => {
-      let resData = data.resultData;
+  if (query.type == '0') {
+    api.distributie
+      .getGroupOrderDetails({
+        courseId,
+        id
+      })
+      .then(({ data }) => {
+        let resData = data.resultData;
 
-      if (resData.self) {
-        props.history.replace(
-          `/group?id=${query.id}&type=${query.type}&courseId=${query.courseId}`
-        );
-      } else {
-        switch (mode) {
-          case ESystem.POEM:
-            window.location.href =
-              'http://poem.test.k12.vip/newDetail?' + qs.stringify(params);
-            break;
-          case ESystem.COMPOSITION:
-            window.location.href =
-              'http://composition.test.k12.vip?' + qs.stringify(params);
-            break;
+        if (resData.self) {
+          props.history.replace(
+            `/group?id=${query.id}&type=${query.type}&courseId=${query.courseId}`
+          );
+        } else {
+          console.log(params, 222);
+          switch (mode) {
+            case ESystem.POEM:
+              window.location.href =
+                'http://poem.test.k12.vip/newDetail?' + qs.stringify(params);
+              break;
+            case ESystem.COMPOSITION:
+              window.location.href =
+                'http://composition.test.k12.vip?' + qs.stringify(params);
+              break;
+          }
         }
-      }
-    });
+      });
+  } else {
+    switch (mode) {
+      case ESystem.POEM:
+        window.location.href =
+          'http://poem.test.k12.vip/newDetail?' + qs.stringify(params);
+        break;
+      case ESystem.COMPOSITION:
+        window.location.href =
+          'http://composition.test.k12.vip?' + qs.stringify(params);
+        break;
+    }
+  }
 
   return <div></div>;
 };
