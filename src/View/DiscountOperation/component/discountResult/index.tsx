@@ -54,16 +54,14 @@ export default class DiscountResult extends Component<Props> {
             <p className={styles.tip}>{tipStatus[status]}</p>
           </div>
         </div>
-        {status !== Status.WAIT && (
-          <div
-            className={styles['p-discountResult-btn']}
-            onClick={() => {
-              onClick();
-            }}
-          >
-            确定
-          </div>
-        )}
+        <div
+          className={styles['p-discountResult-btn']}
+          onClick={() => {
+            onClick();
+          }}
+        >
+          确定
+        </div>
       </div>
     );
   }

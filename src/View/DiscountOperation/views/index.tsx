@@ -74,10 +74,16 @@ export default class DiscountOperation extends Component<Props, State> {
       .withdraw({
         amount: Number(this.state.price) * 100
       })
-      .then(() => {
-        this.setState({
-          status: Status.SUCCESS
-        });
+      .then(({ data }) => {
+        if (data.resultData.withdrawStatus === 1) {
+          this.setState({
+            status: Status.WAIT
+          });
+        } else {
+          this.setState({
+            status: Status.SUCCESS
+          });
+        }
       })
       .catch(() => {
         this.setState({
