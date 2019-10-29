@@ -148,7 +148,7 @@ class Spread extends Component<Props, State> {
         </div>
         <div className={styles.statistics}>
           <div className={styles['statistics-item']}>
-            <p>{todayIncome}</p>
+            <p>{todayIncome / 100}</p>
             <span>今日收益</span>
           </div>
           <div className={styles['statistics-item']}>
