@@ -102,6 +102,8 @@ class Spread extends Component<Props, State> {
       todayOrders
     } = this.state.centerData;
 
+    let todayIncomeFormat: any = todayIncome.toString();
+
     return (
       <div className="container">
         <div className={styles.header}>
@@ -149,7 +151,7 @@ class Spread extends Component<Props, State> {
         </div>
         <div className={styles.statistics}>
           <div className={styles['statistics-item']}>
-            <p>{formatPrice(todayIncome)}</p>
+            <p>{formatPrice(todayIncomeFormat)}</p>
             <span>今日收益</span>
           </div>
           <div className={styles['statistics-item']}>
