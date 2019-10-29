@@ -104,6 +104,7 @@ class Spread extends Component<Props, State> {
 
     let todayIncomeFormat = todayIncome / 100;
 
+    alert(todayIncomeFormat);
     return (
       <div className="container">
         <div className={styles.header}>
